@@ -1,0 +1,69 @@
+#!/bin/bash
+# Linux/UNIX box with ssh key based login enabled
+# SSH User name
+
+# in this loop, set the number of .mac files you want to generate
+# this loop variable also counts the Evts_#.root trees you read in. Only used for betas
+
+sed 's/REPLACEWITHTYPE/allTypes/g' master_dataHists.cc > dataHists.cc
+# this -i seems to suppress printing out the file to screen. Use it.
+sed -i 's/REPLACEWITHNAME/TDCE/g' dataHists.cc
+sed -i 's/REPLACEWITHVARIABLE/tdce/g' dataHists.cc
+
+make
+./dataHists 47
+make clean
+rm dataHists.cc
+
+sed 's/REPLACEWITHTYPE/type0/g' master_dataHists.cc > dataHists.cc
+# this -i seems to suppress printing out the file to screen. Use it.
+sed -i 's/REPLACEWITHNAME/TDCE/g' dataHists.cc
+sed -i 's/REPLACEWITHVARIABLE/tdce/g' dataHists.cc
+
+make
+./dataHists 47
+make clean
+rm dataHists.cc
+
+sed 's/REPLACEWITHTYPE/type1/g' master_dataHists.cc > dataHists.cc
+# this -i seems to suppress printing out the file to screen. Use it.
+sed -i 's/REPLACEWITHNAME/TDCE/g' dataHists.cc
+sed -i 's/REPLACEWITHVARIABLE/tdce/g' dataHists.cc
+
+make
+./dataHists 47
+make clean
+rm dataHists.cc
+
+sed 's/REPLACEWITHTYPE/allTypes/g' master_dataHists.cc > dataHists.cc
+# this -i seems to suppress printing out the file to screen. Use it.
+sed -i 's/REPLACEWITHNAME/TDCW/g' dataHists.cc
+sed -i 's/REPLACEWITHVARIABLE/tdcw/g' dataHists.cc
+
+make
+./dataHists 47
+make clean
+rm dataHists.cc
+
+sed 's/REPLACEWITHTYPE/type0/g' master_dataHists.cc > dataHists.cc
+# this -i seems to suppress printing out the file to screen. Use it.
+sed -i 's/REPLACEWITHNAME/TDCW/g' dataHists.cc
+sed -i 's/REPLACEWITHVARIABLE/tdcw/g' dataHists.cc
+
+make
+./dataHists 47
+make clean
+rm dataHists.cc
+
+sed 's/REPLACEWITHTYPE/type1/g' master_dataHists.cc > dataHists.cc
+# this -i seems to suppress printing out the file to screen. Use it.
+sed -i 's/REPLACEWITHNAME/TDCW/g' dataHists.cc
+sed -i 's/REPLACEWITHVARIABLE/tdcw/g' dataHists.cc
+
+make
+./dataHists 47
+make clean
+rm dataHists.cc
+
+
+echo "Done running bash script"

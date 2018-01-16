@@ -1,0 +1,29 @@
+#!/bin/bash
+# Linux/UNIX box with ssh key based login enabled
+# SSH User name
+
+# in this loop, set the number of .mac files you want to generate
+# this loop variable also counts the Evts_#.root trees you read in. Only used for betas
+
+sed 's/REPLACEWITHTYPE/allTypes/g' master_plotDataHists.cc > plotDataHists.cc
+
+make
+./plotDataHists 47
+make clean
+rm plotDataHists.cc
+
+sed 's/REPLACEWITHTYPE/type0/g' master_dataHists.cc > dataHists.cc
+
+make
+./plotDataHists 47
+make clean
+rm plotDataHists.cc
+
+sed 's/REPLACEWITHTYPE/type1/g' master_dataHists.cc > dataHists.cc
+
+make
+./plotDataHists 47
+make clean
+rm plotDataHists.cc
+
+echo "Done running bash script"
