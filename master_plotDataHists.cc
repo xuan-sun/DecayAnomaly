@@ -45,7 +45,7 @@ using		 namespace std;
 void PlotHist(TCanvas *C, int styleIndex, int canvasIndex, TH1D *hPlot, TString title, TString xtitle, TString ytitle, TString command);
 
 // Used for visualization, keeps the graph on screen.
-TApplication plot_program("FADC_readin",0,0,0,0);
+//TApplication plot_program("FADC_readin",0,0,0,0);
 
 //-------------------------------------------------//
 //------------ Start of Program -------------------//
@@ -76,9 +76,9 @@ int main(int argc, char* argv[])
   PlotHist(C, 1, 2, hW, Form("TDCW Octet %i, %s", octNb, TYPE), "Channels", "Counts", "");
 
   // Save our plot and print it out as a pdf.
-  C -> Print(Form("outputHist_octet_%i_%s.pdf", octNb, TYPE));
+  C -> Print(Form("outputHist_octet_%03i_%s.pdf", octNb, TYPE));
   cout << "-------------- End of Program ---------------" << endl;
-  plot_program.Run();
+//  plot_program.Run();
 
   return 0;
 }

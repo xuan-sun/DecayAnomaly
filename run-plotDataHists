@@ -5,25 +5,54 @@
 # in this loop, set the number of .mac files you want to generate
 # this loop variable also counts the Evts_#.root trees you read in. Only used for betas
 
-sed 's/REPLACEWITHTYPE/allTypes/g' master_plotDataHists.cc > plotDataHists.cc
+for ((x = 0; x < 122; x = x + 1))
+
+do
+
+if ((x == 9))
+then
+continue
+fi
+if ((x == 59))
+then
+continue
+fi
+
+if ((x >= 60 && x <= 80))
+then
+continue
+fi
+
+if ((x == 91))
+then
+continue
+fi
+if ((x == 93))
+then
+continue
+fi
+if ((x == 101))
+then
+continue
+fi
+if ((x == 107))
+then
+continue
+fi
+if ((x == 121))
+then
+continue
+fi
+
+
+sed 's/REPLACEWITHTYPE/type1/g' master_plotDataHists.cc > plotDataHists.cc
 
 make
-./plotDataHists 47
+./plotDataHists $x
 make clean
 rm plotDataHists.cc
 
-sed 's/REPLACEWITHTYPE/type0/g' master_dataHists.cc > dataHists.cc
 
-make
-./plotDataHists 47
-make clean
-rm plotDataHists.cc
-
-sed 's/REPLACEWITHTYPE/type1/g' master_dataHists.cc > dataHists.cc
-
-make
-./plotDataHists 47
-make clean
-rm plotDataHists.cc
+done
 
 echo "Done running bash script"

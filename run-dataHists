@@ -5,65 +5,106 @@
 # in this loop, set the number of .mac files you want to generate
 # this loop variable also counts the Evts_#.root trees you read in. Only used for betas
 
-sed 's/REPLACEWITHTYPE/allTypes/g' master_dataHists.cc > dataHists.cc
+for ((x = 117; x < 122; x = x + 1))
+
+do
+
+if ((x == 9))
+then
+continue
+fi
+if ((x == 59))
+then
+continue
+fi
+
+if ((x >= 60 && x <= 80))
+then
+continue
+fi
+
+if ((x == 91))
+then
+continue
+fi
+if ((x == 93))
+then
+continue
+fi
+if ((x == 101))
+then
+continue
+fi
+if ((x == 107))
+then
+continue
+fi
+if ((x == 121))
+then
+continue
+fi
+
+
+#sed 's/REPLACEWITHTYPE/allTypes/g' master_dataHists.cc > dataHists.cc
 # this -i seems to suppress printing out the file to screen. Use it.
-sed -i 's/REPLACEWITHNAME/TDCE/g' dataHists.cc
-sed -i 's/REPLACEWITHVARIABLE/tdce/g' dataHists.cc
+#sed -i 's/REPLACEWITHNAME/TDCE/g' dataHists.cc
+#sed -i 's/REPLACEWITHVARIABLE/tdce/g' dataHists.cc
 
-make
-./dataHists 47
-make clean
-rm dataHists.cc
+#make
+#./dataHists $x
+#make clean
+#rm dataHists.cc
 
-sed 's/REPLACEWITHTYPE/type0/g' master_dataHists.cc > dataHists.cc
+#sed 's/REPLACEWITHTYPE/type0/g' master_dataHists.cc > dataHists.cc
 # this -i seems to suppress printing out the file to screen. Use it.
-sed -i 's/REPLACEWITHNAME/TDCE/g' dataHists.cc
-sed -i 's/REPLACEWITHVARIABLE/tdce/g' dataHists.cc
+#sed -i 's/REPLACEWITHNAME/TDCE/g' dataHists.cc
+#sed -i 's/REPLACEWITHVARIABLE/tdce/g' dataHists.cc
 
-make
-./dataHists 47
-make clean
-rm dataHists.cc
+#make
+#./dataHists $x
+#make clean
+#rm dataHists.cc
 
 sed 's/REPLACEWITHTYPE/type1/g' master_dataHists.cc > dataHists.cc
 # this -i seems to suppress printing out the file to screen. Use it.
-sed -i 's/REPLACEWITHNAME/TDCE/g' dataHists.cc
-sed -i 's/REPLACEWITHVARIABLE/tdce/g' dataHists.cc
+sed -i 's/REPLACEWITHNAME/TDC_selfTimingCuts_Erecon/g' dataHists.cc
+sed -i 's/REPLACEWITHVARIABLE/Erecon/g' dataHists.cc
 
 make
-./dataHists 47
+./dataHists $x
 make clean
 rm dataHists.cc
 
-sed 's/REPLACEWITHTYPE/allTypes/g' master_dataHists.cc > dataHists.cc
+#sed 's/REPLACEWITHTYPE/allTypes/g' master_dataHists.cc > dataHists.cc
 # this -i seems to suppress printing out the file to screen. Use it.
-sed -i 's/REPLACEWITHNAME/TDCW/g' dataHists.cc
-sed -i 's/REPLACEWITHVARIABLE/tdcw/g' dataHists.cc
+#sed -i 's/REPLACEWITHNAME/TDCW/g' dataHists.cc
+#sed -i 's/REPLACEWITHVARIABLE/tdcw/g' dataHists.cc
 
-make
-./dataHists 47
-make clean
-rm dataHists.cc
+#make
+#./dataHists $x
+#make clean
+#rm dataHists.cc
 
-sed 's/REPLACEWITHTYPE/type0/g' master_dataHists.cc > dataHists.cc
+#sed 's/REPLACEWITHTYPE/type0/g' master_dataHists.cc > dataHists.cc
 # this -i seems to suppress printing out the file to screen. Use it.
-sed -i 's/REPLACEWITHNAME/TDCW/g' dataHists.cc
-sed -i 's/REPLACEWITHVARIABLE/tdcw/g' dataHists.cc
+#sed -i 's/REPLACEWITHNAME/TDCW/g' dataHists.cc
+#sed -i 's/REPLACEWITHVARIABLE/tdcw/g' dataHists.cc
 
-make
-./dataHists 47
-make clean
-rm dataHists.cc
+#make
+#./dataHists $x
+#make clean
+#rm dataHists.cc
 
-sed 's/REPLACEWITHTYPE/type1/g' master_dataHists.cc > dataHists.cc
+#sed 's/REPLACEWITHTYPE/type1/g' master_dataHists.cc > dataHists.cc
 # this -i seems to suppress printing out the file to screen. Use it.
-sed -i 's/REPLACEWITHNAME/TDCW/g' dataHists.cc
-sed -i 's/REPLACEWITHVARIABLE/tdcw/g' dataHists.cc
+#sed -i 's/REPLACEWITHNAME/TDCW/g' dataHists.cc
+#sed -i 's/REPLACEWITHVARIABLE/tdcw/g' dataHists.cc
 
-make
-./dataHists 47
-make clean
-rm dataHists.cc
+#make
+#./dataHists $x
+#make clean
+#rm dataHists.cc
 
+done
 
 echo "Done running bash script"

@@ -322,7 +322,7 @@ vector < TH1D* > CreateOctetHistograms(vector <TChain*> runsChains)
   for(unsigned int i = 0; i < runsChains.size(); i++)
   {
     evt.push_back(new Event);
-    plotHists.push_back(new TH1D(TString::Format("plotHists %i", i), "plotHists for run %i in Octet", 5000, 0, 5000));
+    plotHists.push_back(new TH1D(TString::Format("dataHists %i", i), "dataHists for run %i in Octet", 150, 0, 1500));
 
     runsChains[i]->SetBranchAddress("EvtN", &evt[i]->eventNum);
     runsChains[i]->SetBranchAddress("Time", &evt[i]->time);
@@ -351,21 +351,21 @@ vector < TH1D* > CreateOctetHistograms(vector <TChain*> runsChains)
       runsChains[j]->GetEntry(i);	/* this is where cuts happen */
       if(TYPE == "allTypes")
       {
-        if(evt[j]->pid == 1 && evt[j]->timeFlag == 0)
+        if(evt[j]->pid == 1 && evt[j]->timeFlag == 0 && evt[j]->tdce > 2850 && evt[j]->tdcw > 2900)
         {
           plotHists[j]->Fill(evt[j]->REPLACEWITHVARIABLE);
         }
       }
       else if(TYPE == "type0")
       {
-        if(evt[j]->pid == 1 && evt[j]->timeFlag == 0 && evt[j]->type == 0)
+        if(evt[j]->pid == 1 && evt[j]->timeFlag == 0 && evt[j]->type == 0 && evt[j]->tdce > 2850 && evt[j]->tdcw > 2900)
 	{
 	  plotHists[j]->Fill(evt[j]->REPLACEWITHVARIABLE);
 	}
       }
       else if(TYPE == "type1")
       {
-        if(evt[j]->pid == 1 && evt[j]->timeFlag == 0 && evt[j]->type == 1)
+        if(evt[j]->pid == 1 && evt[j]->timeFlag == 0 && evt[j]->type == 1 && evt[j]->tdce > 2850 && evt[j]->tdcw > 2900)
         {
 	  plotHists[j]->Fill(evt[j]->REPLACEWITHVARIABLE);
 	}
@@ -379,7 +379,7 @@ vector < TH1D* > CreateOctetHistograms(vector <TChain*> runsChains)
 
 TH1D* CreateSumHistograms(vector < TH1D* > octetHists)
 {
-  TH1D* summedHists = new TH1D("Total hist", "TDC diff for Octet", 5000, 0, 5000);
+  TH1D* summedHists = new TH1D("Total hist", "Erecon", 150, 0, 1500);
   for(unsigned int i = 0; i < octetHists.size(); i++)
   {
 //    octetHists[i]->Sumw2();
@@ -393,7 +393,7 @@ void PlotHist(TCanvas *C, int styleIndex, int canvasIndex, TH1D *hPlot, TString 
 {
   C -> cd(canvasIndex);
   hPlot -> SetTitle(title);
-  hPlot -> GetXaxis() -> SetTitle("abs(TDCE - TDCW)");
+  hPlot -> GetXaxis() -> SetTitle("Erecon");
   hPlot -> GetXaxis() -> CenterTitle();
   hPlot -> GetYaxis() -> SetTitle("Counts (N)");
   hPlot -> GetYaxis() -> CenterTitle();
