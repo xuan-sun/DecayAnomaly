@@ -18,7 +18,7 @@ then
 continue
 fi
 
-if ((x >= 60 && x <= 80))
+if ((x >= 60 && x < 80))
 then
 continue
 fi
