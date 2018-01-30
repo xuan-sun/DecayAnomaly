@@ -19,8 +19,8 @@ LIBS          = $(ROOTLIBS) $(ROOTGLIBS)
 CXXFLAGS     += $(ROOTCFLAGS)
 LIBS         += -lSpectrum -lMinuit
 
-OBJECTS = dataHists.o
-SOURCE = dataHists
+OBJECTS = subtrees.o
+SOURCE = subtrees
 
 .PHONY: all
 all: $(SOURCE)

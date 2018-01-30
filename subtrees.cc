@@ -134,20 +134,22 @@ int main(int argc, char* argv[])
   vector < TChain* > runFiles = GetChainsOfRuns(octetIndices, "/mnt/Data/xuansun/newReplayData_ee/");
 
 
-  // take the chains of runfiles and make the histograms that we need.
-  vector < TH1D* > contents = CreateOctetHistograms(runFiles);
+  // save subtrees with the data listed in Event
+  vector < TTree* > contents = CreateOctetTrees(runFiles);
 
-  // now add up the contents of each run in the octet
-  TH1D* TDC_contents = CreateSumHistograms(contents);
+  TFile f(TString::Format("Octet_%i_type1.root", octNb), "RECREATE");
 
+  // create a TList so we can merge all 16 run files in 1 octet
+  TList *allTreesList = new TList();
+  for(unsigned int i = 0; i < contents.size(); i++)
+  {
+    allTreesList->Add(contents[i]);
+  }
+  TTree* bigBoiTree = TTree::MergeTrees(allTreesList);
+  bigBoiTree->Write();
 
-  TFile f(TString::Format("Octet_%i_%s_%s.root", octNb, VARNAME, TYPE), "RECREATE");
-  TDC_contents->Write();
-
-//  PlotHist(C, 1, 1, TDC_contents, "", "");
 
   // Save our plot and print it out as a pdf.
-//  C -> Print("outputHist.pdf");
   f.Close();
   cout << "-------------- End of Program ---------------" << endl;
 //  plot_program.Run();
@@ -328,67 +330,69 @@ vector < TChain* > GetChainsOfRuns(vector < pair <string,int> > octetList, TStri
   return runs;
 }
 
-vector < TTree* > CreateOctetHistograms(vector <TChain*> runsChains)
+vector <TTree*> CreateOctetTrees(vector <TChain*> runsChains)
 {
   // reminder: each evt[i] index corresponds to the indices noted at global scope.
   vector <Event*> evt;
-  vector <TTree*> subTrees;
+  vector <TTree*> subtrees;
 
   for(unsigned int i = 0; i < runsChains.size(); i++)
   {
     evt.push_back(new Event);
-    subTrees.push_back()
+    subtrees.push_back(runsChains[i]->CloneTree(0));
 
-    runsChains[i]->SetBranchAddress("EvtN", &evt[i]->eventNum);
-    runsChains[i]->SetBranchAddress("Time", &evt[i]->time);
-    runsChains[i]->SetBranchAddress("TimeE", &evt[i]->tE);
-    runsChains[i]->SetBranchAddress("TimeW", &evt[i]->tW);
-    runsChains[i]->SetBranchAddress("TDCE", &evt[i]->tdce);
-    runsChains[i]->SetBranchAddress("TDCW", &evt[i]->tdcw);
-    runsChains[i]->SetBranchAddress("Side", &evt[i]->side);
-    runsChains[i]->SetBranchAddress("Type", &evt[i]->type);
+    runsChains[i]->SetBranchAddress("TriggerNum", &evt[i]->TriggerNum);
+    runsChains[i]->SetBranchAddress("EvtN", &evt[i]->EvtN);
+    runsChains[i]->SetBranchAddress("DeltaT", &evt[i]->DeltaT);
+    runsChains[i]->SetBranchAddress("Tof", &evt[i]->Tof);
+    runsChains[i]->SetBranchAddress("Time", &evt[i]->Time);
+    runsChains[i]->SetBranchAddress("TimeE", &evt[i]->TimeE);
+    runsChains[i]->SetBranchAddress("TimeW", &evt[i]->TimeW);
+    runsChains[i]->SetBranchAddress("TDCE", &evt[i]->TDCE);
+    runsChains[i]->SetBranchAddress("TDCW", &evt[i]->TDCW);
+    runsChains[i]->SetBranchAddress("TDCE1", &evt[i]->TDCE1);
+    runsChains[i]->SetBranchAddress("TDCE2", &evt[i]->TDCE2);
+    runsChains[i]->SetBranchAddress("TDCE3", &evt[i]->TDCE3);
+    runsChains[i]->SetBranchAddress("TDCE4", &evt[i]->TDCE4);
+    runsChains[i]->SetBranchAddress("TDCW1", &evt[i]->TDCW1);
+    runsChains[i]->SetBranchAddress("TDCW2", &evt[i]->TDCW2);
+    runsChains[i]->SetBranchAddress("TDCW3", &evt[i]->TDCW3);
+    runsChains[i]->SetBranchAddress("TDCW4", &evt[i]->TDCW4);
+    runsChains[i]->SetBranchAddress("EvisE", &evt[i]->EvisE);
+    runsChains[i]->SetBranchAddress("EvisW", &evt[i]->EvisW);
+    runsChains[i]->SetBranchAddress("CathSumE", &evt[i]->CathSumE);
+    runsChains[i]->SetBranchAddress("CathSumW", &evt[i]->CathSumW);
+    runsChains[i]->SetBranchAddress("EMWPC_E", &evt[i]->EMWPC_E);
+    runsChains[i]->SetBranchAddress("EMWPC_W", &evt[i]->EMWPC_W);
+    runsChains[i]->SetBranchAddress("AnodeE", &evt[i]->AnodeE);
+    runsChains[i]->SetBranchAddress("AnodeW", &evt[i]->AnodeW);
+    runsChains[i]->SetBranchAddress("PID", &evt[i]->PID);
+    runsChains[i]->SetBranchAddress("Side", &evt[i]->Side);
+    runsChains[i]->SetBranchAddress("Type", &evt[i]->Type);
     runsChains[i]->SetBranchAddress("Erecon", &evt[i]->Erecon);
-    runsChains[i]->SetBranchAddress("PID", &evt[i]->pid);
-    runsChains[i]->SetBranchAddress("badTimeFlag", &evt[i]->timeFlag);
-
+    runsChains[i]->SetBranchAddress("Erecon_ee", &evt[i]->Erecon_ee);
+    runsChains[i]->SetBranchAddress("badTimeFlag", &evt[i]->badTimeFlag);
     // this additional syntax is needed to get the right leaf inside branch inside tree named "pass3"
-    runsChains[i]->GetBranch("xE")->GetLeaf("center")->SetAddress(&evt[i]->xEastPos);
-    runsChains[i]->GetBranch("yE")->GetLeaf("center")->SetAddress(&evt[i]->yEastPos);
-    runsChains[i]->GetBranch("xW")->GetLeaf("center")->SetAddress(&evt[i]->xWestPos);
-    runsChains[i]->GetBranch("yW")->GetLeaf("center")->SetAddress(&evt[i]->yWestPos);
+    runsChains[i]->GetBranch("xE")->GetLeaf("center")->SetAddress(&evt[i]->xE_center);
+    runsChains[i]->GetBranch("yE")->GetLeaf("center")->SetAddress(&evt[i]->yE_center);
+    runsChains[i]->GetBranch("xW")->GetLeaf("center")->SetAddress(&evt[i]->xW_center);
+    runsChains[i]->GetBranch("yW")->GetLeaf("center")->SetAddress(&evt[i]->yW_center);
   }
 
 
   for(unsigned int j = 0; j < runsChains.size(); j++)
   {
-    for(unsigned int i = 0; i < runsChains[j]->GetEntriesFast(); i++)
+    for(unsigned int i = 0; i < runsChains[j]->GetEntries(); i++)
     {
       runsChains[j]->GetEntry(i);	/* this is where cuts happen */
-      if(TYPE == "allTypes")
+      if(evt[j]->Type == 1)
       {
-        if(evt[j]->pid == 1 && evt[j]->timeFlag == 0 && evt[j]->tdce > 2850 && evt[j]->tdcw > 2900)
-        {
-          plotHists[j]->Fill(evt[j]->REPLACEWITHVARIABLE);
-        }
-      }
-      else if(TYPE == "type0")
-      {
-        if(evt[j]->pid == 1 && evt[j]->timeFlag == 0 && evt[j]->type == 0 && evt[j]->tdce > 2850 && evt[j]->tdcw > 2900)
-	{
-	  plotHists[j]->Fill(evt[j]->REPLACEWITHVARIABLE);
-	}
-      }
-      else if(TYPE == "type1")
-      {
-        if(evt[j]->pid == 1 && evt[j]->timeFlag == 0 && evt[j]->type == 1 && evt[j]->tdce > 2850 && evt[j]->tdcw > 2900)
-        {
-	  plotHists[j]->Fill(evt[j]->REPLACEWITHVARIABLE);
-	}
+        subtrees[j]->Fill();
       }
     }
   }
 
-  return plotHists;
+  return subtrees;
 
 }
 
