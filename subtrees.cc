@@ -41,21 +41,43 @@ using		 namespace std;
 
 struct Event
 {
+  int TriggerNum;
+  int EvtN;
+  double DeltaT;
+  double Tof;
+  double TimeE;
+  double TimeW;
+  double Time;
+  double TDCE;
+  double TDCW;
+  double TDCE1;
+  double TDCE2;
+  double TDCE3;
+  double TDCE4;
+  double TDCW1;
+  double TDCW2;
+  double TDCW3;
+  double TDCW4;
+  double EvisE;
+  double EvisW;
+  double CathSumE;
+  double CathSumW;
+  double CathMaxE;
+  double CathMaxW;
+  double EMWPC_E;
+  double EMWPC_W;
+  double AnodeE;
+  double AnodeW;
+  int PID;
+  int Side;
+  int Type;
   double Erecon;
-  int side;
-  int type;
-  int eventNum;
-  double time;
-  double tE;
-  double tW;
-  double tdce;
-  double tdcw;
-  int pid;
-  int timeFlag;
-  double xEastPos;
-  double yEastPos;
-  double xWestPos;
-  double yWestPos;
+  double Erecon_ee;
+  int badTimeFlag;
+  double xE_center;
+  double yE_center;
+  double xW_center;
+  double yW_center;
 };
 
 // forward declarations for useful functions
