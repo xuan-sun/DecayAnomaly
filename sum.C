@@ -1,22 +1,10 @@
 {
-  TFile f;
+  TChain *chain = new TChain("pass3");
 
-  TH1D *hTotal = new TH1D("total", "Erecon Octets 80-120", 150, 0, 1500);
-
-
-  for(int i = 80; i < 122; i++)
-  {
-    if(i == 91 || i == 93 || i == 101 || i == 107 || i == 121)
-    {
-      continue;
-    }
-
-    f.Open(Form("Octet_%i_TDC_selfTimingCuts_Erecon_type1.root", i));
-    TH1D *hTemp = (TH1D*)f.Get("Total hist");
-    hTotal->Add(hTemp, 1.0);
-  }
-
-  hTotal->Draw();
+  chain->Add("Octet_80.type1.root");
+  chain->Add("Octet_81_type1.root");
+  chain->Add("Octet_82_type1.root");
+  chain->Add("Octet_83_type1.root");
 
 
 
