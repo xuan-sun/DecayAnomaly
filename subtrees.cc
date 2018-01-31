@@ -133,21 +133,38 @@ int main(int argc, char* argv[])
   // Points TChains at the run files idenified in the octet lists above
   vector < TChain* > runFiles = GetChainsOfRuns(octetIndices, "/mnt/Data/xuansun/newReplayData_ee/");
 
+  cout << "Chained all the runs together... Not expecting any problems here... " << endl;
 
   // save subtrees with the data listed in Event
   vector < TTree* > contents = CreateOctetTrees(runFiles);
 
+  cout << "vector of TTree* called contents made..." << endl;
+
   TFile f(TString::Format("Octet_%i_type1.root", octNb), "RECREATE");
+
+  cout << "Created a file to write to." << endl;
 
   // create a TList so we can merge all 16 run files in 1 octet
   TList *allTreesList = new TList();
+//  for(unsigned int i = 0; i < contents.size(); i++)
   for(unsigned int i = 0; i < contents.size(); i++)
   {
     allTreesList->Add(contents[i]);
-  }
-  TTree* bigBoiTree = TTree::MergeTrees(allTreesList);
-  bigBoiTree->Write();
+    if(contents[i] == NULL)
+    {
+      cout << "contents[" << i << "] is NULL" << endl;
+    }
 
+  }
+  cout << "contents.size() = " << contents.size() << endl;
+
+  cout << "Tree list made... About to merge trees..." << endl;
+
+  TTree* bigBoiTree = TTree::MergeTrees(allTreesList);
+
+  cout << "Completed merging the trees..." << endl;
+
+  bigBoiTree->Write();
 
   // Save our plot and print it out as a pdf.
   f.Close();
