@@ -133,20 +133,17 @@ int main(int argc, char* argv[])
   // Points TChains at the run files idenified in the octet lists above
   vector < TChain* > runFiles = GetChainsOfRuns(octetIndices, "/mnt/Data/xuansun/newReplayData_ee/");
 
-  cout << "Chained all the runs together... Not expecting any problems here... " << endl;
+  cout << "Chained all the runs together... " << endl;
 
   // save subtrees with the data listed in Event
   vector < TTree* > contents = CreateOctetTrees(runFiles);
 
   cout << "vector of TTree* called contents made..." << endl;
 
-  TFile f(TString::Format("Octet_%i_type1.root", octNb), "RECREATE");
-
-  cout << "Created a file to write to." << endl;
+  cout << "Now writing to file... " << endl;
 
   // create a TList so we can merge all 16 run files in 1 octet
   TList *allTreesList = new TList();
-//  for(unsigned int i = 0; i < contents.size(); i++)
   for(unsigned int i = 0; i < contents.size(); i++)
   {
     allTreesList->Add(contents[i]);
@@ -155,19 +152,29 @@ int main(int argc, char* argv[])
       cout << "contents[" << i << "] is NULL" << endl;
     }
 
+    TFile f(TString::Format("Octet_%i_type1_runIndex_%i.root", octNb, i), "RECREATE");
+    contents[i]->Write();
+    f.Close();
+
+
+
   }
-  cout << "contents.size() = " << contents.size() << endl;
 
-  cout << "Tree list made... About to merge trees..." << endl;
+  cout << "Finished saving TFiles for every run... " << endl;
 
-  TTree* bigBoiTree = TTree::MergeTrees(allTreesList);
+  cout << "Loading and merging all the TFiles into one TChain... " << endl;
 
-  cout << "Completed merging the trees..." << endl;
+  TChain* allRunsChainsInOctet = new TChain("pass3");
+  for(unsigned int i = 0; i < contents.size(); i++)
+  {
+    allRunsChainsInOctet->Add(TString::Format("Octet_%i_type1_runIndex_%i.root", octNb, i));
+  }
+  allRunsChainsInOctet->Merge(TString::Format("Octet_%i_type1.root", octNb));
 
-  bigBoiTree->Write();
 
-  // Save our plot and print it out as a pdf.
-  f.Close();
+
+
+//  f.Close();
   cout << "-------------- End of Program ---------------" << endl;
 //  plot_program.Run();
 
