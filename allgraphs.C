@@ -1,5 +1,19 @@
 #define	path	"Type1_Octets_80-120"
 
+struct Event
+{
+  double TDCE;
+  double TDCW;
+  int PID;
+  int Type;
+  int Side;
+  double Erecon;
+  double Erecon_ee;
+  int badTimeFlag;
+
+};
+
+allgraphs()
 {
   // chain together all our octets of interest
   TChain *chain = new TChain("pass3");
@@ -72,5 +86,55 @@
   h1tdcw_subrange->GetYaxis()->SetRangeUser(1, 5000);
   chain->Draw("TDCW >> h1tdce_subrange", "PID == 1 && badTimeFlag == 0");
 
+  // convert both East and West TDC values into "time" using crude self-timing peak to 140ns conversion
+  TCanvas *c3 = new TCanvas("c3", "c3");
+  c3->Divide(3,1);
+  c3->cd(1);
+
+  TH1D *h2timeE = new TH1D("timeE", "time E", 180, 0, 180);
+  h2timeE->GetXaxis()->SetTitle("Time (ns)");
+  h2timeE->GetYaxis()->SetTitle("Counts");
+  TH1D *h2timeW = new TH1D("timeW", "time W", 180, 0, 180);
+  h2timeW->GetXaxis()->SetTitle("Time (ns)");
+  h2timeW->GetYaxis()->SetTitle("Counts");
+
+  Event evt;
+  chain->SetBranchAddress("TDCE", &evt.TDCE);
+  chain->SetBranchAddress("TDCW", &evt.TDCW);
+  chain->SetBranchAddress("PID", &evt.PID);
+  chain->SetBranchAddress("Type", &evt.Type);
+  chain->SetBranchAddress("Side", &evt.Side);
+  chain->SetBranchAddress("Erecon", &evt.Erecon);
+  chain->SetBranchAddress("Erecon_ee", &evt.Erecon_ee);
+  chain->SetBranchAddress("badTimeFlag", &evt.badTimeFlag);
+
+
+  for(unsigned int i = 0; i < chain->GetEntries(); i++)
+  {
+    chain->GetEntry(i);
+    if(evt.PID == 1 && evt.badTimeFlag == 0)
+    {
+      h2timeE->Fill(evt.TDCE * 140.0 / 2850.0);	// converts to ns
+      h2timeW->Fill(evt.TDCW * 140.0 / 3050.0);
+    }
+
+    if(i%100000 == 0)
+    {
+      cout << "Completed loading " << i << " events out of " << chain->GetEntries() << endl;
+    }
+  }
+
+  h2timeE->Draw();
+
+  c3->cd(2);
+  h2timeW->Draw();
+
+  // create a summed histogram with particular cuts such that the "true" timing spectra is displayed.
+  TH1D *h2totalTime = new TH1D("total time", "total time", 180, 0, 180);
+  h2totalTime->Add(h2timeE, h2timeW, 1, 1);
+  c3->cd(3);
+  h2totalTime->GetXaxis()->SetTitle("Time (ns)");
+  h2totalTime->GetYaxis()->SetTitle("Counts");
+  h2totalTime->Draw();
 
 }
