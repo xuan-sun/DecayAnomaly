@@ -29,7 +29,7 @@
     {
       bufstream >> bgRunIndex;
 
-      TChain *liveTimeChain = new TChain("pass3");
+/*      TChain *liveTimeChain = new TChain("pass3");
       liveTimeChain->SetBranchAddress("Time", &time);
       liveTimeChain->SetBranchAddress("PID", &pid);
       liveTimeChain->SetBranchAddress("badTimeFlag", &badTimeFlag);
@@ -53,10 +53,11 @@
 
       totalLiveTime = totalLiveTime + time;
 
+      delete liveTimeChain;
+*/
       cout << "Adding run index " << bgRunIndex << " to our main chain." << endl;
       mainChain->Add(Form("%s/replay_pass3_%i.root", path, bgRunIndex));
 
-      delete liveTimeChain;
       lastGoodEventCounter = 0;
     }
 
