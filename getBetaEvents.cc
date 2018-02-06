@@ -106,6 +106,9 @@ const int index_B4 = 13;
 const int index_B9 = 14;
 const int index_B12 = 15;
 
+// global events counter
+int totalDecays = 0;
+
 // Used for visualization, keeps the graph on screen.
 //TApplication plot_program("FADC_readin",0,0,0,0);
 
@@ -139,29 +142,8 @@ int main(int argc, char* argv[])
 
   // save subtrees with the data listed in Event
   vector < TTree* > contents = CreateOctetTrees(runFiles);
-/*
-  cout << "Now writing to file... " << endl;
 
-  for(unsigned int i = 0; i < contents.size(); i++)
-  {
-    TFile f(TString::Format("runIndex_%i.root", i), "RECREATE");
-    contents[i]->Write();
-    f.Close();
-  }
-
-  cout << "Finished saving TFiles for every run... " << endl;
-
-  cout << "Loading and merging all the TFiles into one TChain... " << endl;
-
-  TChain* allRunsChainsInOctet = new TChain("pass3");
-  for(unsigned int i = 0; i < contents.size(); i++)
-  {
-    allRunsChainsInOctet->Add(TString::Format("runIndex_%i.root", i));
-  }
-  allRunsChainsInOctet->Merge(TString::Format("Octet_%i_allBetas.root", octNb));
-
-  cout << "Total number of beta events in octet " << octNb << " is: " << allRunsChainsInOctet->GetEntries() << endl;
-*/
+  cout << "Total beta decays for Octet " << octNb << " is: " << totalDecays << endl;
 
 //  f.Close();
   cout << "-------------- End of Program ---------------" << endl;
@@ -408,6 +390,9 @@ vector <TTree*> CreateOctetTrees(vector <TChain*> runsChains)
     }
 
     cout << "Betas in run index " << j << " is: " << betasPerRun << endl;
+
+    totalDecays = totalDecays + betasPerRun;
+
     betasPerRun = 0;
   }
 

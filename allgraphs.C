@@ -13,6 +13,9 @@ struct Event
 
 };
 
+double east_channelToTime = 140.0 / 2850.0;
+double west_channelToTime = 140.0 / 3050.0;
+
 allgraphs()
 {
   cout << "Chaining together all our TFiles... ";
@@ -66,6 +69,8 @@ allgraphs()
   TCut oneSTPeak_100channels = "((TDCE > 2850 && TDCW > 2950 && TDCW < 3050) || (TDCW > 3050 && TDCE > 2750 && TDCE < 2850))";
   TCut oneSTPeak_200channels = "((TDCE > 2850 && TDCW > 2850 && TDCW < 3050) || (TDCW > 3050 && TDCE > 2650 && TDCE < 2850))";
   TCut oneSTPeak_300channels = "((TDCE > 2850 && TDCW > 2750 && TDCW < 3050) || (TDCW > 3050 && TDCE > 2550 && TDCE < 2850))";
+  TCut oneSTPeak_400channels = "((TDCE > 2850 && TDCW > 2650 && TDCW < 3050) || (TDCW > 3050 && TDCE > 2450 && TDCW < 2850))";
+  TCut oneSTPeak_500channels = "((TDCE > 2850 && TDCW > 2550 && TDCW < 3050) || (TDCW > 3050 && TDCE > 2350 && TDCW < 2850))";
 
   cout << "Making our first canvas' plots of TDC East and West values... ";
 
@@ -87,6 +92,8 @@ allgraphs()
 
   cout << "Done." << endl;
 
+  c1->Print("TDC_fullRange_logy.pdf");
+
   cout << "Making second canvas with subrange TDC plots... ";
 
   // make second plot of TDCE/TDCW values, sub range to look at "gap"
@@ -105,6 +112,8 @@ allgraphs()
   chain->Draw("TDCW >> h1tdce_subrange", basicCut);
 
   cout << "Done." << endl;
+
+  c2->Print("TDC_subRange.pdf");
 
   cout << "Creating a third canvas with a true time conversion using the self-timing peak... " << endl;
 
@@ -140,17 +149,17 @@ allgraphs()
     chain->GetEntry(i);
     if(evt.PID == 1 && evt.badTimeFlag == 0)
     {
-      h2timeE->Fill(evt.TDCE * 140.0 / 2850.0);	// converts to ns
-      h2timeW->Fill(evt.TDCW * 140.0 / 3050.0);
+      h2timeE->Fill(evt.TDCE * east_channelToTime);	// converts to ns
+      h2timeW->Fill(evt.TDCW * west_channelToTime);
     }
 
     if(evt.PID == 1 && evt.badTimeFlag == 0 && (evt.TDCE < 2850 && evt.TDCW > 3050))
     {
-      h2totalTime->Fill(evt.TDCE * 140.0 / 2850.0);
+      h2totalTime->Fill(evt.TDCE * east_channelToTime);
     }
     if(evt.PID == 1 && evt.badTimeFlag == 0 && (evt.TDCE > 2850 && evt.TDCW < 3050))
     {
-      h2totalTime->Fill(evt.TDCW * 140.0 / 3050.0);
+      h2totalTime->Fill(evt.TDCW * west_channelToTime);
     }
 
 
@@ -167,6 +176,8 @@ allgraphs()
 
   c3->cd(3);
   h2totalTime->Draw();
+
+  c3->Print("AllEvents_TimeSpectra_summed.pdf");
 
   cout << "Creating a fourth canvas for Erecon_ee plots... ";
 
@@ -192,6 +203,8 @@ allgraphs()
 
   cout << "Done." << endl;
 
+  c4->Print("Erecon_ee_spectra_coincidenceEvents.pdf");
+
   cout << "Creating a fifth canvas to look at sub-range of allowed KE for Erecon_ee...";
 
   // The final coarse results: number of events in allowed subwindow
@@ -214,6 +227,82 @@ allgraphs()
 
   cout << "Done." << endl;
 
-  // Making 2D histogram to look at Erecon_ee vs "true time" contour plot.
+  c5->Print("Erecon_ee_spectra_validRange_coincidenceEvents.pdf");
+
+  // Also doing it for 400, 500 channels to get a better comparison.
+  TCanvas *c6 = new TCanvas("c6", "c6");
+  c6->Divide(2,1);
+
+  TH1D *h3400chan_subrange = new TH1D("400channels_subrange", "400 channel window", 80, 0, 800);
+  TH1D *h3500chan_subrange = new TH1D("500channels_subrange", "500 channel window", 80, 0, 800);
+
+  c6->cd(1);
+  chain->Draw("Erecon_ee >> 400channels_subrange", basicCut && Erecon_ee_range && oneSTPeak_400channels);
+  c6->cd(2);
+  chain->Draw("Erecon_ee >> 500channels_subrange", basicCut && Erecon_ee_range && oneSTPeak_500channels);
+
+  c6->Print("Erecon_ee_spectra_moreChannels_coincidenceEvents.pdf");
+
+  // Now looking at "true time" histograms for each set of window channels (100, 200, 300)
+  TCanvas *c7 = new TCanvas("c7", "c7");
+  c7->Divide(3,1);
+
+  TH1D *h4100chan_time = new TH1D("100channels_time", "total time", 180, 0, 180);
+  TH1D *h4200chan_time = new TH1D("200channels_time", "total time", 180, 0, 180);
+  TH1D *h4300chan_time = new TH1D("300channels_time", "total time", 180, 0, 180);
+
+  cout << "About to begin filling events again to get true time for valid Erecon_ee events..." << endl;
+
+  for(unsigned int i = 0; i < chain->GetEntries(); i++)
+  {
+    chain->GetEntry(i);
+
+    if(evt.PID == 1 && evt.badTimeFlag == 0 && (evt.Erecon_ee > 0 && evt.Erecon_ee < 640) &&
+	((evt.TDCE > 2850 && evt.TDCW > 2950 && evt.TDCW < 3050) ||(evt.TDCW > 3050 && evt.TDCE > 2750 && evt.TDCE < 2850)))
+    {
+      h4100chan_time->Fill(evt.TDCE * east_channelToTime);
+    }
+    if(evt.PID == 1 && evt.badTimeFlag == 0 && (evt.Erecon_ee > 0 && evt.Erecon_ee < 640) &&
+	((evt.TDCE > 2850 && evt.TDCW > 2950 && evt.TDCW < 3050) ||(evt.TDCW > 3050 && evt.TDCE > 2750 && evt.TDCE < 2850)))
+    {
+      h4100chan_time->Fill(evt.TDCW * west_channelToTime);
+    }
+
+    if(evt.PID == 1 && evt.badTimeFlag == 0 && (evt.Erecon_ee > 0 && evt.Erecon_ee < 640) &&
+        ((evt.TDCE > 2850 && evt.TDCW > 2850 && evt.TDCW < 3050) ||(evt.TDCW > 3050 && evt.TDCE > 2650 && evt.TDCE < 2850)))
+    {
+      h4200chan_time->Fill(evt.TDCE * east_channelToTime);
+    }
+    if(evt.PID == 1 && evt.badTimeFlag == 0 && (evt.Erecon_ee > 0 && evt.Erecon_ee < 640) &&
+        ((evt.TDCE > 2850 && evt.TDCW > 2850 && evt.TDCW < 3050) ||(evt.TDCW > 3050 && evt.TDCE > 2650 && evt.TDCE < 2850)))
+    {
+      h4200chan_time->Fill(evt.TDCW * west_channelToTime);
+    }
+
+    if(evt.PID == 1 && evt.badTimeFlag == 0 && (evt.Erecon_ee > 0 && evt.Erecon_ee < 640) &&
+        ((evt.TDCE > 2850 && evt.TDCW > 2750 && evt.TDCW < 3050) ||(evt.TDCW > 3050 && evt.TDCE > 2550 && evt.TDCE < 2850)))
+    {
+      h4300chan_time->Fill(evt.TDCE * east_channelToTime);
+    }
+    if(evt.PID == 1 && evt.badTimeFlag == 0 && (evt.Erecon_ee > 0 && evt.Erecon_ee < 640) &&
+        ((evt.TDCE > 2850 && evt.TDCW > 2750 && evt.TDCW < 3050) ||(evt.TDCW > 3050 && evt.TDCE > 2550 && evt.TDCE < 2850)))
+    {
+      h4300chan_time->Fill(evt.TDCW * west_channelToTime);
+    }
+
+    if(i%100000 == 0)
+    {
+      cout << "Completed loading " << i << " events out of " << chain->GetEntries() << endl;
+    }
+  }
+
+  c7->cd(1);
+  h4100chan_time->Draw();
+  c7->cd(2);
+  h4200chan_time->Draw();
+  c7->cd(3);
+  h4300chan_time->Draw();
+
+  c7->Print("CoincidenceEvents_TimeSpectra_summed.pdf");
 
 }

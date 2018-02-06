@@ -19,6 +19,7 @@ Betas in run index 12 is: 798
 Betas in run index 13 is: 795
 Betas in run index 14 is: 821
 Betas in run index 15 is: 770
+Total beta decays for Octet 80 is: 605923
 -------------- End of Program ---------------
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
@@ -41,6 +42,7 @@ Betas in run index 12 is: 626
 Betas in run index 13 is: 648
 Betas in run index 14 is: 595
 Betas in run index 15 is: 641
+Total beta decays for Octet 81 is: 618575
 -------------- End of Program ---------------
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
@@ -63,6 +65,7 @@ Betas in run index 12 is: 580
 Betas in run index 13 is: 656
 Betas in run index 14 is: 655
 Betas in run index 15 is: 574
+Total beta decays for Octet 82 is: 561722
 -------------- End of Program ---------------
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
@@ -85,6 +88,7 @@ Betas in run index 12 is: 633
 Betas in run index 13 is: 590
 Betas in run index 14 is: 607
 Betas in run index 15 is: 677
+Total beta decays for Octet 83 is: 559833
 -------------- End of Program ---------------
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
@@ -107,6 +111,7 @@ Betas in run index 12 is: 656
 Betas in run index 13 is: 621
 Betas in run index 14 is: 623
 Betas in run index 15 is: 606
+Total beta decays for Octet 84 is: 533077
 -------------- End of Program ---------------
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
@@ -129,6 +134,7 @@ Betas in run index 12 is: 608
 Betas in run index 13 is: 601
 Betas in run index 14 is: 677
 Betas in run index 15 is: 665
+Total beta decays for Octet 85 is: 391439
 -------------- End of Program ---------------
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
@@ -151,6 +157,7 @@ Betas in run index 12 is: 445
 Betas in run index 13 is: 456
 Betas in run index 14 is: 333
 Betas in run index 15 is: 492
+Total beta decays for Octet 86 is: 255812
 -------------- End of Program ---------------
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
@@ -173,6 +180,7 @@ Betas in run index 12 is: 606
 Betas in run index 13 is: 612
 Betas in run index 14 is: 579
 Betas in run index 15 is: 631
+Total beta decays for Octet 87 is: 378083
 -------------- End of Program ---------------
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
@@ -195,6 +203,7 @@ Betas in run index 12 is: 993
 Betas in run index 13 is: 1030
 Betas in run index 14 is: 933
 Betas in run index 15 is: 908
+Total beta decays for Octet 88 is: 523269
 -------------- End of Program ---------------
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
@@ -217,6 +226,7 @@ Betas in run index 12 is: 982
 Betas in run index 13 is: 925
 Betas in run index 14 is: 898
 Betas in run index 15 is: 958
+Total beta decays for Octet 89 is: 510549
 -------------- End of Program ---------------
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
@@ -239,6 +249,7 @@ Betas in run index 12 is: 858
 Betas in run index 13 is: 959
 Betas in run index 14 is: 946
 Betas in run index 15 is: 405
+Total beta decays for Octet 90 is: 478280
 -------------- End of Program ---------------
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
@@ -261,6 +272,7 @@ Betas in run index 12 is: 890
 Betas in run index 13 is: 920
 Betas in run index 14 is: 791
 Betas in run index 15 is: 907
+Total beta decays for Octet 92 is: 290562
 -------------- End of Program ---------------
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
@@ -283,6 +295,7 @@ Betas in run index 12 is: 724
 Betas in run index 13 is: 736
 Betas in run index 14 is: 723
 Betas in run index 15 is: 710
+Total beta decays for Octet 94 is: 334416
 -------------- End of Program ---------------
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
@@ -305,6 +318,7 @@ Betas in run index 12 is: 600
 Betas in run index 13 is: 595
 Betas in run index 14 is: 638
 Betas in run index 15 is: 668
+Total beta decays for Octet 95 is: 264711
 -------------- End of Program ---------------
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
@@ -327,6 +341,7 @@ Betas in run index 12 is: 928
 Betas in run index 13 is: 505
 Betas in run index 14 is: 518
 Betas in run index 15 is: 506
+Total beta decays for Octet 96 is: 511717
 -------------- End of Program ---------------
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
@@ -349,6 +364,7 @@ Betas in run index 12 is: 826
 Betas in run index 13 is: 830
 Betas in run index 14 is: 791
 Betas in run index 15 is: 816
+Total beta decays for Octet 97 is: 447128
 -------------- End of Program ---------------
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
@@ -371,6 +387,7 @@ Betas in run index 12 is: 1088
 Betas in run index 13 is: 1054
 Betas in run index 14 is: 1001
 Betas in run index 15 is: 1007
+Total beta decays for Octet 98 is: 514387
 -------------- End of Program ---------------
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
@@ -393,6 +410,7 @@ Betas in run index 12 is: 945
 Betas in run index 13 is: 955
 Betas in run index 14 is: 998
 Betas in run index 15 is: 1066
+Total beta decays for Octet 99 is: 498032
 -------------- End of Program ---------------
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
@@ -415,6 +433,7 @@ Betas in run index 12 is: 687
 Betas in run index 13 is: 635
 Betas in run index 14 is: 676
 Betas in run index 15 is: 703
+Total beta decays for Octet 100 is: 394932
 -------------- End of Program ---------------
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
@@ -437,6 +456,7 @@ Betas in run index 12 is: 464
 Betas in run index 13 is: 416
 Betas in run index 14 is: 434
 Betas in run index 15 is: 474
+Total beta decays for Octet 102 is: 327825
 -------------- End of Program ---------------
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
@@ -459,6 +479,7 @@ Betas in run index 12 is: 859
 Betas in run index 13 is: 831
 Betas in run index 14 is: 859
 Betas in run index 15 is: 893
+Total beta decays for Octet 103 is: 381275
 -------------- End of Program ---------------
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
@@ -481,6 +502,7 @@ Betas in run index 12 is: 885
 Betas in run index 13 is: 850
 Betas in run index 14 is: 901
 Betas in run index 15 is: 835
+Total beta decays for Octet 104 is: 544356
 -------------- End of Program ---------------
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
@@ -503,6 +525,7 @@ Betas in run index 12 is: 894
 Betas in run index 13 is: 907
 Betas in run index 14 is: 895
 Betas in run index 15 is: 900
+Total beta decays for Octet 105 is: 524138
 -------------- End of Program ---------------
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
@@ -525,6 +548,7 @@ Betas in run index 12 is: 935
 Betas in run index 13 is: 869
 Betas in run index 14 is: 904
 Betas in run index 15 is: 842
+Total beta decays for Octet 106 is: 499183
 -------------- End of Program ---------------
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
@@ -547,6 +571,7 @@ Betas in run index 12 is: 891
 Betas in run index 13 is: 895
 Betas in run index 14 is: 833
 Betas in run index 15 is: 868
+Total beta decays for Octet 108 is: 462445
 -------------- End of Program ---------------
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
@@ -569,6 +594,7 @@ Betas in run index 12 is: 679
 Betas in run index 13 is: 710
 Betas in run index 14 is: 691
 Betas in run index 15 is: 687
+Total beta decays for Octet 109 is: 283722
 -------------- End of Program ---------------
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
@@ -591,6 +617,7 @@ Betas in run index 12 is: 843
 Betas in run index 13 is: 852
 Betas in run index 14 is: 882
 Betas in run index 15 is: 906
+Total beta decays for Octet 110 is: 444277
 -------------- End of Program ---------------
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
@@ -613,6 +640,7 @@ Betas in run index 12 is: 877
 Betas in run index 13 is: 830
 Betas in run index 14 is: 895
 Betas in run index 15 is: 847
+Total beta decays for Octet 111 is: 485428
 -------------- End of Program ---------------
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
@@ -635,6 +663,7 @@ Betas in run index 12 is: 894
 Betas in run index 13 is: 730
 Betas in run index 14 is: 907
 Betas in run index 15 is: 865
+Total beta decays for Octet 112 is: 430156
 -------------- End of Program ---------------
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
@@ -657,6 +686,7 @@ Betas in run index 12 is: 888
 Betas in run index 13 is: 867
 Betas in run index 14 is: 949
 Betas in run index 15 is: 867
+Total beta decays for Octet 113 is: 453744
 -------------- End of Program ---------------
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
@@ -679,6 +709,7 @@ Betas in run index 12 is: 719
 Betas in run index 13 is: 727
 Betas in run index 14 is: 601
 Betas in run index 15 is: 740
+Total beta decays for Octet 114 is: 387303
 -------------- End of Program ---------------
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
@@ -701,6 +732,7 @@ Betas in run index 12 is: 530
 Betas in run index 13 is: 599
 Betas in run index 14 is: 597
 Betas in run index 15 is: 563
+Total beta decays for Octet 115 is: 176253
 -------------- End of Program ---------------
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
@@ -723,6 +755,7 @@ Betas in run index 12 is: 925
 Betas in run index 13 is: 893
 Betas in run index 14 is: 902
 Betas in run index 15 is: 920
+Total beta decays for Octet 116 is: 411116
 -------------- End of Program ---------------
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
@@ -745,6 +778,7 @@ Betas in run index 12 is: 1066
 Betas in run index 13 is: 1022
 Betas in run index 14 is: 1030
 Betas in run index 15 is: 1122
+Total beta decays for Octet 117 is: 487122
 -------------- End of Program ---------------
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
 g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
@@ -756,60 +790,3 @@ Betas in run index 1 is: 46436
 Betas in run index 2 is: 45837
 Betas in run index 3 is: 63860
 Betas in run index 4 is: 47823
-Betas in run index 5 is: 64780
-Betas in run index 6 is: 65732
-Betas in run index 7 is: 46875
-Betas in run index 8 is: 1068
-Betas in run index 9 is: 1101
-Betas in run index 10 is: 1081
-Betas in run index 11 is: 1113
-Betas in run index 12 is: 1084
-Betas in run index 13 is: 1080
-Betas in run index 14 is: 1096
-Betas in run index 15 is: 1121
--------------- End of Program ---------------
-g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
-g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
-Processing Octet 119
-The file being opened is: OctetLists/octet_list_119.dat
-Chained all the runs together... 
-Betas in run index 0 is: 64750
-Betas in run index 1 is: 45401
-Betas in run index 2 is: 39879
-Betas in run index 3 is: 63750
-Betas in run index 4 is: 49445
-Betas in run index 5 is: 67392
-Betas in run index 6 is: 65945
-Betas in run index 7 is: 45286
-Betas in run index 8 is: 1118
-Betas in run index 9 is: 1142
-Betas in run index 10 is: 1049
-Betas in run index 11 is: 1095
-Betas in run index 12 is: 1089
-Betas in run index 13 is: 1065
-Betas in run index 14 is: 1098
-Betas in run index 15 is: 1067
--------------- End of Program ---------------
-g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
-g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
-Processing Octet 120
-The file being opened is: OctetLists/octet_list_120.dat
-Chained all the runs together... 
-Betas in run index 0 is: 59541
-Betas in run index 1 is: 41872
-Betas in run index 2 is: 38582
-Betas in run index 3 is: 52582
-Betas in run index 4 is: 41559
-Betas in run index 5 is: 61403
-Betas in run index 6 is: 60479
-Betas in run index 7 is: 37428
-Betas in run index 8 is: 1040
-Betas in run index 9 is: 1102
-Betas in run index 10 is: 1091
-Betas in run index 11 is: 1084
-Betas in run index 12 is: 1090
-Betas in run index 13 is: 1077
-Betas in run index 14 is: 1105
-Betas in run index 15 is: 1081
--------------- End of Program ---------------
-Done running bash script
