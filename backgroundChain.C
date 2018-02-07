@@ -1,9 +1,9 @@
 #define	path	"/mnt/Data/xuansun/newReplayData_ee"
-#define	fileName	"Background_run_numbers_octets_80-120.txt"
+#define	filebgName	"Background_run_numbers_octets_80-120.txt"
 
 {
   long double totalLiveTime = 0;
-  TChain *mainChain = new TChain("pass3");
+  TChain *mainbgChain = new TChain("pass3");
 
 
   Double_t time = 0;
@@ -12,11 +12,11 @@
 
   string buf;
   ifstream infile;
-  cout << "The file being opened is: " << fileName << endl;
-  infile.open(fileName);
+  cout << "The file being opened is: " << filebgName << endl;
+  infile.open(filebgName);
 
   if(!infile.is_open())
-    cout << "Problem opening " << fileName << endl;
+    cout << "Problem opening " << filebgName << endl;
 
   int bgRunIndex;
 
@@ -57,7 +57,7 @@
 
 */
       cout << "Adding run index " << bgRunIndex << " to our main chain." << endl;
-      mainChain->Add(Form("%s/replay_pass3_%i.root", path, bgRunIndex));
+      mainbgChain->Add(Form("%s/replay_pass3_%i.root", path, bgRunIndex));
 
       lastGoodEventCounter = 0;
     }
