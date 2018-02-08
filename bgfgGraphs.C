@@ -41,10 +41,10 @@ bgfgGraphs()
   c1->Divide(2,1);
   c1->cd(1);
 
-  TH1D* hbgErecon = new TH1D("BGErecon", "BG Erecon_ee", 400, 0, 4000);
+  TH1D* hbgErecon = new TH1D("BGErecon", "BG Erecon_ee", 160, 0, 4000);
   hbgErecon->GetXaxis()->SetTitle("Erecon_ee (KeV)");
 
-  TH1D* hfgErecon = new TH1D("FGErecon", "FG Erecon_ee", 400, 0, 4000);
+  TH1D* hfgErecon = new TH1D("FGErecon", "FG Erecon_ee", 160, 0, 4000);
   hfgErecon->GetXaxis()->SetTitle("Erecon_ee (KeV)");
 
   bgchain->Draw("Erecon_ee", basicCut);
@@ -59,10 +59,10 @@ bgfgGraphs()
   c2->Divide(2,1);
   c2->cd(1);
 
-  TH1D *hbgEreconFid = new TH1D("BGEreconFid", "BG Erecon_ee + Fiducial Cut", 400, 0, 4000);
+  TH1D *hbgEreconFid = new TH1D("BGEreconFid", "BG Erecon_ee + Fiducial Cut", 160, 0, 4000);
   hbgEreconFid->GetXaxis()->SetTitle("Erecon_ee (KeV)");
 
-  TH1D *hfgEreconFid = new TH1D("FGEreconFid", "FG Erecon_ee + Fiducial Cut", 400, 0, 4000);
+  TH1D *hfgEreconFid = new TH1D("FGEreconFid", "FG Erecon_ee + Fiducial Cut", 160, 0, 4000);
   hfgEreconFid->GetXaxis()->SetTitle("Erecon_ee (KeV)");
 
   bgchain->Draw("Erecon_ee", basicCut && radialCutE && radialCutW);
@@ -77,10 +77,10 @@ bgfgGraphs()
   c3->Divide(2,1);
   c3->cd(1);
 
-  TH1D *hbgErecon_200chan = new TH1D("bgErecon_200chan", "BG Erecon_ee 200 channel window", 400, 0, 4000);
+  TH1D *hbgErecon_200chan = new TH1D("bgErecon_200chan", "BG Erecon_ee 200 channel window", 160, 0, 4000);
   hbgErecon_200chan->GetXaxis()->SetTitle("Erecon_ee (KeV)");
 
-  TH1D *hfgErecon_200chan = new TH1D("fgErecon_200chan", "FG Erecon_ee 200 channel window", 400, 0, 4000);
+  TH1D *hfgErecon_200chan = new TH1D("fgErecon_200chan", "FG Erecon_ee 200 channel window", 160, 0, 4000);
   hfgErecon_200chan->GetXaxis()->SetTitle("Erecon_ee (KeV)");
 
   bgchain->Draw("Erecon_ee >> bgErecon_200chan", basicCut && radialCutE && radialCutW && oneSTPeak_200channels);
@@ -94,12 +94,17 @@ bgfgGraphs()
   TCanvas *c4 = new TCanvas("c4", "c4");
   c4->Divide(3,1);
 
-  TH1D *hbgSpectra = new TH1D("bgfull", "BG full Erecon_ee spectra with all cuts, 200 chan", 100, 0, 1000);
+//  EBinErrorOpt* e1 = new EBinErrorOpt();
+//  e1 = 1;
+
+  TH1D *hbgSpectra = new TH1D("bgfull", "BG full Erecon_ee spectra with all cuts, 200 chan", 40, 0, 1000);
+  hbgSpectra->SetBinErrorOption((EBinErrorOpt*)2);
   hbgSpectra->Sumw2();
   hbgSpectra->GetXaxis()->SetTitle("Erecon_ee (KeV)");
 
-  TH1D *hfgSpectra = new TH1D("fgfull", "FG full Erecon_ee spectra with all cuts, 200 chan", 100, 0, 1000);
+  TH1D *hfgSpectra = new TH1D("fgfull", "FG full Erecon_ee spectra with all cuts, 200 chan", 40, 0, 1000);
   hfgSpectra->Sumw2();
+  hfgSpectra->SetBinErrorOption(1);
   hfgSpectra->GetXaxis()->SetTitle("Erecon_ee (KeV)");
 
   c4->cd(1);
@@ -109,13 +114,22 @@ bgfgGraphs()
   fgchain->Draw("Erecon_ee >> fgfull", basicCut && radialCutE && radialCutW && oneSTPeak_200channels && Erecon_ee_range);
 
 
-  TH1D *h200chan_full = new TH1D("200chanfull", "BG subtracted Erecon_ee, 200 channel window", 100, 0, 1000);
+  TH1D *h200chan_full = new TH1D("200chanfull", "BG subtracted Erecon_ee, 200 channel window", 40, 0, 1000);
   h200chan_full->Sumw2();
+  h200chan_full->SetBinErrorOption(1);
   h200chan_full->Add(hfgSpectra, hbgSpectra, 1, -5.07);	// 5.07 comes from 860262/169717 live time ratio
+
+  for(int i = 0; i < hfgSpectra->GetNbinsX(); i++)
+  {
+    cout << "Bin " << i << " has value " << hbgSpectra->GetBinContent(i) << " and error " << hbgSpectra->GetBinError(i) << endl;
+//    cout << hfgSpectra->GetBinCenter(i) << "\t" << hbgSpectra->GetBinContent(i) << "\t" << hfgSpectra->GetBinContent(i) << "\t" << h200chan_full->GetBinContent(i) << "\n";
+  }
 
   c4->cd(3);
   h200chan_full->Draw();
 
   c4->Print("4_BGsubtracted_200chanWindow.pdf");
+
+  cout << "End of program." << endl;
 
 }
