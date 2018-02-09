@@ -16,7 +16,7 @@ struct Event
 double east_channelToTime = 140.0 / 2850.0;
 double west_channelToTime = 140.0 / 3050.0;
 
-allgraphs()
+allOctetGraphs()
 {
   cout << "Chaining together all our TFiles... ";
 
