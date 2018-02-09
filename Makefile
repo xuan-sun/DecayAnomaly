@@ -19,8 +19,8 @@ LIBS          = $(ROOTLIBS) $(ROOTGLIBS)
 CXXFLAGS     += $(ROOTCFLAGS)
 LIBS         += -lSpectrum -lMinuit
 
-OBJECTS = getRunNumbers.o
-SOURCE = getRunNumbers
+OBJECTS = timeCalibPlugIn.o
+SOURCE = timeCalibPlugIn
 
 .PHONY: all
 all: $(SOURCE)
