@@ -76,10 +76,10 @@ struct Event
   double Erecon;
   double Erecon_ee;
   int badTimeFlag;
-  double xE_center;
-  double yE_center;
-  double xW_center;
-  double yW_center;
+//  double xE_center;
+//  double yE_center;
+//  double xW_center;
+//  double yW_center;
 };
 
 vector <int> runIndices;
@@ -92,7 +92,7 @@ void FillGlobalVectorsFromFile(TString fileName);
 TTree* AddBranchToClonedTree(int runNumber, int lineIndex);
 
 // Used for visualization, keeps the graph on screen.
-TApplication plot_program("FADC_readin",0,0,0,0);
+//TApplication plot_program("FADC_readin",0,0,0,0);
 
 //-------------------------------------------------//
 //------------ Start of Program -------------------//
@@ -103,8 +103,8 @@ int main(int argc, char* argv[])
   // creating canvas for plotting
   TCanvas *C = new TCanvas("canvas", "canvas", 800, 400);
 
-  FillGlobalVectorsFromFile("Foreground_TDC_STPeak_runbyrun.txt");
-  FillGlobalVectorsFromFile("Background_TDC_STPeak_runbyrun.txt");
+  FillGlobalVectorsFromFile("Foreground_TDC_STPeak_runbyrun_test.txt");
+  FillGlobalVectorsFromFile("Background_TDC_STPeak_runbyrun_test.txt");
 
   for(unsigned int i = 0; i < runIndices.size(); i++)
   {
@@ -125,44 +125,8 @@ int main(int argc, char* argv[])
   }
 
 
-//  vector < TTree* > contents = CreateOctetTrees(runFiles);
-
-
-  // create a TList so we can merge all 16 run files in 1 octet
-/*  TList *allTreesList = new TList();
-  for(unsigned int i = 0; i < contents.size(); i++)
-  {
-    allTreesList->Add(contents[i]);
-    if(contents[i] == NULL)
-    {
-      cout << "contents[" << i << "] is NULL" << endl;
-    }
-
-    TFile f(TString::Format("Octet_%i_type1_runIndex_%i.root", octNb, i), "RECREATE");
-    contents[i]->Write();
-    f.Close();
-
-
-
-  }
-
-  cout << "Finished saving TFiles for every run... " << endl;
-
-  cout << "Loading and merging all the TFiles into one TChain... " << endl;
-
-  TChain* allRunsChainsInOctet = new TChain("pass3");
-  for(unsigned int i = 0; i < contents.size(); i++)
-  {
-    allRunsChainsInOctet->Add(TString::Format("Octet_%i_type1_runIndex_%i.root", octNb, i));
-  }
-  allRunsChainsInOctet->Merge(TString::Format("Octet_%i_type1.root", octNb));
-
-*/
-
-
-//  f.Close();
   cout << "-------------- End of Program ---------------" << endl;
-  plot_program.Run();
+//  plot_program.Run();
 
   return 0;
 }
@@ -248,11 +212,11 @@ TTree* AddBranchToClonedTree(int runNumber, int lineIndex)
   chain->SetBranchAddress("Erecon", &evt->Erecon);
   chain->SetBranchAddress("Erecon_ee", &evt->Erecon_ee);
   chain->SetBranchAddress("badTimeFlag", &evt->badTimeFlag);
-  chain->GetBranch("xE")->GetLeaf("center")->SetAddress(&evt->xE_center);
+/*  chain->GetBranch("xE")->GetLeaf("center")->SetAddress(&evt->xE_center);
   chain->GetBranch("yE")->GetLeaf("center")->SetAddress(&evt->yE_center);
   chain->GetBranch("xW")->GetLeaf("center")->SetAddress(&evt->xW_center);
   chain->GetBranch("yW")->GetLeaf("center")->SetAddress(&evt->yW_center);
-
+*/
   TBranch *bTimeE = calibratedSubTree->Branch("newTimeE", &newTimeE, "newTimeE/D");
   TBranch *bTimeW = calibratedSubTree->Branch("newTimeW", &newTimeW, "newTimeW/D");
 
