@@ -108,7 +108,7 @@ int main(int argc, char* argv[])
 
   for(unsigned int i = 0; i < runIndices.size(); i++)
   {
-    TFile f(Form("test_%i.root", i), "RECREATE");
+    TFile f(Form("newTimeCalib_replay_pass3_%i_type1.root", runIndices[i]), "RECREATE");
     cout << "runIndices[" << i << "] = " << runIndices[i] << endl;
     TTree *t = AddBranchToClonedTree(runIndices[i], i);
     cout << "Writing to file now.." << endl;
