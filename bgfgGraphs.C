@@ -74,8 +74,10 @@ bgfgGraphs()
   TChain *bgchain = new TChain("pass3");
   TChain *fgchain = new TChain("pass3");
 
-  bgchain->Add("TimeCalibrated_BGRuns_type1.root");
-  fgchain->Add("TimeCalibrated_FGRuns_type1.root");
+  bgchain->Add("TimeCalibrated_BGRuns_type1_v2.root");
+  fgchain->Add("TimeCalibrated_FGRuns_type1_v2.root");
+//  bgchain->Add("Type1_runs_BG_FG/newTimeCalib_replay_pass3_21719_type1.root");
+//  fgchain->Add("Type1_runs_BG_FG/newTimeCalib_replay_pass3_21720_type1.root");
 
 
   // define all the cuts we will use later.
@@ -90,7 +92,7 @@ bgfgGraphs()
   TCut radialCutE = "((xE.center)*(xE.center) + (yE.center)*(yE.center) < 49*49)";
   TCut radialCutW = "((xW.center)*(xW.center) + (yW.center)*(yW.center) < 49*49)";
   TCut fiducialCut = "(((xE.center)*(xE.center) + (yE.center)*(yE.center) < 49*49) && ((xW.center)*(xW.center) + (yW.center)*(yW.center) < 49*49))";
-  TCut tennsTimeCut = "((newTimeW < 4 && newTimeE > 4 && newTimeE < 14) || (newTimeE < 4 && newTimeW > 4 && newTimeW < 14))";
+  TCut calibTimeCut = "((newTimeW < 5 && newTimeE > 5 && newTimeE < 20) || (newTimeE < 5 && newTimeW > 5 && newTimeW < 20))";
 
   // first canvas for plots
   TCanvas *c1 = new TCanvas("c1", "c1");
@@ -133,16 +135,16 @@ bgfgGraphs()
   c3->Divide(2,1);
   c3->cd(1);
 
-  TH1D *hbgErecon_timeWin = new TH1D("bgErecon_timeWin", "BG Erecon_ee 10ns window", 160, 0, 4000);
+  TH1D *hbgErecon_timeWin = new TH1D("bgErecon_timeWin", "BG Erecon_ee 300chan window", 160, 0, 4000);
   hbgErecon_timeWin->GetXaxis()->SetTitle("Erecon_ee (KeV)");
 
-  TH1D *hfgErecon_timeWin = new TH1D("fgErecon_timeWin", "FG Erecon_ee 10ns window", 160, 0, 4000);
+  TH1D *hfgErecon_timeWin = new TH1D("fgErecon_timeWin", "FG Erecon_ee 300chan window", 160, 0, 4000);
   hfgErecon_timeWin->GetXaxis()->SetTitle("Erecon_ee (KeV)");
 
-  bgchain->Draw("Erecon_ee >> bgErecon_timeWin", basicCut && fiducialCut && oneSTPeak_200channels);
+  bgchain->Draw("Erecon_ee >> bgErecon_timeWin", basicCut && fiducialCut && oneSTPeak_300channels /*calibTimeCut*/);
 
   c3->cd(2);
-  fgchain->Draw("Erecon_ee >> fgErecon_timeWin", basicCut && fiducialCut && oneSTPeak_200channels);
+  fgchain->Draw("Erecon_ee >> fgErecon_timeWin", basicCut && fiducialCut && oneSTPeak_300channels /*calibTimeCut*/);
 
   c3->Print("3_Erecon_timeWindow.pdf");
 
@@ -150,19 +152,19 @@ bgfgGraphs()
   TCanvas *c4 = new TCanvas("c4", "c4");
   c4->Divide(3,1);
 
-  TH1D *hbgSpectra = new TH1D("bgfull", "BG full Erecon_ee spectra with all cuts, 10ns", 40, 0, 1000);
+  TH1D *hbgSpectra = new TH1D("bgfull", "BG full Erecon_ee spectra with all cuts, 300chan", 40, 0, 1000);
   hbgSpectra->Sumw2();
   hbgSpectra->GetXaxis()->SetTitle("Erecon_ee (KeV)");
 
-  TH1D *hfgSpectra = new TH1D("fgfull", "FG full Erecon_ee spectra with all cuts, 10ns", 40, 0, 1000);
+  TH1D *hfgSpectra = new TH1D("fgfull", "FG full Erecon_ee spectra with all cuts, 300chan", 40, 0, 1000);
   hfgSpectra->Sumw2();
   hfgSpectra->GetXaxis()->SetTitle("Erecon_ee (KeV)");
 
   c4->cd(1);
-  bgchain->Draw("Erecon_ee >> bgfull", basicCut && fiducialCut && oneSTPeak_200channels && Erecon_ee_range);
+  bgchain->Draw("Erecon_ee >> bgfull", basicCut && fiducialCut && oneSTPeak_300channels /*calibTimeCut*/ && Erecon_ee_range);
 
   c4->cd(2);
-  fgchain->Draw("Erecon_ee >> fgfull", basicCut && fiducialCut && oneSTPeak_200channels && Erecon_ee_range);
+  fgchain->Draw("Erecon_ee >> fgfull", basicCut && fiducialCut && oneSTPeak_300channels /*calibTimeCut*? && Erecon_ee_range);
 
   // setting Poisson error bars for the BG and FG histograms
   cout << "Setting Poisson error bars..." << endl;
