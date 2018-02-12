@@ -1,19 +1,14 @@
 #define	path	"/mnt/Data/xuansun/newReplayData_ee"
-#define	fileName	"Background_run_numbers_octets_80-120.txt"
+#define	fileName	"Foreground_run_numbers_octets_80-120.txt"
 
-void runbyrun_TDC_peaks()
+void Simons_runbyrun_TDC_peaks()
 {
+
   // define all the cuts we will use later.
-  TCut basicCut = "(PID == 1 && badTimeFlag == 0 && Type == 1)";
-  TCut Erecon_ee_range = "(Erecon_ee > 0 && Erecon_ee < 640)";
-  // assuming TDCE self-timing peak at 2850 channels, TDCW at 3050
-  TCut oneSTPeak_100channels = "((TDCE > 2850 && TDCW > 2950 && TDCW < 3050) || (TDCW > 3050 && TDCE > 2750 && TDCE < 2850))";
-  TCut oneSTPeak_200channels = "((TDCE > 2850 && TDCW > 2850 && TDCW < 3050) || (TDCW > 3050 && TDCE > 2650 && TDCE < 2850))";
-  TCut oneSTPeak_300channels = "((TDCE > 2850 && TDCW > 2750 && TDCW < 3050) || (TDCW > 3050 && TDCE > 2550 && TDCE < 2850))";
-  TCut oneSTPeak_400channels = "((TDCE > 2850 && TDCW > 2650 && TDCW < 3050) || (TDCW > 3050 && TDCE > 2450 && TDCW < 2850))";
-  TCut oneSTPeak_500channels = "((TDCE > 2850 && TDCW > 2550 && TDCW < 3050) || (TDCW > 3050 && TDCE > 2350 && TDCW < 2850))";
-  TCut radialCutE = "((xE.center)*(xE.center) + (yE.center)*(yE.center) < 49*49)";
-  TCut radialCutW = "((xW.center)*(xW.center) + (yW.center)*(yW.center) < 49*49)";
+  TCut basicCut = "(PID == 1 && badTimeFlag == 0)";
+  TCut fiducialCut = "(((xE.center)*(xE.center) + (yE.center)*(yE.center) < 49*49) && ((xW.center)*(xW.center) + (yW.center)*(yW.center) < 49*49))";
+  TCut typeCut = "Type == 1";
+
 
   double EmaxBin = -1;
   double EsigmaLoBin = -1;
@@ -25,7 +20,7 @@ void runbyrun_TDC_peaks()
   double WsigmaAvg = -1;
 
   ofstream outfile;
-  outfile.open("TDC_STPeak_runbyrun.txt");
+  outfile.open("Foreground_TDC_STPeak_runbyrun_v2.txt");
 
 
   // first read in and save the right events to file
@@ -55,8 +50,8 @@ void runbyrun_TDC_peaks()
       TH1D *hTDCW = new TH1D("hTDCW", "hTDCW", 5000, 0, 5000);
 
 
-      chain->Draw("TDCE >> hTDCE", basicCut && radialCutE && radialCutW);
-      chain->Draw("TDCW >> hTDCW", basicCut && radialCutE && radialCutW);
+      chain->Draw("TDCE >> hTDCE", basicCut && fiducialCut && typeCut);
+      chain->Draw("TDCW >> hTDCW", basicCut && fiducialCut && typeCut);
 
       EmaxBin = hTDCE->GetBinLowEdge(hTDCE->GetMaximumBin());
       EsigmaLoBin = hTDCE->GetBinLowEdge(hTDCE->FindFirstBinAbove(0.6*hTDCE->GetBinContent(hTDCE->GetMaximumBin())));
@@ -78,7 +73,7 @@ void runbyrun_TDC_peaks()
 	      << WsigmaHiBin << "\t"
 	      << WsigmaAvg << "\n";
 
-      cout << "Finshed saving run index " << runIndex << " to file." << endl;
+      cout << "Finished saving run index " << runIndex << " to file." << endl;
 
       delete chain;
       delete hTDCE;

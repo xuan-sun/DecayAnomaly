@@ -103,8 +103,8 @@ int main(int argc, char* argv[])
   // creating canvas for plotting
   TCanvas *C = new TCanvas("canvas", "canvas", 800, 400);
 
-  FillGlobalVectorsFromFile("Foreground_TDC_STPeak_runbyrun.txt");
-  FillGlobalVectorsFromFile("Background_TDC_STPeak_runbyrun.txt");
+  FillGlobalVectorsFromFile("Foreground_TDC_STPeak_runbyrun_v2.txt");
+  FillGlobalVectorsFromFile("Background_TDC_STPeak_runbyrun_v2.txt");
 
   for(unsigned int i = 0; i < runIndices.size(); i++)
   {
