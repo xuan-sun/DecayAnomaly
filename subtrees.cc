@@ -142,11 +142,9 @@ int main(int argc, char* argv[])
 
   cout << "Now writing to file... " << endl;
 
-  // create a TList so we can merge all 16 run files in 1 octet
   TList *allTreesList = new TList();
   for(unsigned int i = 0; i < contents.size(); i++)
   {
-    allTreesList->Add(contents[i]);
     if(contents[i] == NULL)
     {
       cout << "contents[" << i << "] is NULL" << endl;
