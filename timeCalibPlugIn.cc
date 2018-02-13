@@ -221,10 +221,10 @@ TTree* AddBranchToClonedTree(int runNumber, int lineIndex)
   chain->SetBranchAddress("Erecon_ee", &evt->Erecon_ee);
   chain->SetBranchAddress("badTimeFlag", &evt->badTimeFlag);
 
-  TBranch *bTimeScaleE = calibratedSubTree->Branch("newTimeScaledE", &newTimeScaledE, "newTimeScaledE/D");
-  TBranch *bTimeScaleW = calibratedSubTree->Branch("newTimeScaledW", &newTimeScaledW, "newTimeScaledW/D");
-  TBranch *bTimeShiftE = calibratedSubTree->Branch("newTimeShiftedE", &newTimeShiftedE, "newTimeShiftedE/D");
-  TBranch *bTimeShiftW = calibratedSubTree->Branch("newTimeShiftedW", &newTimeShiftedW, "newTimeShiftedW/D");
+  TBranch *bTimeScaledE = calibratedSubTree->Branch("newTimeScaledE", &newTimeScaledE, "newTimeScaledE/D");
+  TBranch *bTimeScaledW = calibratedSubTree->Branch("newTimeScaledW", &newTimeScaledW, "newTimeScaledW/D");
+  TBranch *bTimeShiftedE = calibratedSubTree->Branch("newTimeShiftedE", &newTimeShiftedE, "newTimeShiftedE/D");
+  TBranch *bTimeShiftedW = calibratedSubTree->Branch("newTimeShiftedW", &newTimeShiftedW, "newTimeShiftedW/D");
 
   for(unsigned int i = 0; i < chain->GetEntries(); i++)
   {
@@ -233,13 +233,15 @@ TTree* AddBranchToClonedTree(int runNumber, int lineIndex)
     {
       newTimeScaledE = 140 - (evt->TDCE * 140.0 / eSTP[lineIndex]);
       newTimeScaledW = 140 - (evt->TDCW * 140.0 / wSTP[lineIndex]);
-      bTimeScaledE->Fill();
-      bTimeScaledW->Fill();
 
-      newTimeShiftedE = (fgE_center - (evt->TDCE - fgE_center)) * (140.0 / fgE_center);
-      newTimeShiftedW = (fgW_center - (evt->TDCW - fgW_center)) * (140.0 / fgW_center);
-      bTimeShiftedE->Fill();
-      bTimeShiftedW->Fill();
+      // ROOT has a bug. If you fill branch and the tree later, it will cause problems. Fill only the tree.
+//      bTimeScaledE->Fill();
+//      bTimeScaledW->Fill();
+
+      newTimeShiftedE = 140 - (evt->TDCE - (eSTP[lineIndex] - fgE_center)) * (140.0 / fgE_center);
+      newTimeShiftedW = 140 - (evt->TDCW - (wSTP[lineIndex] - fgW_center)) * (140.0 / fgW_center);
+//      bTimeShiftedE->Fill();
+//      bTimeShiftedW->Fill();
 
       calibratedSubTree->Fill();
     }
