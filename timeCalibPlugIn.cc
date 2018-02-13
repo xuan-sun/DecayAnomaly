@@ -172,11 +172,19 @@ void FillGlobalVectorsFromFile(TString fileName)
 //vector <TTree*> CreateOctetTrees(vector <TChain*> runsChains)
 TTree* AddBranchToClonedTree(int runNumber, int lineIndex)
 {
+  // here are the channels of the STPs. We only use foreground.
+  double bgE_center = 2914;
+  double bgW_center = 3137;
+  double fgE_center = 2917;
+  double fgW_center = 3138;
+
   TChain *chain = new TChain("pass3");
   chain->Add(Form("%s/replay_pass3_%i.root", PATH, runNumber));
 
-  double newTimeE = -1;
-  double newTimeW = -1;
+  double newTimeScaledE = -1;
+  double newTimeScaledW = -1;
+  double newTimeShiftedE = -1;
+  double newTimeShiftedW = -1;
 
   Event* evt = new Event;
   TTree* calibratedSubTree = chain->CloneTree(0);
@@ -212,25 +220,27 @@ TTree* AddBranchToClonedTree(int runNumber, int lineIndex)
   chain->SetBranchAddress("Erecon", &evt->Erecon);
   chain->SetBranchAddress("Erecon_ee", &evt->Erecon_ee);
   chain->SetBranchAddress("badTimeFlag", &evt->badTimeFlag);
-/*  chain->GetBranch("xE")->GetLeaf("center")->SetAddress(&evt->xE_center);
-  chain->GetBranch("yE")->GetLeaf("center")->SetAddress(&evt->yE_center);
-  chain->GetBranch("xW")->GetLeaf("center")->SetAddress(&evt->xW_center);
-  chain->GetBranch("yW")->GetLeaf("center")->SetAddress(&evt->yW_center);
-*/
-  TBranch *bTimeE = calibratedSubTree->Branch("newTimeE", &newTimeE, "newTimeE/D");
-  TBranch *bTimeW = calibratedSubTree->Branch("newTimeW", &newTimeW, "newTimeW/D");
 
+  TBranch *bTimeScaleE = calibratedSubTree->Branch("newTimeScaledE", &newTimeScaledE, "newTimeScaledE/D");
+  TBranch *bTimeScaleW = calibratedSubTree->Branch("newTimeScaledW", &newTimeScaledW, "newTimeScaledW/D");
+  TBranch *bTimeShiftE = calibratedSubTree->Branch("newTimeShiftedE", &newTimeShiftedE, "newTimeShiftedE/D");
+  TBranch *bTimeShiftW = calibratedSubTree->Branch("newTimeShiftedW", &newTimeShiftedW, "newTimeShiftedW/D");
 
   for(unsigned int i = 0; i < chain->GetEntries(); i++)
   {
     chain->GetEntry(i);
     if(evt->Type == 1)
     {
-      newTimeE = 140 - (evt->TDCE * 140.0 / eSTP[lineIndex]);
-      newTimeW = 140 - (evt->TDCW * 140.0 / wSTP[lineIndex]);
+      newTimeScaledE = 140 - (evt->TDCE * 140.0 / eSTP[lineIndex]);
+      newTimeScaledW = 140 - (evt->TDCW * 140.0 / wSTP[lineIndex]);
+      bTimeScaledE->Fill();
+      bTimeScaledW->Fill();
 
-      bTimeE->Fill();
-      bTimeW->Fill();
+      newTimeShiftedE = (fgE_center - (evt->TDCE - fgE_center)) * (140.0 / fgE_center);
+      newTimeShiftedW = (fgW_center - (evt->TDCW - fgW_center)) * (140.0 / fgW_center);
+      bTimeShiftedE->Fill();
+      bTimeShiftedW->Fill();
+
       calibratedSubTree->Fill();
     }
 
