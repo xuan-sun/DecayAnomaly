@@ -76,95 +76,55 @@ bgfgGraphs()
 
   bgchain->Add("TimeCalibrated_BGRuns_type1_fixed.root");
   fgchain->Add("TimeCalibrated_FGRuns_type1_fixed.root");
-//  bgchain->Add("Type1_runs_BG_FG/newTimeCalib_replay_pass3_21719_type1.root");
-//  fgchain->Add("Type1_runs_BG_FG/newTimeCalib_replay_pass3_21720_type1.root");
-
 
   // define all the cuts we will use later.
   TCut basicCut = "(PID == 1 && badTimeFlag == 0)";
   TCut Erecon_ee_range = "(Erecon_ee > 0 && Erecon_ee < 640)";
   // assuming TDCE self-timing peak at 2850 channels, TDCW at 3050
-  TCut oneSTPeak_100channels = "((TDCE > 2850 && TDCW > 2950 && TDCW < 3050) || (TDCW > 3050 && TDCE > 2750 && TDCE < 2850))";
+/*  TCut oneSTPeak_100channels = "((TDCE > 2850 && TDCW > 2950 && TDCW < 3050) || (TDCW > 3050 && TDCE > 2750 && TDCE < 2850))";
   TCut oneSTPeak_200channels = "((TDCE > 2850 && TDCW > 2850 && TDCW < 3050) || (TDCW > 3050 && TDCE > 2650 && TDCE < 2850))";
   TCut oneSTPeak_300channels = "((TDCE > 2850 && TDCW > 2750 && TDCW < 3050) || (TDCW > 3050 && TDCE > 2550 && TDCE < 2850))";
   TCut oneSTPeak_400channels = "((TDCE > 2850 && TDCW > 2650 && TDCW < 3050) || (TDCW > 3050 && TDCE > 2450 && TDCW < 2850))";
   TCut oneSTPeak_500channels = "((TDCE > 2850 && TDCW > 2550 && TDCW < 3050) || (TDCW > 3050 && TDCE > 2350 && TDCW < 2850))";
-//  TCut radialCutE = "((xE.center)*(xE.center) + (yE.center)*(yE.center) < 49*49)";
-//  TCut radialCutW = "((xW.center)*(xW.center) + (yW.center)*(yW.center) < 49*49)";
-  TCut fiducialCut = "(((xE.center)*(xE.center) + (yE.center)*(yE.center) < 49*49) && ((xW.center)*(xW.center) + (yW.center)*(yW.center) < 49*49))";
-  TCut calibTimeCut = "((newTimeScaledW < 2 && newTimeScaledE > 2 && newTimeScaledE < 12) || (newTimeScaledE < 2 && newTimeScaledW > 2 && newTimeScaledW < 12))";
+*/  TCut fiducialCut = "(((xE.center)*(xE.center) + (yE.center)*(yE.center) < 49*49) && ((xW.center)*(xW.center) + (yW.center)*(yW.center) < 49*49))";
+  TCut scaledTimeCut = "((newTimeScaledW < 4 && newTimeScaledE > 4 && newTimeScaledE < 22) || (newTimeScaledE < 4 && newTimeScaledW > 4 && newTimeScaledW < 22)) && newTimeScaledW > -2 && newTimeScaledE > -2";
+  TCut shiftedTimeCut = "((newTimeShiftedW < 4 && newTimeShiftedE > 4 && newTimeShiftedE < 22) || (newTimeShiftedE < 4 && newTimeShiftedW > 4 && newTimeShiftedW < 22)) && newTimeShiftedW > -2 && newTimeShiftedE > -2";
+  TCut tdcTimeCut = "((TDCE > 2850 && TDCW > 2715 && TDCW < 3050) || (TDCW > 3050 && TDCE > 2515 && TDCE < 2850))";
 
-  // first canvas for plots
-  TCanvas *c1 = new TCanvas("c1", "c1");
-  c1->Divide(2,1);
-  c1->cd(1);
-
-  TH1D* hbgErecon = new TH1D("BGErecon", "BG Erecon_ee", 160, 0, 4000);
-  hbgErecon->GetXaxis()->SetTitle("Erecon_ee (KeV)");
-
-  TH1D* hfgErecon = new TH1D("FGErecon", "FG Erecon_ee", 160, 0, 4000);
-  hfgErecon->GetXaxis()->SetTitle("Erecon_ee (KeV)");
-
-  bgchain->Draw("Erecon_ee", basicCut);
-
-  c1->cd(2);
-  fgchain->Draw("Erecon_ee", basicCut);
-
-  c1->Print("1_Erecon_basicCut.pdf");
-
-  // second canvas for plots
-  TCanvas *c2 = new TCanvas("c2", "c2");
-  c2->Divide(2,1);
-  c2->cd(1);
-
-  TH1D *hbgEreconFid = new TH1D("BGEreconFid", "BG Erecon_ee + Fiducial Cut", 160, 0, 4000);
-  hbgEreconFid->GetXaxis()->SetTitle("Erecon_ee (KeV)");
-
-  TH1D *hfgEreconFid = new TH1D("FGEreconFid", "FG Erecon_ee + Fiducial Cut", 160, 0, 4000);
-  hfgEreconFid->GetXaxis()->SetTitle("Erecon_ee (KeV)");
-
-  bgchain->Draw("Erecon_ee", basicCut && fiducialCut);
-
-  c2->cd(2);
-  fgchain->Draw("Erecon_ee", basicCut && fiducialCut);
-
-  c2->Print("2_Erecon_basic+radialCut.pdf");
-
-  // third canvas for plots
   TCanvas *c3 = new TCanvas("c3", "c3");
   c3->Divide(2,1);
   c3->cd(1);
 
-  TH1D *hbgErecon_timeWin = new TH1D("bgErecon_timeWin", "BG Erecon_ee 10ns window", 160, 0, 4000);
+  TH1D *hbgErecon_timeWin = new TH1D("bgErecon_timeWin", "BG Erecon_ee scaled time 18ns, 4ns low edge", 160, 0, 4000);
   hbgErecon_timeWin->GetXaxis()->SetTitle("Erecon_ee (KeV)");
 
-  TH1D *hfgErecon_timeWin = new TH1D("fgErecon_timeWin", "FG Erecon_ee 10ns window", 160, 0, 4000);
+  TH1D *hfgErecon_timeWin = new TH1D("fgErecon_timeWin", "FG Erecon_ee scaled time 18ns, 4ns low edge", 160, 0, 4000);
   hfgErecon_timeWin->GetXaxis()->SetTitle("Erecon_ee (KeV)");
 
-  bgchain->Draw("Erecon_ee >> bgErecon_timeWin", basicCut && fiducialCut && /*oneSTPeak_300channels*/ calibTimeCut);
+  bgchain->Draw("Erecon_ee >> bgErecon_timeWin", basicCut && fiducialCut && scaledTimeCut);
 
   c3->cd(2);
-  fgchain->Draw("Erecon_ee >> fgErecon_timeWin", basicCut && fiducialCut && /*oneSTPeak_300channels*/ calibTimeCut);
+  fgchain->Draw("Erecon_ee >> fgErecon_timeWin", basicCut && fiducialCut && scaledTimeCut);
 
-  c3->Print("3_Erecon_timeWindow.pdf");
+  c3->Print("1_Erecon_timingWindow.pdf");
 
   // fourth canvas for plots
   TCanvas *c4 = new TCanvas("c4", "c4");
   c4->Divide(3,1);
 
-  TH1D *hbgSpectra = new TH1D("bgfull", "BG full Erecon_ee spectra with all cuts, 10ns", 40, 0, 1000);
+  TH1D *hbgSpectra = new TH1D("bgfull", "BG full Erecon_ee spectra with all cuts, scaled time 18ns, 4ns low edge", 40, 0, 1000);
   hbgSpectra->Sumw2();
   hbgSpectra->GetXaxis()->SetTitle("Erecon_ee (KeV)");
 
-  TH1D *hfgSpectra = new TH1D("fgfull", "FG full Erecon_ee spectra with all cuts, 10ns", 40, 0, 1000);
+  TH1D *hfgSpectra = new TH1D("fgfull", "FG full Erecon_ee spectra with all cuts, scaled time 18ns, 4ns low edge", 40, 0, 1000);
   hfgSpectra->Sumw2();
   hfgSpectra->GetXaxis()->SetTitle("Erecon_ee (KeV)");
 
   c4->cd(1);
-  bgchain->Draw("Erecon_ee >> bgfull", basicCut && fiducialCut && /*oneSTPeak_300channels*/ calibTimeCut && Erecon_ee_range);
+  bgchain->Draw("Erecon_ee >> bgfull", basicCut && fiducialCut && scaledTimeCut && Erecon_ee_range);
 
   c4->cd(2);
-  fgchain->Draw("Erecon_ee >> fgfull", basicCut && fiducialCut && /*oneSTPeak_300channels*/ calibTimeCut && Erecon_ee_range);
+  fgchain->Draw("Erecon_ee >> fgfull", basicCut && fiducialCut && scaledTimeCut && Erecon_ee_range);
 
   // setting Poisson error bars for the BG and FG histograms
   cout << "Setting Poisson error bars..." << endl;
@@ -174,7 +134,7 @@ bgfgGraphs()
     hfgSpectra->SetBinError(i, SetPoissonErrors(hfgSpectra->GetBinContent(i)));
   }
 
-  TH1D *h_fullCuts = new TH1D("fullCuts", "BG subtracted Erecon_ee, 10ns window", 40, 0, 1000);
+  TH1D *h_fullCuts = new TH1D("fullCuts", "BG subtracted Erecon_ee", 40, 0, 1000);
   h_fullCuts->Sumw2();
   h_fullCuts->Add(hfgSpectra, hbgSpectra, 1, -5.07);	// 5.07 comes from 860262/169717 live time ratio
 
@@ -190,47 +150,46 @@ bgfgGraphs()
   c4->cd(3);
   h_fullCuts->Draw();
 
-  c4->Print("4_BGsubtracted_timeWindow.pdf");
+  c4->Print("2_BGsubtracted_timeWindow.pdf");
 
   // fifth canvas for time BG plots
-  TCanvas *c5 = new TCanvas("c5", "c5");
-  c5->Divide(3,1);
+/*  TCanvas *c5 = new TCanvas("c5", "c5");
+  c5->Divide(2,1);
 
-  TH1D *hnewTimeE_bg = new TH1D("htimeEbg", "BG newTimeE", 1600, -20, 140);
-  hnewTimeE_bg->GetXaxis()->SetTitle("Time of Flight (ns)");
-  TH1D *hnewTimeW_bg = new TH1D("htimeWbg", "BG newTimeW", 1600, -20, 140);
-  hnewTimeW_bg->GetXaxis()->SetTitle("Time of Flight (ns)");
+  TH1D *hnewTimeE_bg = new TH1D("htimeEbg", "BG TDCE", 4000, 0, 4000);
+  hnewTimeE_bg->GetXaxis()->SetTitle("Channel");
+  TH1D *hnewTimeW_bg = new TH1D("htimeWbg", "BG TDCW", 4000, 0, 4000);
+  hnewTimeW_bg->GetXaxis()->SetTitle("Channel");
 
   c5->cd(1);
-  bgchain->Draw("newTimeScaledE >> htimeEbg", basicCut && Erecon_ee_range && fiducialCut);
+  bgchain->Draw("TDCE >> htimeEbg", basicCut && Erecon_ee_range && fiducialCut);
   gPad->SetLogy();
 
   c5->cd(2);
-  bgchain->Draw("newTimeScaledW >> htimeWbg", basicCut && Erecon_ee_range && fiducialCut);
+  bgchain->Draw("TDCW >> htimeWbg", basicCut && Erecon_ee_range && fiducialCut);
   gPad->SetLogy();
 
-  c5->cd(3);
-  c5->Print("5_ScaledTimeBG_runbyrun.pdf");
+  c5->Print("3_ScaledTimeBG_runbyrun.pdf");
 
   // sixth canvas for time FG plots
   TCanvas *c6 = new TCanvas("c6", "c6");
-  c6->Divide(3,1);
+  c6->Divide(2,1);
 
-  TH1D *hnewTimeE_fg = new TH1D("htimeEfg", "FG newTimeE", 1600, -20, 140);
-  hnewTimeE_fg->GetXaxis()->SetTitle("Time of Flight (ns)");
-  TH1D *hnewTimeW_fg = new TH1D("htimeWfg", "FG newTimeW", 1600, -20, 140);
-  hnewTimeW_fg->GetXaxis()->SetTitle("Time of Flight (ns)");
+  TH1D *hnewTimeE_fg = new TH1D("htimeEfg", "FG TDCE", 4000, 0, 4000);
+  hnewTimeE_fg->GetXaxis()->SetTitle("Channel");
+  TH1D *hnewTimeW_fg = new TH1D("htimeWfg", "FG TDCW", 4000, 0, 4000);
+  hnewTimeW_fg->GetXaxis()->SetTitle("Channel");
 
   c6->cd(1);
-  fgchain->Draw("newTimeScaledE >> htimeEfg", basicCut && Erecon_ee_range && fiducialCut);
+  fgchain->Draw("TDCE >> htimeEfg", basicCut && Erecon_ee_range && fiducialCut);
   gPad->SetLogy();
 
   c6->cd(2);
-  fgchain->Draw("newTimeScaledW >> htimeWfg", basicCut && Erecon_ee_range && fiducialCut);
+  fgchain->Draw("TDCW >> htimeWfg", basicCut && Erecon_ee_range && fiducialCut);
   gPad->SetLogy();
 
-  c6->Print("6_ScaledTimeFG_runbyrun.pdf");
-
+  c6->Print("4_ScaledTimeFG_runbyrun.pdf");
+*/
 
   cout << "End of program." << endl;
 
