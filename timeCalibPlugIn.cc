@@ -177,6 +177,7 @@ TTree* AddBranchToClonedTree(int runNumber, int lineIndex)
   double bgW_center = 3137;
   double fgE_center = 2917;
   double fgW_center = 3138;
+  double fg_globalcenter = 3027;
 
   TChain *chain = new TChain("pass3");
   chain->Add(Form("%s/replay_pass3_%i.root", PATH, runNumber));
@@ -185,6 +186,8 @@ TTree* AddBranchToClonedTree(int runNumber, int lineIndex)
   double newTimeScaledW = -1;
   double newTimeShiftedE = -1;
   double newTimeShiftedW = -1;
+  double newTimeGlobalShiftE = -1;
+  double newTimeGlobalShiftW = -1;
 
   Event* evt = new Event;
   TTree* calibratedSubTree = chain->CloneTree(0);
@@ -225,23 +228,23 @@ TTree* AddBranchToClonedTree(int runNumber, int lineIndex)
   TBranch *bTimeScaledW = calibratedSubTree->Branch("newTimeScaledW", &newTimeScaledW, "newTimeScaledW/D");
   TBranch *bTimeShiftedE = calibratedSubTree->Branch("newTimeShiftedE", &newTimeShiftedE, "newTimeShiftedE/D");
   TBranch *bTimeShiftedW = calibratedSubTree->Branch("newTimeShiftedW", &newTimeShiftedW, "newTimeShiftedW/D");
+  TBranch *bTimeGlobalShiftE = calibratedSubTree->Branch("newTimeGlobalShiftE", &newTimeGlobalShiftE, "newTimeGlobalShiftE/D");
+  TBranch *bTimeGlobalShiftW = calibratedSubTree->Branch("newTimeGlobalShiftW", &newTimeGlobalShiftW, "newTimeGlobalShiftW/D");
+
 
   for(unsigned int i = 0; i < chain->GetEntries(); i++)
   {
     chain->GetEntry(i);
     if(evt->Type == 1)
     {
-      newTimeScaledE = 140 - (evt->TDCE * 140.0 / eSTP[lineIndex]);
-      newTimeScaledW = 140 - (evt->TDCW * 140.0 / wSTP[lineIndex]);
+      newTimeScaledE = 140.0 - (evt->TDCE * 140.0 / eSTP[lineIndex]);
+      newTimeScaledW = 140.0 - (evt->TDCW * 140.0 / wSTP[lineIndex]);
 
-      // ROOT has a bug. If you fill branch and the tree later, it will cause problems. Fill only the tree.
-//      bTimeScaledE->Fill();
-//      bTimeScaledW->Fill();
+      newTimeShiftedE = 140.0 - (evt->TDCE - (eSTP[lineIndex] - fgE_center)) * (140.0 / fgE_center);
+      newTimeShiftedW = 140.0 - (evt->TDCW - (wSTP[lineIndex] - fgW_center)) * (140.0 / fgW_center);
 
-      newTimeShiftedE = 140 - (evt->TDCE - (eSTP[lineIndex] - fgE_center)) * (140.0 / fgE_center);
-      newTimeShiftedW = 140 - (evt->TDCW - (wSTP[lineIndex] - fgW_center)) * (140.0 / fgW_center);
-//      bTimeShiftedE->Fill();
-//      bTimeShiftedW->Fill();
+      newTimeGlobalShiftE = 140.0 - (evt->TDCE - (eSTP[lineIndex] - fg_globalcenter)) * (140.0 / fg_globalcenter);
+      newTimeGlobalShiftW = 140.0 - (evt->TDCW - (wSTP[lineIndex] - fg_globalcenter)) * (140.0 / fg_globalcenter);
 
       calibratedSubTree->Fill();
     }

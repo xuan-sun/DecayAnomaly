@@ -52,13 +52,13 @@ runbyrun_chainmaker()
 {
   TChain *mainBGChain = MergeFileInChain("Background_run_numbers_octets_80-120.txt", 0);
   cout << "Merging all chains into one file..." << endl;
-  mainBGChain->Merge("TimeCalibrated_BGRuns_type1_fixed.root", "RECREATE");
+  mainBGChain->Merge("TimeCalibrated_BGRuns_type1_fixed_v2.root", "RECREATE");
   cout << "Done." << endl;
 
 
   TChain *mainFGChain = MergeFileInChain("Foreground_run_numbers_octets_80-120.txt", 1);
   cout << "Merging all chains into one file..." << endl;
-  mainFGChain->Merge("TimeCalibrated_FGRuns_type1_fixed.root", "RECREATE");
+  mainFGChain->Merge("TimeCalibrated_FGRuns_type1_fixed_v2.root", "RECREATE");
   cout << "Done." << endl;
 
 }
