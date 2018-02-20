@@ -71,8 +71,8 @@ double SetPoissonErrors(int counts)
 
 bgfgGraphs()
 {
-  double timeWindowUpperEdge = 14;
-  double timeWindowLowerEdge = 4;
+  double timeWindowUpperEdge = 16;
+  double timeWindowLowerEdge = 2.5;
 
   double modelTimeUpperEdge = 12;
 
@@ -97,31 +97,32 @@ bgfgGraphs()
   TCut shiftedTimeCut = Form("((newTimeShiftedW < 4 && newTimeShiftedE > 4 && newTimeShiftedE < %f) || (newTimeShiftedE < 4 && newTimeShiftedW > 4 && newTimeShiftedW < %f)) && newTimeShiftedW > -2 && newTimeShiftedE > -2", timeWindowUpperEdge, timeWindowUpperEdge);
   TCut tdcTimeCut = "((TDCE > 2850 && TDCW > 2850 && TDCW < 3050) || (TDCW > 3050 && TDCE > 2650 && TDCE < 2850))";
   TCut globalTimeCut = Form("((newTimeGlobalShiftW < 4 && newTimeGlobalShiftE > 4 && newTimeGlobalShiftE < %f) || (newTimeGlobalShiftE < 4 && newTimeGlobalShiftW > 4 && newTimeGlobalShiftW < %f)) && newTimeGlobalShiftW > -2 && newTimeGlobalShiftE > -2", timeWindowUpperEdge, timeWindowUpperEdge);
-
+  TCut timeECut = Form("newTimeGlobalShiftE < %f && newTimeGlobalShiftW > %f && newTimeGlobalShiftW < %f && newTimeGlobalShiftE > -2 && newTimeGlobalShiftW > -2", timeWindowLowerEdge, timeWindowLowerEdge, timeWindowUpperEdge);
+  TCut timeWCut = Form("newTimeGlobalShiftW < %f && newTimeGlobalShiftE > %f && newTimeGlobalShiftE < %f && newTimeGlobalShiftE > -2 && newTimeGlobalShiftW > -2", timeWindowLowerEdge, timeWindowLowerEdge, timeWindowUpperEdge);
 
   TCanvas *c1 = new TCanvas("c1", "c1");
-  c1->Divide(3,1);
+  c1->Divide(2,1);
   c1->cd(1);
 
-  TH1D *hbgErecon_timeWin = new TH1D("bgErecon_timeWin", Form("BG Erecon_ee global time %f ns, %f ns low edge", timeWindowUpperEdge - timeWindowLowerEdge, timeWindowLowerEdge), 40, 0, 1000);
+  TH1D *hbgErecon_timeWin = new TH1D("bgErecon_timeWin", Form("BG Erecon_ee global time %f ns, %f ns low edge", timeWindowUpperEdge - timeWindowLowerEdge, timeWindowLowerEdge), 160, 0, 4000);
   hbgErecon_timeWin->GetXaxis()->SetTitle("Erecon_ee (KeV)");
-  hbgErecon_timeWin->Sumw2();
+//  hbgErecon_timeWin->Sumw2();
 
-  TH1D *hfgErecon_timeWin = new TH1D("fgErecon_timeWin", Form("FG Erecon_ee global time %f ns, %f ns low edge", timeWindowUpperEdge - timeWindowLowerEdge, timeWindowLowerEdge), 40, 0, 1000);
+  TH1D *hfgErecon_timeWin = new TH1D("fgErecon_timeWin", Form("FG Erecon_ee global time %f ns, %f ns low edge", timeWindowUpperEdge - timeWindowLowerEdge, timeWindowLowerEdge), 160, 0, 4000);
   hfgErecon_timeWin->GetXaxis()->SetTitle("Erecon_ee (KeV)");
-  hfgErecon_timeWin->Sumw2();
+//  hfgErecon_timeWin->Sumw2();
 
-  bgchain->Draw("Erecon_ee >> bgErecon_timeWin", basicCut && fiducialCut && globalTimeCut);
+  bgchain->Draw("Erecon_ee >> bgErecon_timeWin", basicCut && fiducialCut && timeECut /*globalTimeCut*/);
 
   c1->cd(2);
-  fgchain->Draw("Erecon_ee >> fgErecon_timeWin", basicCut && fiducialCut && globalTimeCut);
+  fgchain->Draw("Erecon_ee >> fgErecon_timeWin", basicCut && fiducialCut && timeECut /*globalTimeCut*/);
 
+/*
   TH1D *hDivision = new TH1D("ratio", "ratio of BG to FG", 40, 0, 1000);
   hDivision->Divide(hfgErecon_timeWin, hbgErecon_timeWin, 1, 1);
   c1->cd(3);
-
   hDivision->Draw();
-
+*/
 
   c1->Print("1_Erecon_timingWindow.pdf");
 
@@ -138,10 +139,10 @@ bgfgGraphs()
   hfgSpectra->GetXaxis()->SetTitle("Erecon_ee (KeV)");
 
   c2->cd(1);
-  bgchain->Draw("Erecon_ee >> bgfull", basicCut && fiducialCut && globalTimeCut && energyCut);
+  bgchain->Draw("Erecon_ee >> bgfull", basicCut && fiducialCut && /*globalTimeCut*/ timeECut && energyCut);
 
   c2->cd(2);
-  fgchain->Draw("Erecon_ee >> fgfull", basicCut && fiducialCut && globalTimeCut && energyCut);
+  fgchain->Draw("Erecon_ee >> fgfull", basicCut && fiducialCut && /*globalTimeCut*/ timeECut && energyCut);
 
   // setting Poisson error bars for the BG and FG histograms
   cout << "Setting Poisson error bars..." << endl;
@@ -230,9 +231,9 @@ bgfgGraphs()
   TCanvas *c6 = new TCanvas("c6", "c6");
   c6->Divide(2,1);
 
-  TH1D *hGlobalTimeE = new TH1D("hGlobalTimeE", "Global Shifted Time E", 320, -20, 140);
+  TH1D *hGlobalTimeE = new TH1D("hGlobalTimeE", "Global Shifted Time E", 70, -10, 25);
   hGlobalTimeE->GetXaxis()->SetTitle("new time (ns)");
-  TH1D *hGlobalTimeW = new TH1D("hGlobalTimeW", "Global Shifted Time W", 320, -20, 140);
+  TH1D *hGlobalTimeW = new TH1D("hGlobalTimeW", "Global Shifted Time W", 70, -10, 25);
   hGlobalTimeW->GetXaxis()->SetTitle("new time (ns)");
 
   c6->cd(1);
