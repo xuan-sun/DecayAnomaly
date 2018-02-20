@@ -71,7 +71,7 @@ double SetPoissonErrors(int counts)
 
 bgfgGraphs()
 {
-  double timeWindowUpperEdge = 16;
+  double timeWindowUpperEdge = 14;
   double timeWindowLowerEdge = 4;
 
   double modelTimeUpperEdge = 12;
@@ -100,23 +100,32 @@ bgfgGraphs()
 
 
   TCanvas *c1 = new TCanvas("c1", "c1");
-  c1->Divide(2,1);
+  c1->Divide(3,1);
   c1->cd(1);
 
-  TH1D *hbgErecon_timeWin = new TH1D("bgErecon_timeWin", Form("BG Erecon_ee global time %f ns, %f ns low edge", timeWindowUpperEdge - timeWindowLowerEdge, timeWindowLowerEdge), 160, 0, 4000);
+  TH1D *hbgErecon_timeWin = new TH1D("bgErecon_timeWin", Form("BG Erecon_ee global time %f ns, %f ns low edge", timeWindowUpperEdge - timeWindowLowerEdge, timeWindowLowerEdge), 40, 0, 1000);
   hbgErecon_timeWin->GetXaxis()->SetTitle("Erecon_ee (KeV)");
+  hbgErecon_timeWin->Sumw2();
 
-  TH1D *hfgErecon_timeWin = new TH1D("fgErecon_timeWin", Form("FG Erecon_ee global time %f ns, %f ns low edge", timeWindowUpperEdge - timeWindowLowerEdge, timeWindowLowerEdge), 160, 0, 4000);
+  TH1D *hfgErecon_timeWin = new TH1D("fgErecon_timeWin", Form("FG Erecon_ee global time %f ns, %f ns low edge", timeWindowUpperEdge - timeWindowLowerEdge, timeWindowLowerEdge), 40, 0, 1000);
   hfgErecon_timeWin->GetXaxis()->SetTitle("Erecon_ee (KeV)");
+  hfgErecon_timeWin->Sumw2();
 
   bgchain->Draw("Erecon_ee >> bgErecon_timeWin", basicCut && fiducialCut && globalTimeCut);
 
   c1->cd(2);
   fgchain->Draw("Erecon_ee >> fgErecon_timeWin", basicCut && fiducialCut && globalTimeCut);
 
+  TH1D *hDivision = new TH1D("ratio", "ratio of BG to FG", 40, 0, 1000);
+  hDivision->Divide(hfgErecon_timeWin, hbgErecon_timeWin, 1, 1);
+  c1->cd(3);
+
+  hDivision->Draw();
+
+
   c1->Print("1_Erecon_timingWindow.pdf");
 
-  // fourth canvas for plots
+  // second canvas for plots
   TCanvas *c2 = new TCanvas("c2", "c2");
   c2->Divide(3,1);
 
@@ -232,7 +241,19 @@ bgfgGraphs()
   c6->cd(2);
   fgchain->Draw("newTimeGlobalShiftW >> hGlobalTimeW", basicCut && fiducialCut);
   gPad->SetLogy();
+/*
+  TH1D *hTDCE = new TH1D("hTDCE", "TDCE", 1000, 2200, 3200);
+  hTDCE->GetXaxis()->SetTitle("Channels");
+  TH1D *hTDCW = new TH1D("hTDCW", "TDCW", 1000, 2200, 3200);
+  hTDCW->GetXaxis()->SetTitle("Channels");
 
+  c6->cd(1);
+  fgchain->Draw("TDCE >> hTDCE", basicCut && fiducialCut);
+  gPad->SetLogy();
+  c6->cd(2);
+  fgchain->Draw("TDCW >> hTDCW", basicCut && fiducialCut);
+  gPad->SetLogy();
+*/
   c6->Print("6_globalShiftedTimes_fullRange.pdf");
 
   cout << "End of program." << endl;
