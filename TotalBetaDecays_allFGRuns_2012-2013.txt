@@ -1,0 +1,593 @@
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
+Processing Octet 80
+The file being opened is: OctetLists/octet_list_80.dat
+Chained all the runs together... 
+Betas in run index 0 is: 75349
+Betas in run index 1 is: 52349
+Betas in run index 2 is: 53467
+Betas in run index 3 is: 78109
+Betas in run index 4 is: 54359
+Betas in run index 5 is: 63003
+Betas in run index 6 is: 78543
+Betas in run index 7 is: 52025
+++++++++++++++++++ Result +++++++++++++++++
+Total beta decays for Octet 80 is: 507204
+-------------- End of Program ---------------
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
+Processing Octet 81
+The file being opened is: OctetLists/octet_list_81.dat
+Chained all the runs together... 
+Betas in run index 0 is: 78134
+Betas in run index 1 is: 53986
+Betas in run index 2 is: 51497
+Betas in run index 3 is: 76143
+Betas in run index 4 is: 52315
+Betas in run index 5 is: 76333
+Betas in run index 6 is: 76796
+Betas in run index 7 is: 52959
+++++++++++++++++++ Result +++++++++++++++++
+Total beta decays for Octet 81 is: 518163
+-------------- End of Program ---------------
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
+Processing Octet 82
+The file being opened is: OctetLists/octet_list_82.dat
+Chained all the runs together... 
+Betas in run index 0 is: 73562
+Betas in run index 1 is: 50034
+Betas in run index 2 is: 48518
+Betas in run index 3 is: 72785
+Betas in run index 4 is: 49238
+Betas in run index 5 is: 71881
+Betas in run index 6 is: 55993
+Betas in run index 7 is: 47369
+++++++++++++++++++ Result +++++++++++++++++
+Total beta decays for Octet 82 is: 469380
+-------------- End of Program ---------------
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
+Processing Octet 83
+The file being opened is: OctetLists/octet_list_83.dat
+Chained all the runs together... 
+Betas in run index 0 is: 70229
+Betas in run index 1 is: 47482
+Betas in run index 2 is: 47053
+Betas in run index 3 is: 70369
+Betas in run index 4 is: 47138
+Betas in run index 5 is: 68105
+Betas in run index 6 is: 69480
+Betas in run index 7 is: 47684
+++++++++++++++++++ Result +++++++++++++++++
+Total beta decays for Octet 83 is: 467540
+-------------- End of Program ---------------
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
+Processing Octet 84
+The file being opened is: OctetLists/octet_list_84.dat
+Chained all the runs together... 
+Betas in run index 0 is: 69432
+Betas in run index 1 is: 47187
+Betas in run index 2 is: 47069
+Betas in run index 3 is: 68258
+Betas in run index 4 is: 44728
+Betas in run index 5 is: 67217
+Betas in run index 6 is: 55130
+Betas in run index 7 is: 45516
+++++++++++++++++++ Result +++++++++++++++++
+Total beta decays for Octet 84 is: 444537
+-------------- End of Program ---------------
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
+Processing Octet 85
+The file being opened is: OctetLists/octet_list_85.dat
+Chained all the runs together... 
+Betas in run index 0 is: 48457
+Betas in run index 1 is: 34562
+Betas in run index 2 is: 33194
+Betas in run index 3 is: 49840
+Betas in run index 4 is: 32991
+Betas in run index 5 is: 44685
+Betas in run index 6 is: 48006
+Betas in run index 7 is: 33478
+++++++++++++++++++ Result +++++++++++++++++
+Total beta decays for Octet 85 is: 325213
+-------------- End of Program ---------------
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
+Processing Octet 86
+The file being opened is: OctetLists/octet_list_86.dat
+Chained all the runs together... 
+Betas in run index 0 is: 34199
+Betas in run index 1 is: 23844
+Betas in run index 2 is: 23583
+Betas in run index 3 is: 28199
+Betas in run index 4 is: 21595
+Betas in run index 5 is: 28696
+Betas in run index 6 is: 29246
+Betas in run index 7 is: 22148
+++++++++++++++++++ Result +++++++++++++++++
+Total beta decays for Octet 86 is: 211510
+-------------- End of Program ---------------
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
+Processing Octet 87
+The file being opened is: OctetLists/octet_list_87.dat
+Chained all the runs together... 
+Betas in run index 0 is: 48832
+Betas in run index 1 is: 31904
+Betas in run index 2 is: 32707
+Betas in run index 3 is: 45844
+Betas in run index 4 is: 33487
+Betas in run index 5 is: 49734
+Betas in run index 6 is: 37237
+Betas in run index 7 is: 33326
+++++++++++++++++++ Result +++++++++++++++++
+Total beta decays for Octet 87 is: 313071
+-------------- End of Program ---------------
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
+Processing Octet 88
+The file being opened is: OctetLists/octet_list_88.dat
+Chained all the runs together... 
+Betas in run index 0 is: 65798
+Betas in run index 1 is: 35196
+Betas in run index 2 is: 45855
+Betas in run index 3 is: 66184
+Betas in run index 4 is: 44696
+Betas in run index 5 is: 65329
+Betas in run index 6 is: 65193
+Betas in run index 7 is: 45792
+++++++++++++++++++ Result +++++++++++++++++
+Total beta decays for Octet 88 is: 434043
+-------------- End of Program ---------------
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
+Processing Octet 89
+The file being opened is: OctetLists/octet_list_89.dat
+Chained all the runs together... 
+Betas in run index 0 is: 57621
+Betas in run index 1 is: 43390
+Betas in run index 2 is: 44452
+Betas in run index 3 is: 64365
+Betas in run index 4 is: 43982
+Betas in run index 5 is: 63106
+Betas in run index 6 is: 62790
+Betas in run index 7 is: 43295
+++++++++++++++++++ Result +++++++++++++++++
+Total beta decays for Octet 89 is: 423001
+-------------- End of Program ---------------
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
+Processing Octet 90
+The file being opened is: OctetLists/octet_list_90.dat
+Chained all the runs together... 
+Betas in run index 0 is: 57514
+Betas in run index 1 is: 38586
+Betas in run index 2 is: 39048
+Betas in run index 3 is: 59882
+Betas in run index 4 is: 42206
+Betas in run index 5 is: 59908
+Betas in run index 6 is: 59164
+Betas in run index 7 is: 39108
+++++++++++++++++++ Result +++++++++++++++++
+Total beta decays for Octet 90 is: 395416
+-------------- End of Program ---------------
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
+Processing Octet 92
+The file being opened is: OctetLists/octet_list_92.dat
+Chained all the runs together... 
+Betas in run index 0 is: 21426
+Betas in run index 1 is: 15211
+Betas in run index 2 is: 14676
+Betas in run index 3 is: 21322
+Betas in run index 4 is: 35292
+Betas in run index 5 is: 51222
+Betas in run index 6 is: 50786
+Betas in run index 7 is: 28996
+++++++++++++++++++ Result +++++++++++++++++
+Total beta decays for Octet 92 is: 238931
+-------------- End of Program ---------------
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
+Processing Octet 94
+The file being opened is: OctetLists/octet_list_94.dat
+Chained all the runs together... 
+Betas in run index 0 is: 42150
+Betas in run index 1 is: 28976
+Betas in run index 2 is: 28515
+Betas in run index 3 is: 41729
+Betas in run index 4 is: 29001
+Betas in run index 5 is: 40768
+Betas in run index 6 is: 33005
+Betas in run index 7 is: 29558
+++++++++++++++++++ Result +++++++++++++++++
+Total beta decays for Octet 94 is: 273702
+-------------- End of Program ---------------
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
+Processing Octet 95
+The file being opened is: OctetLists/octet_list_95.dat
+Chained all the runs together... 
+Betas in run index 0 is: 30438
+Betas in run index 1 is: 20776
+Betas in run index 2 is: 19818
+Betas in run index 3 is: 29603
+Betas in run index 4 is: 24203
+Betas in run index 5 is: 35300
+Betas in run index 6 is: 35768
+Betas in run index 7 is: 24718
+++++++++++++++++++ Result +++++++++++++++++
+Total beta decays for Octet 95 is: 220624
+-------------- End of Program ---------------
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
+Processing Octet 96
+The file being opened is: OctetLists/octet_list_96.dat
+Chained all the runs together... 
+Betas in run index 0 is: 61772
+Betas in run index 1 is: 44370
+Betas in run index 2 is: 43750
+Betas in run index 3 is: 63078
+Betas in run index 4 is: 41101
+Betas in run index 5 is: 65201
+Betas in run index 6 is: 64653
+Betas in run index 7 is: 44947
+++++++++++++++++++ Result +++++++++++++++++
+Total beta decays for Octet 96 is: 428872
+-------------- End of Program ---------------
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
+Processing Octet 97
+The file being opened is: OctetLists/octet_list_97.dat
+Chained all the runs together... 
+Betas in run index 0 is: 59330
+Betas in run index 1 is: 39301
+Betas in run index 2 is: 42101
+Betas in run index 3 is: 61505
+Betas in run index 4 is: 43557
+Betas in run index 5 is: 54868
+Betas in run index 6 is: 28933
+Betas in run index 7 is: 42610
+++++++++++++++++++ Result +++++++++++++++++
+Total beta decays for Octet 97 is: 372205
+-------------- End of Program ---------------
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
+Processing Octet 98
+The file being opened is: OctetLists/octet_list_98.dat
+Chained all the runs together... 
+Betas in run index 0 is: 66651
+Betas in run index 1 is: 45176
+Betas in run index 2 is: 44666
+Betas in run index 3 is: 64036
+Betas in run index 4 is: 30591
+Betas in run index 5 is: 67125
+Betas in run index 6 is: 63717
+Betas in run index 7 is: 45524
+++++++++++++++++++ Result +++++++++++++++++
+Total beta decays for Octet 98 is: 427486
+-------------- End of Program ---------------
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
+Processing Octet 99
+The file being opened is: OctetLists/octet_list_99.dat
+Chained all the runs together... 
+Betas in run index 0 is: 61734
+Betas in run index 1 is: 40338
+Betas in run index 2 is: 31044
+Betas in run index 3 is: 70522
+Betas in run index 4 is: 43190
+Betas in run index 5 is: 62402
+Betas in run index 6 is: 61560
+Betas in run index 7 is: 42541
+++++++++++++++++++ Result +++++++++++++++++
+Total beta decays for Octet 99 is: 413331
+-------------- End of Program ---------------
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
+Processing Octet 100
+The file being opened is: OctetLists/octet_list_100.dat
+Chained all the runs together... 
+Betas in run index 0 is: 51146
+Betas in run index 1 is: 35499
+Betas in run index 2 is: 33373
+Betas in run index 3 is: 50920
+Betas in run index 4 is: 26289
+Betas in run index 5 is: 50161
+Betas in run index 6 is: 49478
+Betas in run index 7 is: 32617
+++++++++++++++++++ Result +++++++++++++++++
+Total beta decays for Octet 100 is: 329483
+-------------- End of Program ---------------
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
+Processing Octet 102
+The file being opened is: OctetLists/octet_list_102.dat
+Chained all the runs together... 
+Betas in run index 0 is: 41348
+Betas in run index 1 is: 29423
+Betas in run index 2 is: 29506
+Betas in run index 3 is: 41906
+Betas in run index 4 is: 29371
+Betas in run index 5 is: 42306
+Betas in run index 6 is: 41935
+Betas in run index 7 is: 17611
+++++++++++++++++++ Result +++++++++++++++++
+Total beta decays for Octet 102 is: 273406
+-------------- End of Program ---------------
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
+Processing Octet 103
+The file being opened is: OctetLists/octet_list_103.dat
+Chained all the runs together... 
+Betas in run index 0 is: 44475
+Betas in run index 1 is: 30829
+Betas in run index 2 is: 31153
+Betas in run index 3 is: 45101
+Betas in run index 4 is: 34449
+Betas in run index 5 is: 48046
+Betas in run index 6 is: 46599
+Betas in run index 7 is: 32245
+++++++++++++++++++ Result +++++++++++++++++
+Total beta decays for Octet 103 is: 312897
+-------------- End of Program ---------------
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
+Processing Octet 104
+The file being opened is: OctetLists/octet_list_104.dat
+Chained all the runs together... 
+Betas in run index 0 is: 67055
+Betas in run index 1 is: 46353
+Betas in run index 2 is: 45562
+Betas in run index 3 is: 66192
+Betas in run index 4 is: 48335
+Betas in run index 5 is: 67939
+Betas in run index 6 is: 66667
+Betas in run index 7 is: 45901
+++++++++++++++++++ Result +++++++++++++++++
+Total beta decays for Octet 104 is: 454004
+-------------- End of Program ---------------
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
+Processing Octet 105
+The file being opened is: OctetLists/octet_list_105.dat
+Chained all the runs together... 
+Betas in run index 0 is: 66228
+Betas in run index 1 is: 45502
+Betas in run index 2 is: 45143
+Betas in run index 3 is: 64767
+Betas in run index 4 is: 43900
+Betas in run index 5 is: 64022
+Betas in run index 6 is: 63573
+Betas in run index 7 is: 43438
+++++++++++++++++++ Result +++++++++++++++++
+Total beta decays for Octet 105 is: 436573
+-------------- End of Program ---------------
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
+Processing Octet 106
+The file being opened is: OctetLists/octet_list_106.dat
+Chained all the runs together... 
+Betas in run index 0 is: 62224
+Betas in run index 1 is: 43089
+Betas in run index 2 is: 42892
+Betas in run index 3 is: 61680
+Betas in run index 4 is: 42497
+Betas in run index 5 is: 60947
+Betas in run index 6 is: 60166
+Betas in run index 7 is: 41431
+++++++++++++++++++ Result +++++++++++++++++
+Total beta decays for Octet 106 is: 414926
+-------------- End of Program ---------------
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
+Processing Octet 108
+The file being opened is: OctetLists/octet_list_108.dat
+Chained all the runs together... 
+Betas in run index 0 is: 56554
+Betas in run index 1 is: 37315
+Betas in run index 2 is: 36522
+Betas in run index 3 is: 54156
+Betas in run index 4 is: 43041
+Betas in run index 5 is: 59247
+Betas in run index 6 is: 57836
+Betas in run index 7 is: 38600
+++++++++++++++++++ Result +++++++++++++++++
+Total beta decays for Octet 108 is: 383271
+-------------- End of Program ---------------
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
+Processing Octet 109
+The file being opened is: OctetLists/octet_list_109.dat
+Chained all the runs together... 
+Betas in run index 0 is: 34271
+Betas in run index 1 is: 23290
+Betas in run index 2 is: 23123
+Betas in run index 3 is: 33780
+Betas in run index 4 is: 24912
+Betas in run index 5 is: 35541
+Betas in run index 6 is: 35057
+Betas in run index 7 is: 23668
+++++++++++++++++++ Result +++++++++++++++++
+Total beta decays for Octet 109 is: 233642
+-------------- End of Program ---------------
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
+Processing Octet 110
+The file being opened is: OctetLists/octet_list_110.dat
+Chained all the runs together... 
+Betas in run index 0 is: 55443
+Betas in run index 1 is: 38494
+Betas in run index 2 is: 38286
+Betas in run index 3 is: 54011
+Betas in run index 4 is: 37665
+Betas in run index 5 is: 52699
+Betas in run index 6 is: 52325
+Betas in run index 7 is: 36634
+++++++++++++++++++ Result +++++++++++++++++
+Total beta decays for Octet 110 is: 365557
+-------------- End of Program ---------------
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
+Processing Octet 111
+The file being opened is: OctetLists/octet_list_111.dat
+Chained all the runs together... 
+Betas in run index 0 is: 56986
+Betas in run index 1 is: 39065
+Betas in run index 2 is: 45493
+Betas in run index 3 is: 58985
+Betas in run index 4 is: 58000
+Betas in run index 5 is: 57937
+Betas in run index 6 is: 55893
+Betas in run index 7 is: 39193
+++++++++++++++++++ Result +++++++++++++++++
+Total beta decays for Octet 111 is: 411552
+-------------- End of Program ---------------
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
+Processing Octet 112
+The file being opened is: OctetLists/octet_list_112.dat
+Chained all the runs together... 
+Betas in run index 0 is: 57380
+Betas in run index 1 is: 41009
+Betas in run index 2 is: 41167
+Betas in run index 3 is: 52260
+Betas in run index 4 is: 12921
+Betas in run index 5 is: 50875
+Betas in run index 6 is: 58739
+Betas in run index 7 is: 41257
+++++++++++++++++++ Result +++++++++++++++++
+Total beta decays for Octet 112 is: 355608
+-------------- End of Program ---------------
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
+Processing Octet 113
+The file being opened is: OctetLists/octet_list_113.dat
+Chained all the runs together... 
+Betas in run index 0 is: 56535
+Betas in run index 1 is: 41204
+Betas in run index 2 is: 33036
+Betas in run index 3 is: 56768
+Betas in run index 4 is: 38142
+Betas in run index 5 is: 54438
+Betas in run index 6 is: 55126
+Betas in run index 7 is: 39046
+++++++++++++++++++ Result +++++++++++++++++
+Total beta decays for Octet 113 is: 374295
+-------------- End of Program ---------------
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
+Processing Octet 114
+The file being opened is: OctetLists/octet_list_114.dat
+Chained all the runs together... 
+Betas in run index 0 is: 46919
+Betas in run index 1 is: 32726
+Betas in run index 2 is: 32848
+Betas in run index 3 is: 46832
+Betas in run index 4 is: 33100
+Betas in run index 5 is: 47591
+Betas in run index 6 is: 47084
+Betas in run index 7 is: 32225
+++++++++++++++++++ Result +++++++++++++++++
+Total beta decays for Octet 114 is: 319325
+-------------- End of Program ---------------
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
+Processing Octet 115
+The file being opened is: OctetLists/octet_list_115.dat
+Chained all the runs together... 
+Betas in run index 0 is: 19131
+Betas in run index 1 is: 15050
+Betas in run index 2 is: 14780
+Betas in run index 3 is: 23184
+Betas in run index 4 is: 14992
+Betas in run index 5 is: 20102
+Betas in run index 6 is: 19559
+Betas in run index 7 is: 15383
+++++++++++++++++++ Result +++++++++++++++++
+Total beta decays for Octet 115 is: 142181
+-------------- End of Program ---------------
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
+Processing Octet 116
+The file being opened is: OctetLists/octet_list_116.dat
+Chained all the runs together... 
+Betas in run index 0 is: 44698
+Betas in run index 1 is: 28215
+Betas in run index 2 is: 28175
+Betas in run index 3 is: 56041
+Betas in run index 4 is: 33207
+Betas in run index 5 is: 56026
+Betas in run index 6 is: 55438
+Betas in run index 7 is: 37698
+++++++++++++++++++ Result +++++++++++++++++
+Total beta decays for Octet 116 is: 339498
+-------------- End of Program ---------------
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
+Processing Octet 117
+The file being opened is: OctetLists/octet_list_117.dat
+Chained all the runs together... 
+Betas in run index 0 is: 82919
+Betas in run index 1 is: 41031
+Betas in run index 2 is: 38387
+Betas in run index 3 is: 57157
+Betas in run index 4 is: 39953
+Betas in run index 5 is: 58050
+Betas in run index 6 is: 57177
+Betas in run index 7 is: 39739
+++++++++++++++++++ Result +++++++++++++++++
+Total beta decays for Octet 117 is: 414413
+-------------- End of Program ---------------
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
+Processing Octet 118
+The file being opened is: OctetLists/octet_list_118.dat
+Chained all the runs together... 
+Betas in run index 0 is: 54568
+Betas in run index 1 is: 38700
+Betas in run index 2 is: 38048
+Betas in run index 3 is: 53696
+Betas in run index 4 is: 39818
+Betas in run index 5 is: 54715
+Betas in run index 6 is: 55362
+Betas in run index 7 is: 39007
+++++++++++++++++++ Result +++++++++++++++++
+Total beta decays for Octet 118 is: 373914
+-------------- End of Program ---------------
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
+Processing Octet 119
+The file being opened is: OctetLists/octet_list_119.dat
+Chained all the runs together... 
+Betas in run index 0 is: 54319
+Betas in run index 1 is: 37850
+Betas in run index 2 is: 33013
+Betas in run index 3 is: 53620
+Betas in run index 4 is: 41013
+Betas in run index 5 is: 56860
+Betas in run index 6 is: 55450
+Betas in run index 7 is: 37703
+++++++++++++++++++ Result +++++++++++++++++
+Total beta decays for Octet 119 is: 369828
+-------------- End of Program ---------------
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include   -c -o getBetaEvents.o getBetaEvents.cc
+g++  -O2 -Wall -fPIC -pthread -m64 -I/home/xuansun/ROOT/root-build/include -o getBetaEvents getBetaEvents.o -L/home/xuansun/ROOT/root-build/lib -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -L/home/xuansun/ROOT/root-build/lib -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -rdynamic -lSpectrum -lMinuit
+Processing Octet 120
+The file being opened is: OctetLists/octet_list_120.dat
+Chained all the runs together... 
+Betas in run index 0 is: 49885
+Betas in run index 1 is: 34584
+Betas in run index 2 is: 31555
+Betas in run index 3 is: 43900
+Betas in run index 4 is: 34467
+Betas in run index 5 is: 51552
+Betas in run index 6 is: 50663
+Betas in run index 7 is: 30940
+++++++++++++++++++ Result +++++++++++++++++
+Total beta decays for Octet 120 is: 327546
+-------------- End of Program ---------------
+Done running bash script

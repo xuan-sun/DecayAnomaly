@@ -143,6 +143,7 @@ int main(int argc, char* argv[])
   // save subtrees with the data listed in Event
   vector < TTree* > contents = CreateOctetTrees(runFiles);
 
+  cout << "++++++++++++++++++ Result +++++++++++++++++" << endl;
   cout << "Total beta decays for Octet " << octNb << " is: " << totalDecays << endl;
 
 //  f.Close();
@@ -172,6 +173,12 @@ vector < pair <string,int> >  LoadOctetList(TString fileName)
     if(!bufstream.eof())
     {
       bufstream >> runType >> runIndex;
+/*
+      if(runIndex == 23017 || runIndex == 23021 || runIndex == 22199)
+      {
+	continue;
+      }
+*/
       if(runType == "A2")
       {
         pairs.push_back(make_pair("A2", runIndex));
@@ -377,12 +384,15 @@ vector <TTree*> CreateOctetTrees(vector <TChain*> runsChains)
 
   int betasPerRun = 0;
 
-  for(unsigned int j = 0; j < runsChains.size(); j++)
+  // take only the first half of the runsChains aka the foreground runs
+  for(unsigned int j = 0; j < runsChains.size()/2; j++)
   {
     for(unsigned int i = 0; i < runsChains[j]->GetEntries(); i++)
     {
       runsChains[j]->GetEntry(i);	/* this is where cuts happen */
-      if(evt[j]->Type < 1 && evt[j]->PID == 1 && evt[j]->badTimeFlag == 0)
+      if(evt[j]->Type < 1 && evt[j]->PID == 1 && evt[j]->badTimeFlag == 0
+	&& ( (evt[j]->xE_center)*(evt[j]->xE_center) + (evt[j]->yE_center)*(evt[j]->yE_center) ) < 49*49
+	&& ( (evt[j]->xW_center)*(evt[j]->xW_center) + (evt[j]->yW_center)*(evt[j]->yW_center) ) < 49*49 )
       {
 //        subtrees[j]->Fill();
 	betasPerRun = betasPerRun + 1;

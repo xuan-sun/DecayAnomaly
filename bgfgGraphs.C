@@ -71,8 +71,14 @@ double SetPoissonErrors(int counts)
 
 bgfgGraphs()
 {
-  double timeWindowUpperEdge = 16;
-  double timeWindowLowerEdge = 2.5;
+  TString stp = "E";
+  TString roi = "W";
+
+  double timeUpperEdgeW = 10;
+  double timeLowerEdgeW = -2;
+
+  double timeUpperEdgeE = 2.5;
+  double timeLowerEdgeE = -2;
 
   double modelTimeUpperEdge = 12;
 
@@ -92,25 +98,32 @@ bgfgGraphs()
   TCut oneSTPeak_400channels = "((TDCE > 2850 && TDCW > 2650 && TDCW < 3050) || (TDCW > 3050 && TDCE > 2450 && TDCW < 2850))";
   TCut oneSTPeak_500channels = "((TDCE > 2850 && TDCW > 2550 && TDCW < 3050) || (TDCW > 3050 && TDCE > 2350 && TDCW < 2850))";
 */  TCut fiducialCut = "(((xE.center)*(xE.center) + (yE.center)*(yE.center) < 49*49) && ((xW.center)*(xW.center) + (yW.center)*(yW.center) < 49*49))";
-  TCut scaledTimeCut = Form("((newTimeScaledW < 4 && newTimeScaledE > 4 && newTimeScaledE < %f) || (newTimeScaledE < 4 && newTimeScaledW > 4 && newTimeScaledW < %f)) && newTimeScaledW > -2 && newTimeScaledE > -2", timeWindowUpperEdge, timeWindowUpperEdge);
-  TCut scaledTimeCut_8ns = Form("((newTimeScaledW < 4 && newTimeScaledE > 4 && newTimeScaledE < %f) || (newTimeScaledE < 4 && newTimeScaledW > 4 && newTimeScaledW < %f)) && newTimeScaledW > -2 && newTimeScaledE > -2", modelTimeUpperEdge, modelTimeUpperEdge);
-  TCut shiftedTimeCut = Form("((newTimeShiftedW < 4 && newTimeShiftedE > 4 && newTimeShiftedE < %f) || (newTimeShiftedE < 4 && newTimeShiftedW > 4 && newTimeShiftedW < %f)) && newTimeShiftedW > -2 && newTimeShiftedE > -2", timeWindowUpperEdge, timeWindowUpperEdge);
-  TCut tdcTimeCut = "((TDCE > 2850 && TDCW > 2850 && TDCW < 3050) || (TDCW > 3050 && TDCE > 2650 && TDCE < 2850))";
-  TCut globalTimeCut = Form("((newTimeGlobalShiftW < 4 && newTimeGlobalShiftE > 4 && newTimeGlobalShiftE < %f) || (newTimeGlobalShiftE < 4 && newTimeGlobalShiftW > 4 && newTimeGlobalShiftW < %f)) && newTimeGlobalShiftW > -2 && newTimeGlobalShiftE > -2", timeWindowUpperEdge, timeWindowUpperEdge);
-  TCut timeECut = Form("newTimeGlobalShiftE < %f && newTimeGlobalShiftW > %f && newTimeGlobalShiftW < %f && newTimeGlobalShiftE > -2 && newTimeGlobalShiftW > -2", timeWindowLowerEdge, timeWindowLowerEdge, timeWindowUpperEdge);
-  TCut timeWCut = Form("newTimeGlobalShiftW < %f && newTimeGlobalShiftE > %f && newTimeGlobalShiftE < %f && newTimeGlobalShiftE > -2 && newTimeGlobalShiftW > -2", timeWindowLowerEdge, timeWindowLowerEdge, timeWindowUpperEdge);
+
+  // bad cuts down here
+//  TCut scaledTimeCut = Form("((newTimeScaledW < 4 && newTimeScaledE > 4 && newTimeScaledE < %f) || (newTimeScaledE < 4 && newTimeScaledW > 4 && newTimeScaledW < %f)) && newTimeScaledW > -2 && newTimeScaledE > -2", timeWindowUpperEdge, timeWindowUpperEdge);
+//  TCut scaledTimeCut_8ns = Form("((newTimeScaledW < 4 && newTimeScaledE > 4 && newTimeScaledE < %f) || (newTimeScaledE < 4 && newTimeScaledW > 4 && newTimeScaledW < %f)) && newTimeScaledW > -2 && newTimeScaledE > -2", modelTimeUpperEdge, modelTimeUpperEdge);
+//  TCut shiftedTimeCut = Form("((newTimeShiftedW < 4 && newTimeShiftedE > 4 && newTimeShiftedE < %f) || (newTimeShiftedE < 4 && newTimeShiftedW > 4 && newTimeShiftedW < %f)) && newTimeShiftedW > -2 && newTimeShiftedE > -2", timeWindowUpperEdge, timeWindowUpperEdge);
+//  TCut tdcTimeCut = "((TDCE > 2850 && TDCW > 2850 && TDCW < 3050) || (TDCW > 3050 && TDCE > 2650 && TDCE < 2850))";
+
+  TCut globalTimeCut = "((newTimeGlobalShiftW < 4 && newTimeGlobalShiftE > 4 && newTimeGlobalShiftE < 16) || (newTimeGlobalShiftE < 4 && newTimeGlobalShiftW > 4 && newTimeGlobalShiftW < 16)) && newTimeGlobalShiftW > -2 && newTimeGlobalShiftE > -2";
+
+
+  TCut timeECut = Form("newTimeGlobalShiftE < %f && newTimeGlobalShiftE > %f && newTimeGlobalShiftW > %f && newTimeGlobalShiftW < %f", timeUpperEdgeE, timeLowerEdgeE, timeLowerEdgeW, timeUpperEdgeW);
+
+//  TCut timeWCut = Form("newTimeGlobalShiftW < %f && newTimeGlobalShiftE > %f && newTimeGlobalShiftE < %f && newTimeGlobalShiftE > -10 && newTimeGlobalShiftW > -10", timeWindowLowerEdge, timeWindowLowerEdge, timeWindowUpperEdge);
+//  TCut testTimeCut = "newTimeGlobalShiftE < -2";
 
   TCanvas *c1 = new TCanvas("c1", "c1");
   c1->Divide(2,1);
   c1->cd(1);
 
-  TH1D *hbgErecon_timeWin = new TH1D("bgErecon_timeWin", Form("BG Erecon_ee global time: E < %f ns, %f < W < %f ns", timeWindowLowerEdge, timeWindowLowerEdge, timeWindowUpperEdge), 160, 0, 4000);
+  TH1D *hbgErecon_timeWin = new TH1D("bgErecon_timeWin", Form("BG Erecon_ee global time: %f < %s < %f ns, %f < %s < %f ns",
+				timeLowerEdgeE, stp.Data(), timeUpperEdgeE, timeLowerEdgeW, roi.Data(), timeUpperEdgeW), 160, 0, 4000);
   hbgErecon_timeWin->GetXaxis()->SetTitle("Erecon_ee (KeV)");
-//  hbgErecon_timeWin->Sumw2();
 
-  TH1D *hfgErecon_timeWin = new TH1D("fgErecon_timeWin", Form("FG Erecon_ee global time: E < %f ns, %f < W < %f ns", timeWindowLowerEdge, timeWindowLowerEdge, timeWindowUpperEdge), 160, 0, 4000);
+  TH1D *hfgErecon_timeWin = new TH1D("fgErecon_timeWin", Form("FG Erecon_ee global time: %f < %s < %f ns, %f < %s < %f ns",
+				timeLowerEdgeE, stp.Data(), timeUpperEdgeE, timeLowerEdgeW, roi.Data(), timeUpperEdgeW), 160, 0, 4000);
   hfgErecon_timeWin->GetXaxis()->SetTitle("Erecon_ee (KeV)");
-//  hfgErecon_timeWin->Sumw2();
 
   bgchain->Draw("Erecon_ee >> bgErecon_timeWin", basicCut && fiducialCut && timeECut);
 
@@ -118,6 +131,8 @@ bgfgGraphs()
   fgchain->Draw("Erecon_ee >> fgErecon_timeWin", basicCut && fiducialCut && timeECut);
 
 /*
+  hbgErecon_timeWin->Sumw2();
+  hfgErecon_timeWin->Sumw2();
   TH1D *hDivision = new TH1D("ratio", "ratio of BG to FG", 40, 0, 1000);
   hDivision->Divide(hfgErecon_timeWin, hbgErecon_timeWin, 1, 1);
   c1->cd(3);
@@ -130,11 +145,13 @@ bgfgGraphs()
   TCanvas *c2 = new TCanvas("c2", "c2");
   c2->Divide(3,1);
 
-  TH1D *hbgSpectra = new TH1D("bgfull", Form("BG Erecon_ee, all cuts: E < %f, %f < W < %f", timeWindowLowerEdge, timeWindowLowerEdge, timeWindowUpperEdge), 40, 0, 1000);
+  TH1D *hbgSpectra = new TH1D("bgfull", Form("BG Erecon_ee, all cuts: %f < %s < %f, %f < %s < %f",
+				timeLowerEdgeE, stp.Data(), timeUpperEdgeE, timeLowerEdgeW, roi.Data(), timeUpperEdgeW), 40, 0, 1000);
   hbgSpectra->Sumw2();
   hbgSpectra->GetXaxis()->SetTitle("Erecon_ee (KeV)");
 
-  TH1D *hfgSpectra = new TH1D("fgfull", Form("FG Erecon_ee, all cuts: E < %f, %f < W < %f", timeWindowLowerEdge, timeWindowLowerEdge, timeWindowUpperEdge), 40, 0, 1000);
+  TH1D *hfgSpectra = new TH1D("fgfull", Form("FG Erecon_ee, all cuts: %f < %s < %f, %f < %s < %f",
+				timeLowerEdgeE, stp.Data(), timeUpperEdgeE, timeLowerEdgeW, roi.Data(), timeUpperEdgeW), 40, 0, 1000);
   hfgSpectra->Sumw2();
   hfgSpectra->GetXaxis()->SetTitle("Erecon_ee (KeV)");
 
@@ -162,7 +179,7 @@ bgfgGraphs()
   c2->Print("2_BGsubtracted_timeWindow.pdf");
 
   // third canvas, starting time plots
-  TCanvas *c3 = new TCanvas("c3", "c3");
+/*  TCanvas *c3 = new TCanvas("c3", "c3");
   c3->cd();
   TH2D *hTime2D = new TH2D("time2D", "time2D", 160, -20, 140, 160, -20, 140);
   hTime2D->GetXaxis()->SetTitle("newTimeGlobalShiftW (ns)");
@@ -170,10 +187,10 @@ bgfgGraphs()
   fgchain->Draw("newTimeGlobalShiftE:newTimeGlobalShiftW >> time2D", basicCut && fiducialCut, "COLZ");
   gPad->SetLogz();
   c3->Print("3_2DTimePlots_noTimingCuts.pdf");
-
+*/
 
   // fourth canvas
-  TCanvas *c4 = new TCanvas("c4", "c4");
+/*  TCanvas *c4 = new TCanvas("c4", "c4");
   c4->cd();
   TH2D *hTime2D_subrange = new TH2D("time2D_subrange", "time2D subrange", 25, -5, 20, 25, -5, 20);
   hTime2D_subrange->GetXaxis()->SetTitle("newTimeGlobalShiftW (ns)");
@@ -181,7 +198,7 @@ bgfgGraphs()
   fgchain->Draw("newTimeGlobalShiftE:newTimeGlobalShiftW >> time2D_subrange", basicCut && fiducialCut && globalTimeCut && energyCut, "COLZ");
   gPad->SetLogz();
   c4->Print("4_2DTimePlots_withTimeCuts.pdf");
-
+*/
   // fifth canvas
 /*  TCanvas *c5 = new TCanvas("c5","c5");
   c5->Divide(3,1);
@@ -237,10 +254,10 @@ bgfgGraphs()
   hGlobalTimeW->GetXaxis()->SetTitle("new time (ns)");
 
   c6->cd(1);
-  fgchain->Draw("newTimeGlobalShiftE >> hGlobalTimeE", basicCut && fiducialCut /*&& timeECut*/);
+  fgchain->Draw("newTimeGlobalShiftE >> hGlobalTimeE", basicCut && fiducialCut && timeECut && energyCut);
   gPad->SetLogy();
   c6->cd(2);
-  fgchain->Draw("newTimeGlobalShiftW >> hGlobalTimeW", basicCut && fiducialCut /*&& timeECut*/);
+  fgchain->Draw("newTimeGlobalShiftW >> hGlobalTimeW", basicCut && fiducialCut && timeECut && energyCut);
   gPad->SetLogy();
 
   c6->Print("6_globalShiftedTimes_fullRange.pdf");
