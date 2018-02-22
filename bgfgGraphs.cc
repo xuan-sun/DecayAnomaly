@@ -56,7 +56,7 @@ struct Event
 };
 
 // Used for visualization, keeps the graph on screen.
-//TApplication plot_program("FADC_readin",0,0,0,0);
+TApplication plot_program("FADC_readin",0,0,0,0);
 
 //-------------------------------------------------//
 //------------ Start of Program -------------------//
@@ -79,12 +79,8 @@ int main(int argc, char* argv[])
 
   TString stp = "E";
   TString roi = "W";
-/*
-  double timeUpperEdgeW = 10;
-  double timeLowerEdgeW = -2;
-  double timeUpperEdgeE = 2.5;
-  double timeLowerEdgeE = -2;
-*/
+
+
   TChain *bgchain = new TChain("pass3");
   TChain *fgchain = new TChain("pass3");
 
@@ -230,23 +226,37 @@ int main(int argc, char* argv[])
   hfgErecon_timeWin->Draw();
 */
   // sixth canvas
-/*  TCanvas *c6 = new TCanvas("c6", "c6");
-  c6->Divide(2,1);
+  TCanvas *c6 = new TCanvas("c6", "c6");
+  c6->Divide(2,2);
 
   TH1D *hGlobalTimeE = new TH1D("hGlobalTimeE", "Global Shifted Time E", 70, -10, 25);
   hGlobalTimeE->GetXaxis()->SetTitle("new time (ns)");
-  TH1D *hGlobalTimeW = new TH1D("hGlobalTimeW", "Global Shifted Time W", 70, -10, 25);
-  hGlobalTimeW->GetXaxis()->SetTitle("new time (ns)");
+
+  TH1D *hTDCWbg = new TH1D("hTDCWbg", "BG TDCW", 4000, 0, 4000);
+  hTDCWbg->GetXaxis()->SetTitle("Channels ");
+  TH1D *hGlobalTimeWbg = new TH1D("hGlobalTimeWbg", "BG Global Shifted Time W", 320, -20, 140);
+  hGlobalTimeWbg->GetXaxis()->SetTitle("new time (ns)");
+  TH1D *hTDCWfg = new TH1D("hTDCWfg", "FG TDCW", 4000, 0, 4000);
+  hTDCWfg->GetXaxis()->SetTitle("Channels ");
+  TH1D *hGlobalTimeWfg = new TH1D("hGlobalTimeWfg", "FG Global Shifted Time W", 320, -20, 140);
+  hGlobalTimeWfg->GetXaxis()->SetTitle("new time (ns)");
 
   c6->cd(1);
-  fgchain->Draw("newTimeGlobalShiftE >> hGlobalTimeE", basicCut && fiducialCut && timeECut && energyCut);
+//  fgchain->Draw("newTimeGlobalShiftE >> hGlobalTimeE", basicCut && fiducialCut && timeECut && energyCut);
+  bgchain->Draw("TDCW >> hTDCWbg", basicCut && fiducialCut /*&& timeECut && energyCut*/);
   gPad->SetLogy();
   c6->cd(2);
-  fgchain->Draw("newTimeGlobalShiftW >> hGlobalTimeW", basicCut && fiducialCut && timeECut && energyCut);
+  bgchain->Draw("newTimeGlobalShiftW >> hGlobalTimeWbg", basicCut && fiducialCut /*&& timeECut && energyCut*/);
+  gPad->SetLogy();
+  c6->cd(3);
+  fgchain->Draw("TDCW >> hTDCWfg", basicCut && fiducialCut /*&& timeECut && energyCut*/);
+  gPad->SetLogy();
+  c6->cd(4);
+  fgchain->Draw("newTimeGlobalShiftW >> hGlobalTimeWfg", basicCut && fiducialCut /*&& timeECut && energyCut*/);
   gPad->SetLogy();
 
   c6->Print("6_globalShiftedTimes_fullRange.pdf");
-*/
+
 
   // print out all the stats that we'll use
   cout << "For " << timeLowerEdgeE << " < E < " << timeUpperEdgeE << ", " << timeLowerEdgeW << " < W < " << timeUpperEdgeW << endl;
@@ -255,9 +265,24 @@ int main(int argc, char* argv[])
   cout << "Restricted energy range background spectrum counts: " << hbgSpectra->GetEntries() << endl;
   cout << "And the corresponding foreground spectrum counts: " << hfgSpectra->GetEntries() << endl;
 
+/*
+  ofstream outfile;
+  outfile.open("FinalCounts_variousTimeWindows_allForegroundRuns.txt", ios::app);
+
+  outfile << timeLowerEdgeE << "\t"
+	  << timeUpperEdgeE << "\t"
+	  << timeLowerEdgeW << "\t"
+	  << timeUpperEdgeW << "\t"
+	  << hbgErecon_timeWin->GetEntries() << "\t"
+	  << hfgErecon_timeWin->GetEntries() << "\t"
+	  << hbgSpectra->GetEntries() << "\t"
+	  << hfgSpectra->GetEntries() << "\n";
+
+  outfile.close();
+*/
 
   cout << "-------------- End of Program ---------------" << endl;
-//  plot_program.Run();
+  plot_program.Run();
 
   return 0;
 }
