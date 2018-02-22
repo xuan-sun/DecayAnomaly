@@ -1,3 +1,47 @@
+#include         <iostream>
+#include         <fstream>
+#include         <TGaxis.h>
+#include         <sstream>
+#include         <TGraph.h>
+#include         <TGraphErrors.h>
+#include         <TCanvas.h>
+#include         <TApplication.h>
+#include         <stdlib.h>
+#include         <TF1.h>
+#include         <TH1.h>
+#include         <TProfile.h>
+#include         <TObjArray.h>
+#include         <TStyle.h>
+#include         <TMarker.h>
+#include         <math.h>
+#include         <TStyle.h>
+#include         <TPaveStats.h>
+#include         <TPaveText.h>
+#include         <vector>
+#include         <string.h>
+#include         <fstream>
+#include         <TROOT.h>
+#include         <TFile.h>
+#include         <TLegend.h>
+#include         <TLegendEntry.h>
+#include         <time.h>
+#include         <TH2F.h>
+#include         <assert.h>
+#include         <string>
+#include         <TRandom.h>
+#include         <TTree.h>
+#include         <TChain.h>
+#include         <TVector.h>
+#include         <vector>
+#include         <utility>
+#include         <TLeaf.h>
+#include         <math.h>
+#include	 <TCut.h>
+
+using            namespace std;
+
+double SetPoissonErrors(int counts);
+
 struct Event
 {
   double TDCE;
@@ -11,77 +55,36 @@ struct Event
 
 };
 
-double SetPoissonErrors(int counts)
+// Used for visualization, keeps the graph on screen.
+//TApplication plot_program("FADC_readin",0,0,0,0);
+
+//-------------------------------------------------//
+//------------ Start of Program -------------------//
+//-------------------------------------------------//
+
+int main(int argc, char* argv[])
 {
-  double upperErrBar = 0;
-
-  // all values taken from PDG paper rpp2017-rev-statistics.pdf
-  // Using Table 40.3, for 95% upper one-sided limit
-  if(counts == 0)
+  if(argc < 5)
   {
-    upperErrBar = 3;
-  }
-  else if(counts == 1)
-  {
-    upperErrBar = 4.74 - 1;
-  }
-  else if(counts == 2)
-  {
-    upperErrBar = 6.30 - 2;
-  }
-  else if(counts == 3)
-  {
-    upperErrBar = 7.75 - 3;
-  }
-  else if(counts == 4)
-  {
-    upperErrBar = 9.15 - 4;
-  }
-  else if(counts == 5)
-  {
-    upperErrBar = 10.51 - 5;
-  }
-  else if(counts == 6)
-  {
-    upperErrBar = 11.84 - 6;
-  }
-  else if(counts == 7)
-  {
-    upperErrBar = 13.15 - 7;
-  }
-  else if(counts == 8)
-  {
-    upperErrBar = 14.43 - 8;
-  }
-  else if(counts == 9)
-  {
-    upperErrBar = 15.71 - 9;
-  }
-  else if(counts == 10)
-  {
-    upperErrBar = 16.96 - 10;
-  }
-  else if(counts > 10)
-  {
-    upperErrBar = 2*sqrt(counts);
+    cout << "Error: improper input. Must give:" << endl;
+    cout << "(executable) (E Low) (E High) (W Low) (W High)" << endl;
+    return 0;
   }
 
-  return upperErrBar;
-}
+  // read in the arguments
+  double timeLowerEdgeE = atof(argv[1]);
+  double timeUpperEdgeE = atof(argv[2]);
+  double timeLowerEdgeW = atof(argv[3]);
+  double timeUpperEdgeW = atof(argv[4]);
 
-bgfgGraphs()
-{
   TString stp = "E";
   TString roi = "W";
-
+/*
   double timeUpperEdgeW = 10;
   double timeLowerEdgeW = -2;
-
   double timeUpperEdgeE = 2.5;
   double timeLowerEdgeE = -2;
-
-  double modelTimeUpperEdge = 12;
-
+*/
   TChain *bgchain = new TChain("pass3");
   TChain *fgchain = new TChain("pass3");
 
@@ -91,27 +94,18 @@ bgfgGraphs()
   // define all the cuts we will use later.
   TCut basicCut = "(PID == 1 && badTimeFlag == 0)";
   TCut energyCut = "(Erecon_ee > 0 && Erecon_ee < 640)";
-  // assuming TDCE self-timing peak at 2850 channels, TDCW at 3050
-/*  TCut oneSTPeak_100channels = "((TDCE > 2850 && TDCW > 2950 && TDCW < 3050) || (TDCW > 3050 && TDCE > 2750 && TDCE < 2850))";
-  TCut oneSTPeak_200channels = "((TDCE > 2850 && TDCW > 2850 && TDCW < 3050) || (TDCW > 3050 && TDCE > 2650 && TDCE < 2850))";
-  TCut oneSTPeak_300channels = "((TDCE > 2850 && TDCW > 2750 && TDCW < 3050) || (TDCW > 3050 && TDCE > 2550 && TDCE < 2850))";
-  TCut oneSTPeak_400channels = "((TDCE > 2850 && TDCW > 2650 && TDCW < 3050) || (TDCW > 3050 && TDCE > 2450 && TDCW < 2850))";
-  TCut oneSTPeak_500channels = "((TDCE > 2850 && TDCW > 2550 && TDCW < 3050) || (TDCW > 3050 && TDCE > 2350 && TDCW < 2850))";
-*/  TCut fiducialCut = "(((xE.center)*(xE.center) + (yE.center)*(yE.center) < 49*49) && ((xW.center)*(xW.center) + (yW.center)*(yW.center) < 49*49))";
+  TCut fiducialCut = "(((xE.center)*(xE.center) + (yE.center)*(yE.center) < 49*49) && ((xW.center)*(xW.center) + (yW.center)*(yW.center) < 49*49))";
 
   // bad cuts down here
 //  TCut scaledTimeCut = Form("((newTimeScaledW < 4 && newTimeScaledE > 4 && newTimeScaledE < %f) || (newTimeScaledE < 4 && newTimeScaledW > 4 && newTimeScaledW < %f)) && newTimeScaledW > -2 && newTimeScaledE > -2", timeWindowUpperEdge, timeWindowUpperEdge);
-//  TCut scaledTimeCut_8ns = Form("((newTimeScaledW < 4 && newTimeScaledE > 4 && newTimeScaledE < %f) || (newTimeScaledE < 4 && newTimeScaledW > 4 && newTimeScaledW < %f)) && newTimeScaledW > -2 && newTimeScaledE > -2", modelTimeUpperEdge, modelTimeUpperEdge);
 //  TCut shiftedTimeCut = Form("((newTimeShiftedW < 4 && newTimeShiftedE > 4 && newTimeShiftedE < %f) || (newTimeShiftedE < 4 && newTimeShiftedW > 4 && newTimeShiftedW < %f)) && newTimeShiftedW > -2 && newTimeShiftedE > -2", timeWindowUpperEdge, timeWindowUpperEdge);
 //  TCut tdcTimeCut = "((TDCE > 2850 && TDCW > 2850 && TDCW < 3050) || (TDCW > 3050 && TDCE > 2650 && TDCE < 2850))";
 
   TCut globalTimeCut = "((newTimeGlobalShiftW < 4 && newTimeGlobalShiftE > 4 && newTimeGlobalShiftE < 16) || (newTimeGlobalShiftE < 4 && newTimeGlobalShiftW > 4 && newTimeGlobalShiftW < 16)) && newTimeGlobalShiftW > -2 && newTimeGlobalShiftE > -2";
 
-
   TCut timeECut = Form("newTimeGlobalShiftE < %f && newTimeGlobalShiftE > %f && newTimeGlobalShiftW > %f && newTimeGlobalShiftW < %f", timeUpperEdgeE, timeLowerEdgeE, timeLowerEdgeW, timeUpperEdgeW);
 
 //  TCut timeWCut = Form("newTimeGlobalShiftW < %f && newTimeGlobalShiftE > %f && newTimeGlobalShiftE < %f && newTimeGlobalShiftE > -10 && newTimeGlobalShiftW > -10", timeWindowLowerEdge, timeWindowLowerEdge, timeWindowUpperEdge);
-//  TCut testTimeCut = "newTimeGlobalShiftE < -2";
 
   TCanvas *c1 = new TCanvas("c1", "c1");
   c1->Divide(2,1);
@@ -129,15 +123,6 @@ bgfgGraphs()
 
   c1->cd(2);
   fgchain->Draw("Erecon_ee >> fgErecon_timeWin", basicCut && fiducialCut && timeECut);
-
-/*
-  hbgErecon_timeWin->Sumw2();
-  hfgErecon_timeWin->Sumw2();
-  TH1D *hDivision = new TH1D("ratio", "ratio of BG to FG", 40, 0, 1000);
-  hDivision->Divide(hfgErecon_timeWin, hbgErecon_timeWin, 1, 1);
-  c1->cd(3);
-  hDivision->Draw();
-*/
 
   c1->Print("1_Erecon_timingWindow.pdf");
 
@@ -245,7 +230,7 @@ bgfgGraphs()
   hfgErecon_timeWin->Draw();
 */
   // sixth canvas
-  TCanvas *c6 = new TCanvas("c6", "c6");
+/*  TCanvas *c6 = new TCanvas("c6", "c6");
   c6->Divide(2,1);
 
   TH1D *hGlobalTimeE = new TH1D("hGlobalTimeE", "Global Shifted Time E", 70, -10, 25);
@@ -261,7 +246,77 @@ bgfgGraphs()
   gPad->SetLogy();
 
   c6->Print("6_globalShiftedTimes_fullRange.pdf");
+*/
 
-  cout << "End of program." << endl;
+  // print out all the stats that we'll use
+  cout << "For " << timeLowerEdgeE << " < E < " << timeUpperEdgeE << ", " << timeLowerEdgeW << " < W < " << timeUpperEdgeW << endl;
+  cout << "We have full background spectrum counts: " << hbgErecon_timeWin->GetEntries() << endl;
+  cout << "And full foreground spectrum counts: " << hfgErecon_timeWin->GetEntries() << endl;
+  cout << "Restricted energy range background spectrum counts: " << hbgSpectra->GetEntries() << endl;
+  cout << "And the corresponding foreground spectrum counts: " << hfgSpectra->GetEntries() << endl;
 
+
+  cout << "-------------- End of Program ---------------" << endl;
+//  plot_program.Run();
+
+  return 0;
+}
+
+
+double SetPoissonErrors(int counts)
+{
+  double upperErrBar = 0;
+
+  // all values taken from PDG paper rpp2017-rev-statistics.pdf
+  // Using Table 40.3, for 95% upper one-sided limit
+  if(counts == 0)
+  {
+    upperErrBar = 3;
+  }
+  else if(counts == 1)
+  {
+    upperErrBar = 4.74 - 1;
+  }
+  else if(counts == 2)
+  {
+    upperErrBar = 6.30 - 2;
+  }
+  else if(counts == 3)
+  {
+    upperErrBar = 7.75 - 3;
+  }
+  else if(counts == 4)
+  {
+    upperErrBar = 9.15 - 4;
+  }
+  else if(counts == 5)
+  {
+    upperErrBar = 10.51 - 5;
+  }
+  else if(counts == 6)
+  {
+    upperErrBar = 11.84 - 6;
+  }
+  else if(counts == 7)
+  {
+    upperErrBar = 13.15 - 7;
+  }
+  else if(counts == 8)
+  {
+    upperErrBar = 14.43 - 8;
+  }
+  else if(counts == 9)
+  {
+    upperErrBar = 15.71 - 9;
+  }
+  else if(counts == 10)
+  {
+    upperErrBar = 16.96 - 10;
+  }
+  else if(counts > 10)
+  {
+    upperErrBar = 2*sqrt(counts);
+  }
+
+  return (upperErrBar / 2.0);
 }
