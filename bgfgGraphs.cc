@@ -99,7 +99,7 @@ int main(int argc, char* argv[])
 
   TCut globalTimeCut = "((newTimeGlobalShiftW < 4 && newTimeGlobalShiftE > 4 && newTimeGlobalShiftE < 16) || (newTimeGlobalShiftE < 4 && newTimeGlobalShiftW > 4 && newTimeGlobalShiftW < 16)) && newTimeGlobalShiftW > -2 && newTimeGlobalShiftE > -2";
 
-  TCut timeECut = Form("newTimeGlobalShiftE < %f && newTimeGlobalShiftE > %f && newTimeGlobalShiftW > %f && newTimeGlobalShiftW < %f", timeUpperEdgeE, timeLowerEdgeE, timeLowerEdgeW, timeUpperEdgeW);
+  TCut time1STPCut = Form("newTimeGlobalShiftE < %f && newTimeGlobalShiftE > %f && newTimeGlobalShiftW > %f && newTimeGlobalShiftW < %f", timeUpperEdgeE, timeLowerEdgeE, timeLowerEdgeW, timeUpperEdgeW);
 
 //  TCut timeWCut = Form("newTimeGlobalShiftW < %f && newTimeGlobalShiftE > %f && newTimeGlobalShiftE < %f && newTimeGlobalShiftE > -10 && newTimeGlobalShiftW > -10", timeWindowLowerEdge, timeWindowLowerEdge, timeWindowUpperEdge);
 
@@ -115,10 +115,10 @@ int main(int argc, char* argv[])
 				timeLowerEdgeE, stp.Data(), timeUpperEdgeE, timeLowerEdgeW, roi.Data(), timeUpperEdgeW), 160, 0, 4000);
   hfgErecon_timeWin->GetXaxis()->SetTitle("Erecon_ee (KeV)");
 
-  bgchain->Draw("Erecon_ee >> bgErecon_timeWin", basicCut && fiducialCut && timeECut);
+  bgchain->Draw("Erecon_ee >> bgErecon_timeWin", basicCut && fiducialCut && time1STPCut);
 
   c1->cd(2);
-  fgchain->Draw("Erecon_ee >> fgErecon_timeWin", basicCut && fiducialCut && timeECut);
+  fgchain->Draw("Erecon_ee >> fgErecon_timeWin", basicCut && fiducialCut && time1STPCut);
 
   c1->Print("1_Erecon_timingWindow.pdf");
 
@@ -137,10 +137,10 @@ int main(int argc, char* argv[])
   hfgSpectra->GetXaxis()->SetTitle("Erecon_ee (KeV)");
 
   c2->cd(1);
-  bgchain->Draw("Erecon_ee >> bgfull", basicCut && fiducialCut && timeECut && energyCut);
+  bgchain->Draw("Erecon_ee >> bgfull", basicCut && fiducialCut && time1STPCut && energyCut);
 
   c2->cd(2);
-  fgchain->Draw("Erecon_ee >> fgfull", basicCut && fiducialCut && timeECut && energyCut);
+  fgchain->Draw("Erecon_ee >> fgfull", basicCut && fiducialCut && time1STPCut && energyCut);
 
   // setting Poisson error bars for the BG and FG histograms
   cout << "Setting Poisson error bars..." << endl;
@@ -227,33 +227,42 @@ int main(int argc, char* argv[])
 */
   // sixth canvas
   TCanvas *c6 = new TCanvas("c6", "c6");
-  c6->Divide(2,2);
+  c6->Divide(2,1);
 
-  TH1D *hGlobalTimeE = new TH1D("hGlobalTimeE", "Global Shifted Time E", 70, -10, 25);
-  hGlobalTimeE->GetXaxis()->SetTitle("new time (ns)");
+  TH1D *hTDCEfg = new TH1D("hTDCEfg", "FG TDC Spectra", 4000, 0, 4000);
+  hTDCEfg->GetXaxis()->SetTitle("Channels");
+  hTDCEfg->SetLineColor(2);
+
+  TH1D *hTDCWfg = new TH1D("hTDCWfg", "FG TDCW", 4000, 0, 4000);
+  hTDCWfg->GetXaxis()->SetTitle("Channels");
+  hTDCWfg->SetLineColor(4);
+
+  TH1D *hTDCEbg = new TH1D("hTDCEbg", "BG TDC Spectra", 4000, 0, 4000);
+  hTDCEbg->GetXaxis()->SetTitle("Channels");
+  hTDCEbg->SetLineColor(2);
 
   TH1D *hTDCWbg = new TH1D("hTDCWbg", "BG TDCW", 4000, 0, 4000);
-  hTDCWbg->GetXaxis()->SetTitle("Channels ");
-  TH1D *hGlobalTimeWbg = new TH1D("hGlobalTimeWbg", "BG Global Shifted Time W", 320, -20, 140);
-  hGlobalTimeWbg->GetXaxis()->SetTitle("new time (ns)");
-  TH1D *hTDCWfg = new TH1D("hTDCWfg", "FG TDCW", 4000, 0, 4000);
-  hTDCWfg->GetXaxis()->SetTitle("Channels ");
-  TH1D *hGlobalTimeWfg = new TH1D("hGlobalTimeWfg", "FG Global Shifted Time W", 320, -20, 140);
-  hGlobalTimeWfg->GetXaxis()->SetTitle("new time (ns)");
+  hTDCWbg->GetXaxis()->SetTitle("Channels");
+  hTDCWbg->SetLineColor(4);
 
   c6->cd(1);
-//  fgchain->Draw("newTimeGlobalShiftE >> hGlobalTimeE", basicCut && fiducialCut && timeECut && energyCut);
-  bgchain->Draw("TDCW >> hTDCWbg", basicCut && fiducialCut /*&& timeECut && energyCut*/);
+  bgchain->Draw("TDCE + 150 >> hTDCEbg", basicCut && fiducialCut /*&& time1STPCut && energyCut*/);
+  bgchain->Draw("TDCW >> hTDCWbg", basicCut && fiducialCut /*&& time1STPCut && energyCut*/, "SAME");
+  TLegend *lbg = new TLegend(0.1,0.7,0.48,0.9);
+  lbg->AddEntry(hTDCEbg,"TDCE + 150","l");
+  lbg->AddEntry(hTDCWbg,"TDCW","l");
+  lbg->Draw();
   gPad->SetLogy();
+
   c6->cd(2);
-  bgchain->Draw("newTimeGlobalShiftW >> hGlobalTimeWbg", basicCut && fiducialCut /*&& timeECut && energyCut*/);
+  fgchain->Draw("TDCE + 150 >> hTDCEfg", basicCut && fiducialCut /*&& time1STPCut && energyCut*/);
+  fgchain->Draw("TDCW >> hTDCWfg", basicCut && fiducialCut /*&& time1STPCut && energyCut*/, "SAME");
+  TLegend *lfg = new TLegend(0.1,0.7,0.48,0.9);
+  lfg->AddEntry(hTDCEfg,"TDCE + 150","l");
+  lfg->AddEntry(hTDCWfg,"TDCW","l");
+  lfg->Draw();
   gPad->SetLogy();
-  c6->cd(3);
-  fgchain->Draw("TDCW >> hTDCWfg", basicCut && fiducialCut /*&& timeECut && energyCut*/);
-  gPad->SetLogy();
-  c6->cd(4);
-  fgchain->Draw("newTimeGlobalShiftW >> hGlobalTimeWfg", basicCut && fiducialCut /*&& timeECut && energyCut*/);
-  gPad->SetLogy();
+
 
   c6->Print("6_globalShiftedTimes_fullRange.pdf");
 
