@@ -188,6 +188,8 @@ TTree* AddBranchToClonedTree(int runNumber, int lineIndex)
   double newTimeShiftedW = -1;
   double newTimeGlobalShiftE = -1;
   double newTimeGlobalShiftW = -1;
+  double newTDC2TimeE = -1;
+  double newTDC2TimeW = -1;
 
   Event* evt = new Event;
   TTree* calibratedSubTree = chain->CloneTree(0);
@@ -224,12 +226,16 @@ TTree* AddBranchToClonedTree(int runNumber, int lineIndex)
   chain->SetBranchAddress("Erecon_ee", &evt->Erecon_ee);
   chain->SetBranchAddress("badTimeFlag", &evt->badTimeFlag);
 
+/*
   TBranch *bTimeScaledE = calibratedSubTree->Branch("newTimeScaledE", &newTimeScaledE, "newTimeScaledE/D");
   TBranch *bTimeScaledW = calibratedSubTree->Branch("newTimeScaledW", &newTimeScaledW, "newTimeScaledW/D");
   TBranch *bTimeShiftedE = calibratedSubTree->Branch("newTimeShiftedE", &newTimeShiftedE, "newTimeShiftedE/D");
   TBranch *bTimeShiftedW = calibratedSubTree->Branch("newTimeShiftedW", &newTimeShiftedW, "newTimeShiftedW/D");
   TBranch *bTimeGlobalShiftE = calibratedSubTree->Branch("newTimeGlobalShiftE", &newTimeGlobalShiftE, "newTimeGlobalShiftE/D");
   TBranch *bTimeGlobalShiftW = calibratedSubTree->Branch("newTimeGlobalShiftW", &newTimeGlobalShiftW, "newTimeGlobalShiftW/D");
+*/
+  TBranch *bTDC2TimeE = calibratedSubTree->Branch("newTDC2TimeE", &newTDC2TimeE, "newTDC2TimeE/D");
+  TBranch *bTDC2TimeW = calibratedSubTree->Branch("newTDC2TimeW", &newTDC2TimeW, "newTDC2TimeW/D");
 
 
   for(unsigned int i = 0; i < chain->GetEntries(); i++)
@@ -237,6 +243,7 @@ TTree* AddBranchToClonedTree(int runNumber, int lineIndex)
     chain->GetEntry(i);
     if(evt->Type == 1)
     {
+/*
       newTimeScaledE = 140.0 - (evt->TDCE * 140.0 / eSTP[lineIndex]);
       newTimeScaledW = 140.0 - (evt->TDCW * 140.0 / wSTP[lineIndex]);
 
@@ -245,6 +252,10 @@ TTree* AddBranchToClonedTree(int runNumber, int lineIndex)
 
       newTimeGlobalShiftE = 140.0 - (evt->TDCE - (eSTP[lineIndex] - fg_globalcenter)) * (140.0 / fg_globalcenter);
       newTimeGlobalShiftW = 140.0 - (evt->TDCW - (wSTP[lineIndex] - fg_globalcenter)) * (140.0 / fg_globalcenter);
+*/
+
+      newTDC2TimeE = (-1)*(182.27/4096.0)*(evt->TDCE - 38 - 2917);
+      newTDC2TimeW = (-1)*(182.27/4096.0)*(evt->TDCW + 38 - 3128);
 
       calibratedSubTree->Fill();
     }

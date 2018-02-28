@@ -106,7 +106,7 @@ int main(int argc, char* argv[])
 
   // define all the cuts we will use later.
   TCut basicCut = "(PID == 1 && badTimeFlag == 0)";
-  TCut energyCut = "(Erecon_ee > 0 && Erecon_ee < 640)";
+  TCut energyCut = "(Erecon_ee > 0 && Erecon_ee < 800)";
   TCut fiducialCut = "(((xE.center)*(xE.center) + (yE.center)*(yE.center) < 49*49) && ((xW.center)*(xW.center) + (yW.center)*(yW.center) < 49*49))";
   TCut simulationCut = "EdepQ.EdepQE > 0 && EdepQ.EdepQW > 0 && MWPCEnergy.MWPCEnergyE > 0 && MWPCEnergy.MWPCEnergyW > 0 && time.timeE < 200 && time.timeW < 200 && timeE < timeW";
 
@@ -145,12 +145,12 @@ int main(int argc, char* argv[])
   c2->Divide(3,1);
 
   TH1D *hbgSpectra = new TH1D("bgfull", Form("BG Erecon_ee, all cuts: %f < %s < %f, %f < %s < %f",
-				timeLowerEdgeE, stp.Data(), timeUpperEdgeE, timeLowerEdgeW, roi.Data(), timeUpperEdgeW), 40, 0, 1000);
+				timeLowerEdgeE, stp.Data(), timeUpperEdgeE, timeLowerEdgeW, roi.Data(), timeUpperEdgeW), 10, 0, 1000);
   hbgSpectra->Sumw2();
   hbgSpectra->GetXaxis()->SetTitle("Erecon_ee (KeV)");
 
   TH1D *hfgSpectra = new TH1D("fgfull", Form("FG Erecon_ee, all cuts: %f < %s < %f, %f < %s < %f",
-				timeLowerEdgeE, stp.Data(), timeUpperEdgeE, timeLowerEdgeW, roi.Data(), timeUpperEdgeW), 40, 0, 1000);
+				timeLowerEdgeE, stp.Data(), timeUpperEdgeE, timeLowerEdgeW, roi.Data(), timeUpperEdgeW), 10, 0, 1000);
   hfgSpectra->Sumw2();
   hfgSpectra->GetXaxis()->SetTitle("Erecon_ee (KeV)");
 
@@ -168,7 +168,7 @@ int main(int argc, char* argv[])
     hfgSpectra->SetBinError(i, SetPoissonErrors(hfgSpectra->GetBinContent(i)));
   }
 
-  TH1D *h_fullCuts = new TH1D("fullCuts", "BG subtracted Erecon_ee", 40, 0, 1000);
+  TH1D *h_fullCuts = new TH1D("fullCuts", "BG subtracted Erecon_ee", 10, 0, 1000);
   h_fullCuts->Sumw2();
   h_fullCuts->Add(hfgSpectra, hbgSpectra, 1, -5.07);	// 5.07 comes from 860262/169717 live time ratio
 
@@ -262,8 +262,8 @@ int main(int argc, char* argv[])
   hTDCWbg->SetLineColor(4);
 
   c5->cd(1);
-  bgchain->Draw("(-1)*(180.0/4096.0)*(TDCE - 38 - 2917) >> hTDCEbg", basicCut && fiducialCut /*&& time1STPCut && energyCut*/);
-  bgchain->Draw("(-1)*(180.0/4096.0)*(TDCW + 38 - 3138) >> hTDCWbg", basicCut && fiducialCut /*&& time1STPCut && energyCut*/, "SAME");
+  bgchain->Draw("(-1)*(180.0/4096.0)*(TDCE - 38 - 2917) >> hTDCEbg", basicCut && fiducialCut && time1STPCut && energyCut);
+  bgchain->Draw("(-1)*(180.0/4096.0)*(TDCW + 38 - 3138) >> hTDCWbg", basicCut && fiducialCut && time1STPCut && energyCut, "SAME");
 
   TLegend *lbg = new TLegend(0.1,0.8,0.4,0.9);
   lbg->AddEntry(hTDCEbg,"Calibrated TDCE","l");
@@ -272,8 +272,8 @@ int main(int argc, char* argv[])
   gPad->SetLogy();
 
   c5->cd(2);
-  fgchain->Draw("(-1)*(182.27/4096.0)*(TDCE - 38 - 2917) >> hTDCEfg", basicCut && fiducialCut /*&& time1STPCut && energyCut*/);
-  fgchain->Draw("(-1)*(182.27/4096.0)*(TDCW + 38 - 3138) >> hTDCWfg", basicCut && fiducialCut /*&& time1STPCut && energyCut*/, "SAME");
+  fgchain->Draw("(-1)*(182.27/4096.0)*(TDCE - 38 - 2917) >> hTDCEfg", basicCut && fiducialCut && time1STPCut && energyCut);
+  fgchain->Draw("(-1)*(182.27/4096.0)*(TDCW + 38 - 3138) >> hTDCWfg", basicCut && fiducialCut && time1STPCut && energyCut, "SAME");
   TLegend *lfg = new TLegend(0.1,0.8,0.4,0.9);
   lfg->AddEntry(hTDCEfg,"Calibrated TDCE","l");
   lfg->AddEntry(hTDCWfg,"Calibrated TDCW","l");
@@ -292,9 +292,9 @@ int main(int argc, char* argv[])
   TRandom3 *engine = new TRandom3(0);
   TH1D *hSim0 = new TH1D("hSim0sigma", "hSim", 320, -20, 140);
   TH1D *hSim2 = new TH1D("hSim2sigma", "hSim", 320, -20, 140);
-  hSim2->SetLineColor(8);
+  hSim2->SetLineColor(2);
   TH1D *hSim4 = new TH1D("hSim4sigma", "hSim", 320, -20, 140);
-  hSim4->SetLineColor(6);
+  hSim4->SetLineColor(4);
 
   SimEvent evt;
   mpm_sim_chain->GetBranch("Edep")->GetLeaf("EdepE")->SetAddress(&evt.Edep_EdepE);
@@ -306,7 +306,7 @@ int main(int argc, char* argv[])
   mpm_sim_chain->GetBranch("time")->GetLeaf("timeE")->SetAddress(&evt.time_timeE);
   mpm_sim_chain->GetBranch("time")->GetLeaf("timeW")->SetAddress(&evt.time_timeW);
 
-  for(unsigned int i = 0; i < mpm_sim_chain->GetEntries(); i++)
+  for(unsigned int i = 0; i < 1000000 /*mpm_sim_chain->GetEntries()*/; i++)
   {
     mpm_sim_chain->GetEntry(i);
 
@@ -324,32 +324,32 @@ int main(int argc, char* argv[])
     }
   }
 
-  hTDCEfg->Draw();
-  hTDCWfg->Draw("SAME");
+//  hTDCEfg->Draw();
+//  hTDCWfg->Draw("SAME");
 
   hSim0->Scale((double)hTDCWfg->GetEntries() / (2*hSim0->GetEntries()));
-  hSim0->Draw("SAME");
+//  hSim0->Draw();
   hSim2->Scale((double)hTDCWfg->GetEntries() / (2*hSim2->GetEntries()));
-  hSim2->Draw("SAME");
+//  hSim2->Draw("SAME");
   hSim4->Scale((double)hTDCWfg->GetEntries() / (2*hSim4->GetEntries()));
-  hSim4->Draw("SAME");
+//  hSim4->Draw("SAME");
 
   TH1D *hTimeE_bgSub = new TH1D("BGSubE", "BG Subtracted Time East", 320, -20, 140);
-  hTimeE_bgSub->SetLineColor(44);
+  hTimeE_bgSub->SetLineColor(3);
   hTimeE_bgSub->Add(hTDCEfg, hTDCEbg, 1, -5.07);
-  hTimeE_bgSub->Draw("SAME");
+  hTimeE_bgSub->Draw();
 
   TH1D *hTimeW_bgSub = new TH1D("BGSubW", "BG Subtracted Time West", 320, -20, 140);
-  hTimeW_bgSub->SetLineColor(32);
+  hTimeW_bgSub->SetLineColor(1);
   hTimeW_bgSub->Add(hTDCWfg, hTDCWbg, 1, -5.07);
   hTimeW_bgSub->Draw("SAME");
 
   TLegend *l7 = new TLegend(0.3,0.7,0.7,0.9);
-  l7->AddEntry(hTDCEbg,"Calibrated TDCE","l");
-  l7->AddEntry(hTDCWbg,"Calibrated TDCW","l");
-  l7->AddEntry(hSim0, "MPM G4 Sim no smearing", "l");
-  l7->AddEntry(hSim2, "MPM G4 Sim 2ns sigma", "l");
-  l7->AddEntry(hSim4, "MPM G4 Sim 4ns sigma", "l");
+//  l7->AddEntry(hTDCEbg,"Calibrated TDCE","l");
+//  l7->AddEntry(hTDCWbg,"Calibrated TDCW","l");
+//  l7->AddEntry(hSim0, "MPM G4 Sim no smearing", "l");
+//  l7->AddEntry(hSim2, "MPM G4 Sim 2ns sigma", "l");
+//  l7->AddEntry(hSim4, "MPM G4 Sim 4ns sigma", "l");
   l7->AddEntry(hTimeE_bgSub, "FG - 5.07BG East", "l");
   l7->AddEntry(hTimeW_bgSub, "FG - 5.07BG West", "l");
   l7->Draw();
