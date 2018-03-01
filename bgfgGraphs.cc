@@ -101,7 +101,6 @@ int main(int argc, char* argv[])
   TString stp = "E";
   TString roi = "W";
 
-
   TChain *bgchain = new TChain("pass3");
   TChain *fgchain = new TChain("pass3");
 
@@ -113,16 +112,8 @@ int main(int argc, char* argv[])
   TCut energyCut = "(Erecon_ee > 0 && Erecon_ee < 800)";
   TCut fiducialCut = "(((xE.center)*(xE.center) + (yE.center)*(yE.center) < 49*49) && ((xW.center)*(xW.center) + (yW.center)*(yW.center) < 49*49))";
   TCut simulationCut = "EdepQ.EdepQE > 0 && EdepQ.EdepQW > 0 && MWPCEnergy.MWPCEnergyE > 0 && MWPCEnergy.MWPCEnergyW > 0 && time.timeE < 200 && time.timeW < 200 && timeE < timeW";
-
-  // bad cuts down here
-//  TCut scaledTimeCut = Form("((newTimeScaledW < 4 && newTimeScaledE > 4 && newTimeScaledE < %f) || (newTimeScaledE < 4 && newTimeScaledW > 4 && newTimeScaledW < %f)) && newTimeScaledW > -2 && newTimeScaledE > -2", timeWindowUpperEdge, timeWindowUpperEdge);
-//  TCut shiftedTimeCut = Form("((newTimeShiftedW < 4 && newTimeShiftedE > 4 && newTimeShiftedE < %f) || (newTimeShiftedE < 4 && newTimeShiftedW > 4 && newTimeShiftedW < %f)) && newTimeShiftedW > -2 && newTimeShiftedE > -2", timeWindowUpperEdge, timeWindowUpperEdge);
-//  TCut tdcTimeCut = "((TDCE > 2850 && TDCW > 2850 && TDCW < 3050) || (TDCW > 3050 && TDCE > 2650 && TDCE < 2850))";
-
-//  TCut globalTimeCut = "((newTimeGlobalShiftW < 4 && newTimeGlobalShiftE > 4 && newTimeGlobalShiftE < 16) || (newTimeGlobalShiftE < 4 && newTimeGlobalShiftW > 4 && newTimeGlobalShiftW < 16)) && newTimeGlobalShiftW > -2 && newTimeGlobalShiftE > -2";
-
   TCut time1STPCut = Form("newTDC2TimeE < %f && newTDC2TimeE > %f && newTDC2TimeW > %f && newTDC2TimeW < %f", timeUpperEdgeE1, timeLowerEdgeE1, timeLowerEdgeW1, timeUpperEdgeW1);
-  TCut time2STPCut = Form("(newTDC2TimeE < %f && newTDC2TimeE > %f && newTDC2TimeW > %f && newTDC2TimeW < %f) || (newTDC2TimeE < %f && newTDC2TimeE < %f && newTDC2TimeW > %f && newTDC2TimeW < %f)",
+  TCut time2STPCut = Form("(newTDC2TimeE < %f && newTDC2TimeE > %f && newTDC2TimeW > %f && newTDC2TimeW < %f) || (newTDC2TimeE < %f && newTDC2TimeE > %f && newTDC2TimeW > %f && newTDC2TimeW < %f)",
 			timeUpperEdgeE1, timeLowerEdgeE1, timeLowerEdgeW1, timeUpperEdgeW1,
 			timeUpperEdgeE2, timeLowerEdgeE2, timeLowerEdgeW2, timeUpperEdgeW2);
 
@@ -131,18 +122,18 @@ int main(int argc, char* argv[])
   c1->Divide(2,1);
   c1->cd(1);
 
-  TH1D *hbgErecon_timeWin = new TH1D("bgErecon_timeWin", Form("BG Erecon_ee global time: %f < %s < %f ns, %f < %s < %f ns",
-				timeLowerEdgeE1, stp.Data(), timeUpperEdgeE1, timeLowerEdgeW1, roi.Data(), timeUpperEdgeW1), 160, 0, 4000);
+  TH1D *hbgErecon_timeWin = new TH1D("bgErecon_timeWin", Form("BG Erecon_ee global time: %f < E < %f ns, %f < W < %f ns",
+				timeLowerEdgeE1, timeUpperEdgeE1, timeLowerEdgeW1, timeUpperEdgeW1), 160, 0, 4000);
   hbgErecon_timeWin->GetXaxis()->SetTitle("Erecon_ee (KeV)");
 
-  TH1D *hfgErecon_timeWin = new TH1D("fgErecon_timeWin", Form("FG Erecon_ee global time: %f < %s < %f ns, %f < %s < %f ns",
-				timeLowerEdgeE1, stp.Data(), timeUpperEdgeE1, timeLowerEdgeW1, roi.Data(), timeUpperEdgeW1), 160, 0, 4000);
+  TH1D *hfgErecon_timeWin = new TH1D("fgErecon_timeWin", Form("FG Erecon_ee global time: %f < E < %f ns, %f < W < %f ns",
+				timeLowerEdgeE1, timeUpperEdgeE1, timeLowerEdgeW1, timeUpperEdgeW1), 160, 0, 4000);
   hfgErecon_timeWin->GetXaxis()->SetTitle("Erecon_ee (KeV)");
 
-  bgchain->Draw("Erecon_ee >> bgErecon_timeWin", basicCut && fiducialCut && time1STPCut);
+  bgchain->Draw("Erecon_ee >> bgErecon_timeWin", basicCut && fiducialCut && time2STPCut);
 
   c1->cd(2);
-  fgchain->Draw("Erecon_ee >> fgErecon_timeWin", basicCut && fiducialCut && time1STPCut);
+  fgchain->Draw("Erecon_ee >> fgErecon_timeWin", basicCut && fiducialCut && time2STPCut);
 
   c1->Print("1_Erecon_timingWindow.pdf");
 
@@ -150,21 +141,21 @@ int main(int argc, char* argv[])
   TCanvas *c2 = new TCanvas("c2", "c2");
   c2->Divide(3,1);
 
-  TH1D *hbgSpectra = new TH1D("bgfull", Form("BG Erecon_ee, all cuts: %f < %s < %f, %f < %s < %f",
-				timeLowerEdgeE1, stp.Data(), timeUpperEdgeE1, timeLowerEdgeW1, roi.Data(), timeUpperEdgeW1), 10, 0, 1000);
+  TH1D *hbgSpectra = new TH1D("bgfull", Form("BG Erecon_ee, all cuts: %f < E < %f, %f < W < %f",
+				timeLowerEdgeE1, timeUpperEdgeE1, timeLowerEdgeW1, timeUpperEdgeW1), 10, 0, 1000);
   hbgSpectra->Sumw2();
   hbgSpectra->GetXaxis()->SetTitle("Erecon_ee (KeV)");
 
-  TH1D *hfgSpectra = new TH1D("fgfull", Form("FG Erecon_ee, all cuts: %f < %s < %f, %f < %s < %f",
-				timeLowerEdgeE1, stp.Data(), timeUpperEdgeE1, timeLowerEdgeW1, roi.Data(), timeUpperEdgeW1), 10, 0, 1000);
+  TH1D *hfgSpectra = new TH1D("fgfull", Form("FG Erecon_ee, all cuts: %f < E < %f, %f < W < %f",
+				timeLowerEdgeE1, timeUpperEdgeE1, timeLowerEdgeW1, timeUpperEdgeW1), 10, 0, 1000);
   hfgSpectra->Sumw2();
   hfgSpectra->GetXaxis()->SetTitle("Erecon_ee (KeV)");
 
   c2->cd(1);
-  bgchain->Draw("Erecon_ee >> bgfull", basicCut && fiducialCut && time1STPCut && energyCut);
+  bgchain->Draw("Erecon_ee >> bgfull", basicCut && fiducialCut && time2STPCut && energyCut);
 
   c2->cd(2);
-  fgchain->Draw("Erecon_ee >> fgfull", basicCut && fiducialCut && time1STPCut && energyCut);
+  fgchain->Draw("Erecon_ee >> fgfull", basicCut && fiducialCut && time2STPCut && energyCut);
 
   // setting Poisson error bars for the BG and FG histograms
   cout << "Setting Poisson error bars..." << endl;
@@ -183,72 +174,6 @@ int main(int argc, char* argv[])
 
   c2->Print("2_BGsubtracted_timeWindow.pdf");
 
-  // third canvas, starting time plots
-/*  TCanvas *c3 = new TCanvas("c3", "c3");
-  c3->cd();
-  TH2D *hTime2D = new TH2D("time2D", "time2D", 160, -20, 140, 160, -20, 140);
-  hTime2D->GetXaxis()->SetTitle("newTimeGlobalShiftW (ns)");
-  hTime2D->GetYaxis()->SetTitle("newTimeGlobalShiftE (ns)");
-  fgchain->Draw("newTimeGlobalShiftE:newTimeGlobalShiftW >> time2D", basicCut && fiducialCut, "COLZ");
-  gPad->SetLogz();
-  c3->Print("3_2DTimePlots_noTimingCuts.pdf");
-*/
-
-  // fourth canvas
-/*  TCanvas *c4 = new TCanvas("c4", "c4");
-  c4->cd();
-  TH2D *hTime2D_subrange = new TH2D("time2D_subrange", "time2D subrange", 25, -5, 20, 25, -5, 20);
-  hTime2D_subrange->GetXaxis()->SetTitle("newTimeGlobalShiftW (ns)");
-  hTime2D_subrange->GetYaxis()->SetTitle("newTimeGlobalShiftE (ns)");
-  fgchain->Draw("newTimeGlobalShiftE:newTimeGlobalShiftW >> time2D_subrange", basicCut && fiducialCut && globalTimeCut && energyCut, "COLZ");
-  gPad->SetLogz();
-  c4->Print("4_2DTimePlots_withTimeCuts.pdf");
-*/
-  // fifth canvas
-/*  TCanvas *c5 = new TCanvas("c5","c5");
-  c5->Divide(3,1);
-
-  TChain *bgchain_8ns = new TChain("pass3");
-  TChain *fgchain_8ns = new TChain("pass3");
-
-  bgchain_8ns->Add("TimeCalibrated_BGRuns_type1_fixed.root");
-  fgchain_8ns->Add("TimeCalibrated_FGRuns_type1_fixed.root");
-
-  TH1D *hbg_8ns_scaled = new TH1D("bg_8ns_scaled", Form("Background %f ns window, scaled to counts of full window", modelTimeUpperEdge - timeWindowLowerEdge), 160, 0, 4000);
-  hbgErecon_timeWin->GetXaxis()->SetTitle("Erecon_ee (KeV)");
-  TH1D *hfg_8ns_scaled = new TH1D("fg_8ns_scaled", Form("Foreground %f ns window, scaled to counts of full window", modelTimeUpperEdge - timeWindowLowerEdge), 160, 0, 4000);
-  hfgErecon_timeWin->GetXaxis()->SetTitle("Erecon_ee (KeV)");
-
-  TH1D *hfg_realWindow = new TH1D("fgreal", "Foreground of full window", 160, 0, 4000);
-  hfgErecon_timeWin->GetXaxis()->SetTitle("Erecon_ee (KeV)");
-
-  c5->cd(1);
-  bgchain_8ns->Draw("Erecon_ee >> bg_8ns_scaled", basicCut && fiducialCut && scaledTimeCut_8ns);
-
-  c5->cd(2);
-  hfg_realWindow->SetFillColor(38);
-  hfg_realWindow->SetFillStyle(3005);
-  fgchain->Draw("Erecon_ee >> fgreal", basicCut && fiducialCut && scaledTimeCut);
-
-  c5->cd(3);
-  fgchain_8ns->Draw("Erecon_ee >> fg_8ns_scaled", basicCut && fiducialCut && scaledTimeCut_8ns);
-
-  c5->cd(2);
-
-  double fullwindow_bgCounts = hbgErecon_timeWin->GetEntries();
-  double window8ns_bgCounts = hbg_8ns_scaled->GetEntries();
-  hfg_8ns_scaled->Scale(fullwindow_bgCounts / window8ns_bgCounts);
-  hfg_8ns_scaled->SetFillColor(46);
-  hfg_8ns_scaled->SetFillStyle(3004);
-  hfg_8ns_scaled->Draw("SAME");
-
-
-  c5->cd(3);
-//  hbgErecon_timeWin->SetFillColor(30);
-//  hbgErecon_timeWin->Draw();
-  hfgErecon_timeWin->SetFillColor(38);
-  hfgErecon_timeWin->Draw();
-*/
   // fifth canvas
   TCanvas *c5 = new TCanvas("c5", "c5");
   c5->Divide(2,1);
@@ -268,8 +193,10 @@ int main(int argc, char* argv[])
   hTDCWbg->SetLineColor(4);
 
   c5->cd(1);
-  bgchain->Draw("(-1)*(182.27/4096.0)*(TDCE - 38 - 2917) >> hTDCEbg", basicCut && fiducialCut && time1STPCut && energyCut);
-  bgchain->Draw("(-1)*(182.27/4096.0)*(TDCW + 38 - 3138) >> hTDCWbg", basicCut && fiducialCut && time1STPCut && energyCut, "SAME");
+//  bgchain->Draw("(-1)*(182.27/4096.0)*(TDCE - 38 - 2917) >> hTDCEbg", basicCut && fiducialCut && time2STPCut && energyCut);
+//  bgchain->Draw("(-1)*(182.27/4096.0)*(TDCW + 38 - 3138) >> hTDCWbg", basicCut && fiducialCut && time2STPCut && energyCut, "SAME");
+  bgchain->Draw("newTDC2TimeE >> hTDCEbg", basicCut && fiducialCut && time2STPCut && energyCut);
+  bgchain->Draw("newTDC2TimeW >> hTDCWbg", basicCut && fiducialCut && time2STPCut && energyCut, "SAME");
 
   TLegend *lbg = new TLegend(0.1,0.8,0.4,0.9);
   lbg->AddEntry(hTDCEbg,"Calibrated TDCE","l");
@@ -278,8 +205,10 @@ int main(int argc, char* argv[])
   gPad->SetLogy();
 
   c5->cd(2);
-  fgchain->Draw("(-1)*(182.27/4096.0)*(TDCE - 38 - 2917) >> hTDCEfg", basicCut && fiducialCut && time1STPCut && energyCut);
-  fgchain->Draw("(-1)*(182.27/4096.0)*(TDCW + 38 - 3138) >> hTDCWfg", basicCut && fiducialCut && time1STPCut && energyCut, "SAME");
+//  fgchain->Draw("(-1)*(182.27/4096.0)*(TDCE - 38 - 2917) >> hTDCEfg", basicCut && fiducialCut && time2STPCut && energyCut);
+//  fgchain->Draw("(-1)*(182.27/4096.0)*(TDCW + 38 - 3138) >> hTDCWfg", basicCut && fiducialCut && time2STPCut && energyCut, "SAME");
+  fgchain->Draw("newTDC2TimeE >> hTDCEfg", basicCut && fiducialCut && time2STPCut && energyCut);
+  fgchain->Draw("newTDC2TimeW >> hTDCWfg", basicCut && fiducialCut && time2STPCut && energyCut, "SAME");
   TLegend *lfg = new TLegend(0.1,0.8,0.4,0.9);
   lfg->AddEntry(hTDCEfg,"Calibrated TDCE","l");
   lfg->AddEntry(hTDCWfg,"Calibrated TDCW","l");
@@ -368,13 +297,13 @@ int main(int argc, char* argv[])
 
   // eighth canvas
   TCanvas *c8 = new TCanvas("c8","c8");
-  c8->Divide(2,1);
-  c8->cd(1);
+  c8->cd();
 
   hTimeW_bgSub->Draw();
   hTimeE_bgSub->Draw("SAME");
   hTimeW_bgSub->SetTitle(Form("FG - 5.07BG: %f < E < %f, %f < W < %f", timeLowerEdgeE1, timeUpperEdgeE1, timeLowerEdgeW1, timeUpperEdgeW1));
   hTimeW_bgSub->GetXaxis()->SetTitle("Time (ns)");
+  hTimeW_bgSub->GetXaxis()->SetRangeUser(-10, 30);
   hTimeW_bgSub->GetYaxis()->SetTitle("Counts");
   gPad->SetLogy();
 
@@ -382,12 +311,6 @@ int main(int argc, char* argv[])
   l8->AddEntry(hTimeW_bgSub, "FG - 5.07BG West", "l");
   l8->AddEntry(hTimeE_bgSub, "FG - 5.07BG East", "l");
   l8->Draw();
-
-  c8->cd(2);
-  hTimeW_bgSub->Draw();
-  hTimeW_bgSub->GetXaxis()->SetRangeUser(-10, 30);
-  hTimeE_bgSub->Draw("SAME");
-  gPad->SetLogy();
 
   c8->Print("8_TimingSpectra_fullRange.pdf");
 
