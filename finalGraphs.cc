@@ -166,7 +166,7 @@ int main(int argc, char* argv[])
   c2->cd();
 
   TChain *mpm_sim_chain = new TChain("anaTree");
-  mpm_sim_chain->Add("mpm_sim_betas_100EWFiles_2012-2013.root");
+  mpm_sim_chain->Add("mpm_sim_betas_500EWFiles_2012-2013.root");
 
   TRandom3 *engine = new TRandom3(0);
 
@@ -185,7 +185,7 @@ int main(int argc, char* argv[])
   mpm_sim_chain->GetBranch("time")->GetLeaf("timeE")->SetAddress(&evt.time_timeE);
   mpm_sim_chain->GetBranch("time")->GetLeaf("timeW")->SetAddress(&evt.time_timeW);
 
-  for(unsigned int i = 0; i < 1000000; i++)
+  for(unsigned int i = 0; i < mpm_sim_chain->GetEntries(); i++)
   {
     mpm_sim_chain->GetEntry(i);
 
@@ -226,6 +226,8 @@ int main(int argc, char* argv[])
   l2->Draw();
   gPad->SetLogy();
 
+  c2->Print("2_MPMTimingCompare.pdf");
+
   // third canvas, let's begin looking at energies
   // this will be our time window upper edge, energy spectra plot
   TCanvas *c3 = new TCanvas("c3", "c3");
@@ -235,19 +237,25 @@ int main(int argc, char* argv[])
   vector <TH1D*> hfgErecon;
   vector <TCut> timeWindowCuts;
 
+  vector <double> timeUpper;
+  timeUpper.push_back(140);
+  timeUpper.push_back(20);
+  timeUpper.push_back(16);
+  timeUpper.push_back(14);
+  timeUpper.push_back(12);
+
   TLegend *l3a = new TLegend(0.6,0.6,0.9,0.9);
   TLegend *l3b = new TLegend(0.6,0.6,0.9,0.9);
 
-  for(int i = 0; i < 10; i++)
+  for(unsigned int i = 0; i < timeUpper.size(); i++)
   {
-    double timeUpper = 20 - (double)i;
     hbgErecon.push_back(new TH1D(Form("bgErecon_%i", i), "BG Erecon", 160, 0, 4000));
     hfgErecon.push_back(new TH1D(Form("fgErecon_%i", i), "FG Erecon", 160, 0, 4000));
-    timeWindowCuts.push_back(Form("(newTDC2TimeE > -1 && newTDC2TimeE < 5 && newTDC2TimeW > 0 && newTDC2TimeW < %f) || (newTDC2TimeW > -4 && newTDC2TimeW < 2 && newTDC2TimeE > 0 && newTDC2TimeE < %f)", timeUpper, timeUpper));
-    hbgErecon[i]->SetLineColor(i);
+    hbgErecon[i]->SetLineColor(i+1);
     hbgErecon[i]->SetStats(kFALSE);
-    hfgErecon[i]->SetLineColor(i);
+    hfgErecon[i]->SetLineColor(i+1);
     hfgErecon[i]->SetStats(kFALSE);
+    timeWindowCuts.push_back(Form("(newTDC2TimeE > -1 && newTDC2TimeE < 5 && newTDC2TimeW > 0 && newTDC2TimeW < %f) || (newTDC2TimeW > -4 && newTDC2TimeW < 2 && newTDC2TimeE > 0 && newTDC2TimeE < %f)", timeUpper[i], timeUpper[i]));
 
     c3->cd(1);
     if(i == 0)
@@ -258,7 +266,7 @@ int main(int argc, char* argv[])
     {
       bgchain->Draw(Form("Erecon_ee >> bgErecon_%i", i), basicCut && fiducialCut && "Erecon_ee > 0" && timeWindowCuts[i], "SAME");
     }
-    l3a->AddEntry(hbgErecon[i], Form("(0, %f) ns acceptance", timeUpper), "l");
+    l3a->AddEntry(hbgErecon[i], Form("(0, %f) ns acceptance", timeUpper[i]), "l");
 
     c3->cd(2);
     if(i == 0)
@@ -269,26 +277,16 @@ int main(int argc, char* argv[])
     {
       fgchain->Draw(Form("Erecon_ee >> fgErecon_%i", i), basicCut && fiducialCut && "Erecon_ee > 0" && timeWindowCuts[i], "SAME");
     }
-    l3b->AddEntry(hfgErecon[i], Form("(0, %f) ns acceptance", timeUpper), "l");
+    l3b->AddEntry(hfgErecon[i], Form("(0, %f) ns acceptance", timeUpper[i]), "l");
   }
 
   c3->cd(1);
   l3a->Draw();
   c3->cd(2);
   l3b->Draw();
+  gPad->SetLogy();
 
-
-
-/*
-  TH1D* hbgErecon = new TH1D("bgErecon", Form("BG Erecon: non-STP events (%f, %f) ns", windowLower, windowUpper), 160, 0, 4000);
-  hbgErecon->GetXaxis()->SetTitle("Erecon_ee (KeV)");
-  TH1D* hfgErecon = new TH1D("fgErecon", Form("FG Erecon: non-STP events (%f, %f) ns", windowLower, windowUpper), 160, 0, 4000);
-  hfgErecon->GetXaxis()->SetTitle("Erecon_ee (KeV)");
-
-  bgchain->Draw("Erecon_ee >> bgErecon", basicCut && fiducialCut && (inESTPAndTimeWinCut || inWSTPAndTimeWinCut) && "Erecon_ee > 0");
-  c3->cd(2);
-  fgchain->Draw("Erecon_ee >> fgErecon", basicCut && fiducialCut && (inESTPAndTimeWinCut || inWSTPAndTimeWinCut) && "Erecon_ee > 0");
-*/
+  c3->Print("3_Erecon_TimeWindowEndpointCompare.pdf");
 
   // fourth canvas, energies with background subtraction and statstics.
   TCanvas *c4 = new TCanvas("c4","c4");
@@ -328,29 +326,8 @@ int main(int argc, char* argv[])
   }
   hErecon_bgSub->SetEntries(totalEntries);
 
+  c4->Print("4_Erecon_BG_FG_finalCuts.pdf");
 
-  // print out all the stats that we'll use
-/*  cout << "For " << timeLowerEdgeE1 << " < E < " << timeUpperEdgeE1 << ", " << timeLowerEdgeW1 << " < W < " << timeUpperEdgeW1 << endl;
-  cout << "We have full background spectrum counts: " << hbgErecon_timeWin->GetEntries() << endl;
-  cout << "And full foreground spectrum counts: " << hfgErecon_timeWin->GetEntries() << endl;
-  cout << "Restricted energy range background spectrum counts: " << hbgSpectra->GetEntries() << endl;
-  cout << "And the corresponding foreground spectrum counts: " << hfgSpectra->GetEntries() << endl;
-
-
-  ofstream outfile;
-  outfile.open("FinalCounts_variousTimeWindows_allForegroundRuns.txt", ios::app);
-
-  outfile << timeLowerEdgeE << "\t"
-	  << timeUpperEdgeE << "\t"
-	  << timeLowerEdgeW << "\t"
-	  << timeUpperEdgeW << "\t"
-	  << hbgErecon_timeWin->GetEntries() << "\t"
-	  << hfgErecon_timeWin->GetEntries() << "\t"
-	  << hbgSpectra->GetEntries() << "\t"
-	  << hfgSpectra->GetEntries() << "\n";
-
-  outfile.close();
-*/
 
   cout << "-------------- End of Program ---------------" << endl;
   plot_program.Run();
