@@ -92,7 +92,7 @@ int main(int argc, char* argv[])
   double timeUpperEdgeW2 = 140;
 
   double windowLower = 0;
-  double windowUpper = 15;
+  double windowUpper = 12;
 
   TChain *bgchain = new TChain("pass3");
   TChain *fgchain = new TChain("pass3");
