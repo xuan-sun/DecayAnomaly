@@ -43,6 +43,7 @@
 using            namespace std;
 
 double SetPoissonErrors(int counts);
+void FillInAcceptancesFromFile(TString fileName, vector <double> time, vector <double> counts, double totalCounts);
 
 struct DataEvent
 {
@@ -121,11 +122,6 @@ int main(int argc, char* argv[])
   TCanvas *c1 = new TCanvas("c1", "c1");
   c1->Divide(2,1);
 
-  TH1D *hTime_sim = new TH1D("hSim", "MPM Simulated Timing, East Hits First", 320, -20, 140);
-  TH1D *hTime_tdcE = new TH1D("hTDC2TimeE", "TDC converted to Time East", 320, -20, 140);
-  TH1D *hTime_tdcW = new TH1D("hTDC2TimeW", "TDC converted to Time West", 320, -20, 140);
-
-
   TH1D *hTDCEfg = new TH1D("hTDCEfg", "FG TDC Spectra", 320, -20, 140);
   hTDCEfg->GetXaxis()->SetTitle("Time (ns)");
   hTDCEfg->SetLineColor(2);
@@ -185,7 +181,7 @@ int main(int argc, char* argv[])
   mpm_sim_chain->GetBranch("time")->GetLeaf("timeE")->SetAddress(&evt.time_timeE);
   mpm_sim_chain->GetBranch("time")->GetLeaf("timeW")->SetAddress(&evt.time_timeW);
 
-  for(unsigned int i = 0; i < mpm_sim_chain->GetEntries(); i++)
+  for(unsigned int i = 0; i < 1000000 /*mpm_sim_chain->GetEntries()*/; i++)
   {
     mpm_sim_chain->GetEntry(i);
 
@@ -288,16 +284,38 @@ int main(int argc, char* argv[])
 
   c3->Print("3_Erecon_TimeWindowEndpointCompare.pdf");
 
-  // fourth canvas, energies with background subtraction and statstics.
+  // fourth canvas, energies with background subtraction and statistics propagated and acceptances from Brad F.
   TCanvas *c4 = new TCanvas("c4","c4");
   c4->Divide(3,1);
 
-  TH1D *hbgErecon_withCuts = new TH1D("bgEreconfull", Form("BG Erecon: non-STP Events (%f, %f) ns", windowLower, windowUpper), 10, 0, 1000);
+  TH1D *hbgErecon_withCuts = new TH1D("bgEreconfull", Form("BG Erecon: non-STP Events (%f, %f) ns", windowLower, windowUpper), 8, -6, 794);
   hbgErecon_withCuts->Sumw2();
   hbgErecon_withCuts->GetXaxis()->SetTitle("Erecon_ee (KeV)");
-  TH1D *hfgErecon_withCuts = new TH1D("fgEreconfull", Form("FG Erecon: non-STP Events (%f, %f) ns", windowLower, windowUpper), 10, 0, 1000);
+  TH1D *hfgErecon_withCuts = new TH1D("fgEreconfull", Form("FG Erecon: non-STP Events (%f, %f) ns", windowLower, windowUpper), 8, -6, 794);
   hfgErecon_withCuts->Sumw2();
   hfgErecon_withCuts->GetXaxis()->SetTitle("Erecon_ee (KeV)");
+
+  // here is where we read in the acceptances from Brad
+  vector <double> t094;
+  vector <double> t144;
+  vector <double> t244;
+  vector <double> t344;
+  vector <double> t444;
+  vector <double> t544;
+  vector <double> t644;
+
+  vector <double> n094;
+  vector <double> n144;
+  vector <double> n244;
+  vector <double> n344;
+  vector <double> n444;
+  vector <double> n544;
+  vector <double> n644;
+
+
+
+
+
 
   c4->cd(1);
   bgchain->Draw("Erecon_ee >> bgEreconfull", basicCut && fiducialCut && (inESTPAndTimeWinCut || inWSTPAndTimeWinCut) && energyCut);
@@ -312,7 +330,7 @@ int main(int argc, char* argv[])
   }
 
   gStyle->SetOptStat(11);
-  TH1D *hErecon_bgSub = new TH1D("fullCuts", "BG subtracted Erecon_ee", 10, 0, 1000);
+  TH1D *hErecon_bgSub = new TH1D("fullCuts", "BG subtracted Erecon_ee", 8, -6, 794);
   hErecon_bgSub->Sumw2();
   hErecon_bgSub->Add(hfgErecon_withCuts, hbgErecon_withCuts, 1, -5.07);	// 5.07 comes from 860262/169717 live time ratio
 
@@ -392,4 +410,14 @@ double SetPoissonErrors(int counts)
   }
 
   return (upperErrBar / 2.0);
+}
+
+void FillInAcceptancesFromFile(TString fileName, vector <double> time, vector <double> counts, double totalCounts)
+{
+
+
+
+
+
+
 }
