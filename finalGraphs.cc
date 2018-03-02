@@ -42,8 +42,27 @@
 
 using            namespace std;
 
+// some forward declarations of useful functions
 double SetPoissonErrors(int counts);
-void FillInAcceptancesFromFile(TString fileName, vector <double> time, vector <double> counts, double totalCounts);
+void FillInAcceptancesFromFile(TString fileName, double totalCounts, int flag);
+TGraph* CreateAcceptancesGraph(double timeLower, double timeUpper);
+
+// some global access vectors to read in acceptance files
+vector <double> t094;
+vector <double> t144;
+vector <double> t244;
+vector <double> t344;
+vector <double> t444;
+vector <double> t544;
+vector <double> t644;
+vector <double> n094;
+vector <double> n144;
+vector <double> n244;
+vector <double> n344;
+vector <double> n444;
+vector <double> n544;
+vector <double> n644;
+
 
 struct DataEvent
 {
@@ -296,26 +315,16 @@ int main(int argc, char* argv[])
   hfgErecon_withCuts->GetXaxis()->SetTitle("Erecon_ee (KeV)");
 
   // here is where we read in the acceptances from Brad
-  vector <double> t094;
-  vector <double> t144;
-  vector <double> t244;
-  vector <double> t344;
-  vector <double> t444;
-  vector <double> t544;
-  vector <double> t644;
+  FillInAcceptancesFromFile("m094002MeV_4502123TotalCounts.dat", 4502123, 94);
+  FillInAcceptancesFromFile("m144002MeV_455639TotalCounts.dat", 455639, 144);
+  FillInAcceptancesFromFile("m244002MeV_460822TotalCounts.dat", 460822, 244);
+  FillInAcceptancesFromFile("m344002MeV_466564TotalCounts.dat", 466564, 344);
+  FillInAcceptancesFromFile("m444002MeV_471023TotalCounts.dat", 471023, 444);
+  FillInAcceptancesFromFile("m544002MeV_475630TotalCounts.dat", 475630, 544);
+  FillInAcceptancesFromFile("m644002MeV_478192TotalCounts.dat", 478192, 644);
 
-  vector <double> n094;
-  vector <double> n144;
-  vector <double> n244;
-  vector <double> n344;
-  vector <double> n444;
-  vector <double> n544;
-  vector <double> n644;
-
-
-
-
-
+  TGraph *gAccept = CreateAcceptancesGraph(0.0, 12.0);
+  gAccept->SetMarkerStyle(21);
 
   c4->cd(1);
   bgchain->Draw("Erecon_ee >> bgEreconfull", basicCut && fiducialCut && (inESTPAndTimeWinCut || inWSTPAndTimeWinCut) && energyCut);
@@ -343,6 +352,8 @@ int main(int argc, char* argv[])
     totalEntries = totalEntries + hErecon_bgSub->GetBinContent(i);
   }
   hErecon_bgSub->SetEntries(totalEntries);
+
+  gAccept->Draw("PSAME");
 
   c4->Print("4_Erecon_BG_FG_finalCuts.pdf");
 
@@ -412,12 +423,182 @@ double SetPoissonErrors(int counts)
   return (upperErrBar / 2.0);
 }
 
-void FillInAcceptancesFromFile(TString fileName, vector <double> time, vector <double> counts, double totalCounts)
+void FillInAcceptancesFromFile(TString fileName, double totalCounts, int flag)
 {
+  vector <double> time;
+  vector <double> counts;
+
+  double tmpTime;
+  double tmpCounts;
+
+  string buf;
+  ifstream infile;
+  cout << "The file being opened is: " << fileName << endl;
+  infile.open(Form("Acceptances/%s", fileName.Data()));
+
+  if(!infile.is_open())
+    cout << "Problem opening " << fileName << endl;
+
+  while(getline(infile, buf))
+  {
+    istringstream bufstream(buf);
+    if(!bufstream.eof())
+    {
+      bufstream >> tmpTime >> tmpCounts;
+
+      time.push_back(tmpTime);
+      counts.push_back(tmpCounts / totalCounts);
+
+    }
+  }
+
+  // a bunch of different cases because I don't want to use addreses
+  if(flag == 94)
+  {
+    t094 = time;
+    n094 = counts;
+  }
+  else if(flag == 144)
+  {
+    t144 = time;
+    n144 = counts;
+  }
+  else if(flag == 244)
+  {
+    t244 = time;
+    n244 = counts;
+  }
+  else if(flag == 344)
+  {
+    t344 = time;
+    n344 = counts;
+  }
+  else if(flag == 444)
+  {
+    t444 = time;
+    n444 = counts;
+  }
+  else if(flag == 544)
+  {
+    t544 = time;
+    n544 = counts;
+  }
+  else if(flag == 644)
+  {
+    t644 = time;
+    n644 = counts;
+  }
+  else
+  {
+    cout << "Flag makes no sense, not sure which vectors to fill!" << endl;
+  }
+}
+
+TGraph* CreateAcceptancesGraph(double timeLower, double timeUpper)
+{
+  int nPoints = 0;
+  vector <double> energy;
+  vector <double> acceptance;
+
+  double accept094 = 0;
+  for(unsigned int i = 0; i < t094.size(); i++)
+  {
+    if(t094[i] < timeLower || t094[i] > timeUpper)
+    {
+      continue;
+    }
+    accept094 = accept094 + n094[i];
+  }
+  energy.push_back(94);
+  acceptance.push_back(accept094);
+  nPoints = nPoints + 1;
+
+  double accept144 = 0;
+  for(unsigned int i = 0; i < t144.size(); i++)
+  {
+    if(t144[i] < timeLower || t144[i] > timeUpper)
+    {
+      continue;
+    }
+    accept144 = accept144 + n144[i];
+  }
+  energy.push_back(144);
+  acceptance.push_back(accept144);
+  nPoints = nPoints + 1;
+
+  double accept244 = 0;
+  for(unsigned int i = 0; i < t244.size(); i++)
+  {
+    if(t244[i] < timeLower || t244[i] > timeUpper)
+    {
+      continue;
+    }
+    accept244 = accept244 + n244[i];
+  }
+  energy.push_back(244);
+  acceptance.push_back(accept244);
+  nPoints = nPoints + 1;
+
+  double accept344 = 0;
+  for(unsigned int i = 0; i < t344.size(); i++)
+  {
+    if(t344[i] < timeLower || t344[i] > timeUpper)
+    {
+      continue;
+    }
+    accept344 = accept344 + n344[i];
+  }
+  energy.push_back(344);
+  acceptance.push_back(accept344);
+  nPoints = nPoints + 1;
+
+  double accept444 = 0;
+  for(unsigned int i = 0; i < t444.size(); i++)
+  {
+    if(t444[i] < timeLower || t444[i] > timeUpper)
+    {
+      continue;
+    }
+    accept444 = accept444 + n444[i];
+  }
+  energy.push_back(444);
+  acceptance.push_back(accept444);
+  nPoints = nPoints + 1;
+
+  double accept544 = 0;
+  for(unsigned int i = 0; i < t544.size(); i++)
+  {
+    if(t544[i] < timeLower || t544[i] > timeUpper)
+    {
+      continue;
+    }
+    accept544 = accept544 + n544[i];
+  }
+  energy.push_back(544);
+  acceptance.push_back(accept544);
+  nPoints = nPoints + 1;
+
+  double accept644 = 0;
+  for(unsigned int i = 0; i < t644.size(); i++)
+  {
+    if(t644[i] < timeLower || t644[i] > timeUpper)
+    {
+      continue;
+    }
+    accept644 = accept644 + n644[i];
+  }
+  energy.push_back(644);
+  acceptance.push_back(accept644);
+  nPoints = nPoints + 1;
+
+  for(int i = 0; i < nPoints; i++)
+  {
+    cout << "Points being fed into the graph: (" << energy[i] << ", " << acceptance[i] << ")" << endl;
+
+  }
 
 
+  TGraph *g = new TGraph(nPoints, &(energy[0]), &(acceptance[0]));
 
-
-
-
+  return g;
 }
