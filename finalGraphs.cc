@@ -417,6 +417,13 @@ int main(int argc, char* argv[])
   hFinalNumbers->Draw();
   hErecon_bgSub->Draw("SAME");
 
+  for(int i = 0; i < hFinalNumbers->GetNbinsX(); i++)
+  {
+    cout << "hFinalNumbers at x = " << hFinalNumbers->GetBinCenter(i)
+	 << " has counts = " << hFinalNumbers->GetBinContent(i)
+	 << " and associated symmetric error = " << hFinalNumbers->GetBinError(i) << endl;
+  }
+
   c5->Print("5_BGSub_WithAcceptances_finalNumbers.pdf");
 
   cout << "-------------- End of Program ---------------" << endl;
