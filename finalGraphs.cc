@@ -305,7 +305,7 @@ int main(int argc, char* argv[])
 
   // fourth canvas, energies with background subtraction and statistics propagated and acceptances from Brad F.
   TCanvas *c4 = new TCanvas("c4","c4");
-  c4->Divide(3,1);
+  c4->Divide(2,1);
 
   TH1D *hbgErecon_withCuts = new TH1D("bgEreconfull", Form("BG Erecon: non-STP Events (%f, %f) ns", windowLower, windowUpper), 8, -6, 794);
   hbgErecon_withCuts->Sumw2();
@@ -314,17 +314,6 @@ int main(int argc, char* argv[])
   hfgErecon_withCuts->Sumw2();
   hfgErecon_withCuts->GetXaxis()->SetTitle("Erecon_ee (KeV)");
 
-  // here is where we read in the acceptances from Brad
-  FillInAcceptancesFromFile("m094002MeV_4502123TotalCounts.dat", 4502123, 94);
-  FillInAcceptancesFromFile("m144002MeV_455639TotalCounts.dat", 455639, 144);
-  FillInAcceptancesFromFile("m244002MeV_460822TotalCounts.dat", 460822, 244);
-  FillInAcceptancesFromFile("m344002MeV_466564TotalCounts.dat", 466564, 344);
-  FillInAcceptancesFromFile("m444002MeV_471023TotalCounts.dat", 471023, 444);
-  FillInAcceptancesFromFile("m544002MeV_475630TotalCounts.dat", 475630, 544);
-  FillInAcceptancesFromFile("m644002MeV_478192TotalCounts.dat", 478192, 644);
-
-  TGraph *gAccept = CreateAcceptancesGraph(0.0, 12.0);
-  gAccept->SetMarkerStyle(21);
 
   c4->cd(1);
   bgchain->Draw("Erecon_ee >> bgEreconfull", basicCut && fiducialCut && (inESTPAndTimeWinCut || inWSTPAndTimeWinCut) && energyCut);
@@ -338,13 +327,17 @@ int main(int argc, char* argv[])
     hfgErecon_withCuts->SetBinError(i, SetPoissonErrors(hfgErecon_withCuts->GetBinContent(i)));
   }
 
+  c4->Print("4_BG_FG_histograms_withErrors.pdf");
+
+  // fifth canvas, does background subtraction and acceptances, because ROOT is tough to work with.
+  TCanvas *c5 = new TCanvas("c5","c5");
+  c5->Divide(2);
+  c5->cd(1);
+
   gStyle->SetOptStat(11);
   TH1D *hErecon_bgSub = new TH1D("fullCuts", "BG subtracted Erecon_ee", 8, -6, 794);
   hErecon_bgSub->Sumw2();
   hErecon_bgSub->Add(hfgErecon_withCuts, hbgErecon_withCuts, 1, -5.07);	// 5.07 comes from 860262/169717 live time ratio
-
-  c4->cd(3);
-  hErecon_bgSub->Draw();
 
   double totalEntries = 0;
   for(int i = 0; i < hErecon_bgSub->GetNbinsX(); i++)
@@ -353,10 +346,78 @@ int main(int argc, char* argv[])
   }
   hErecon_bgSub->SetEntries(totalEntries);
 
-  gAccept->Draw("PSAME");
+  c5->cd(2);
 
-  c4->Print("4_Erecon_BG_FG_finalCuts.pdf");
+  FillInAcceptancesFromFile("m094002MeV_4502123TotalCounts.dat", 4502123, 94);
+  FillInAcceptancesFromFile("m144002MeV_455639TotalCounts.dat", 455639, 144);
+  FillInAcceptancesFromFile("m244002MeV_460822TotalCounts.dat", 460822, 244);
+  FillInAcceptancesFromFile("m344002MeV_466564TotalCounts.dat", 466564, 344);
+  FillInAcceptancesFromFile("m444002MeV_471023TotalCounts.dat", 471023, 444);
+  FillInAcceptancesFromFile("m544002MeV_475630TotalCounts.dat", 475630, 544);
+  FillInAcceptancesFromFile("m644002MeV_478192TotalCounts.dat", 478192, 644);
 
+  TGraph *gAccept = CreateAcceptancesGraph(0.0, 12.0);
+  gAccept->SetMarkerStyle(21);
+  gAccept->SetMarkerColor(2);
+  gAccept->GetHistogram()->SetTitle("Acceptances");
+  gAccept->GetHistogram()->GetXaxis()->SetTitle("Energy (KeV)");
+  gAccept->GetHistogram()->GetYaxis()->SetTitle("Fraction Accepted");
+  gAccept->GetHistogram()->GetYaxis()->SetRangeUser(0, 1);
+  gAccept->Draw("ALP");
+
+  double G4x[4] = {200, 321, 480, 640};
+  double G4y[4] = {82560.0/96558.0, 82212.0/96721.0, 80955.0/96271.0, 80283.0/96067.0};
+  TGraph *gG4 = new TGraph(4, G4x, G4y);
+  gG4->SetMarkerColor(8);
+  gG4->SetMarkerStyle(21);
+  gG4->Draw("LPSAME");
+
+  double gEx[7] = {94, 144, 244, 344, 444, 544, 644};
+  // 50.0 KeV is our bin width on either side of the center
+  double sigmaEKeV[7] = {50.0/15.33, 50.0/18.97, 50.0/24.70, 50.0/29.32, 50.0/33.32, 50.0/36.88, 50.0/40.12};
+  // calculated by taking a Gaussian probability calculator and plugging in (denom) as SD, range from -50 to 50
+  double gEy[7] = {0.9989, 0.9916, 0.9571, 0.9119, 0.8665, 0.8248, 0.7873};
+
+  TGraph *gEResolution = new TGraph(7, gEx, gEy);
+  gEResolution->SetMarkerStyle(21);
+  gEResolution->SetMarkerColor(9);
+  gEResolution->Draw("LPSAME");
+
+  TLegend *l4b = new TLegend(0.1,0.45,0.4,0.6);
+  l4b->AddEntry(gG4, "G4 Sim e+e- differences", "lp");
+  l4b->AddEntry(gAccept, "Kinematic MC", "lp");
+  l4b->AddEntry(gEResolution, "Initial MC Energy resolution", "lp");
+  l4b->Draw();
+
+
+
+  c5->cd(1);
+  double xAccept = 0;
+  double yAccept = 0;
+  double xEResolution = 0;
+  double yEResolution = 0;
+
+  double finalEntries = 0;
+
+  TH1D* hFinalNumbers = new TH1D("hFinal", "Final: Cuts and scaled for Acceptances", 8, -6, 794);
+  hFinalNumbers->SetLineColor(46);
+
+  for(int i = 0; i < hFinalNumbers->GetNbinsX(); i++)
+  {
+    gAccept->GetPoint(i, xAccept, yAccept);
+    gEResolution->GetPoint(i, xEResolution, yEResolution);
+
+    hFinalNumbers->SetBinContent(i, (double)hErecon_bgSub->GetBinContent(i) / (yAccept*0.845*yEResolution));
+    hFinalNumbers->SetBinError(i, (double)hErecon_bgSub->GetBinError(i) / (yAccept*0.845*yEResolution));
+
+    finalEntries = finalEntries + ((double)hErecon_bgSub->GetBinContent(i) / (yAccept*0.845*yEResolution));
+  }
+
+  hFinalNumbers->SetEntries(finalEntries);
+  hFinalNumbers->Draw();
+  hErecon_bgSub->Draw("SAME");
+
+  c5->Print("5_BGSub_WithAcceptances_finalNumbers.pdf");
 
   cout << "-------------- End of Program ---------------" << endl;
   plot_program.Run();
