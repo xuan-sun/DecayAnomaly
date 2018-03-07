@@ -45,6 +45,7 @@ using            namespace std;
 // some forward declarations of useful functions
 double SetPoissonErrors(int counts);
 void FillInAcceptancesFromFile(TString fileName, double totalCounts, int flag);
+void FillInCountsFromFile(TString fileName, TH1D* hToFill);
 TGraph* CreateAcceptancesGraph(double timeLower, double timeUpper);
 
 // some global access vectors to read in acceptance files
@@ -325,17 +326,21 @@ int main(int argc, char* argv[])
   {
     hbgErecon_withCuts->SetBinError(i, SetPoissonErrors(hbgErecon_withCuts->GetBinContent(i)));
     hfgErecon_withCuts->SetBinError(i, SetPoissonErrors(hfgErecon_withCuts->GetBinContent(i)));
+
+    cout << "At bin i = " << i << " BG counts = " << hbgErecon_withCuts->GetBinContent(i) << ", FG counts = " << hfgErecon_withCuts->GetBinContent(i) << endl;
   }
+
 
   c4->Print("4_BG_FG_histograms_withErrors.pdf");
 
   // fifth canvas, does background subtraction and acceptances, because ROOT is tough to work with.
   TCanvas *c5 = new TCanvas("c5","c5");
-  c5->Divide(2);
+  c5->Divide(2,1);
   c5->cd(1);
 
   gStyle->SetOptStat(11);
   TH1D *hErecon_bgSub = new TH1D("fullCuts", "BG subtracted Erecon_ee", 8, -6, 794);
+  hErecon_bgSub->SetLineColor(30);
   hErecon_bgSub->Sumw2();
   hErecon_bgSub->Add(hfgErecon_withCuts, hbgErecon_withCuts, 1, -5.07);	// 5.07 comes from 860262/169717 live time ratio
 
@@ -390,7 +395,6 @@ int main(int argc, char* argv[])
   l4b->Draw();
 
 
-
   c5->cd(1);
   double xAccept = 0;
   double yAccept = 0;
@@ -405,6 +409,8 @@ int main(int argc, char* argv[])
   for(int i = 0; i < hFinalNumbers->GetNbinsX(); i++)
   {
     gAccept->GetPoint(i, xAccept, yAccept);
+    cout << "At i = " << i << " we have x = " << xAccept << " and y = " << yAccept << endl;
+
     gEResolution->GetPoint(i, xEResolution, yEResolution);
 
     hFinalNumbers->SetBinContent(i, (double)hErecon_bgSub->GetBinContent(i) / (yAccept*0.845*yEResolution));
@@ -414,8 +420,19 @@ int main(int argc, char* argv[])
   }
 
   hFinalNumbers->SetEntries(finalEntries);
-  hFinalNumbers->Draw();
+
+  TH1D* hTestSignal = new TH1D("hTestSignal", "hTestSignal", 200, 0, 1000);
+  hTestSignal->GetXaxis()->SetTitle("Energy (KeV)");
+  hTestSignal->GetYaxis()->SetTitle("Counts");
+  FillInCountsFromFile("test_signal_644KeV.dat", hTestSignal);
+
+  hTestSignal->Draw();
+  hFinalNumbers->Draw("SAMES");
   hErecon_bgSub->Draw("SAME");
+
+
+  cout << "Total counts in histogram after final acceptances propagated: " << hFinalNumbers->GetEntries() << endl;
+  cout << "Total counts in histogram after background subtraction: " << hErecon_bgSub->GetEntries() << endl;
 
   for(int i = 0; i < hFinalNumbers->GetNbinsX(); i++)
   {
@@ -490,6 +507,37 @@ double SetPoissonErrors(int counts)
 
   return (upperErrBar / 2.0);
 }
+
+void FillInCountsFromFile(TString fileName, TH1D* hToFill)
+{
+  double tmpEnergy;
+  double tmpCounts;
+
+  string buf;
+  ifstream infile;
+  cout << "The file being opened is: " << fileName << endl;
+  infile.open(Form("Acceptances/%s", fileName.Data()));
+
+  if(!infile.is_open())
+    cout << "Problem opening " << fileName << endl;
+
+  while(getline(infile, buf))
+  {
+    istringstream bufstream(buf);
+    if(!bufstream.eof())
+    {
+      bufstream >> tmpEnergy >> tmpCounts;
+
+      for(int i = 0; i < tmpCounts; i++)
+      {
+        hToFill->Fill(tmpEnergy*1000);
+      }
+    }
+  }
+
+  cout << "Done filling counts into signal histogram." << endl;
+}
+
 
 void FillInAcceptancesFromFile(TString fileName, double totalCounts, int flag)
 {
