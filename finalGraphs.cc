@@ -249,6 +249,8 @@ int main(int argc, char* argv[])
   gPad->SetLogy();
 
   c2->Print("2_MPMTimingCompare.pdf");
+  c2->Print("2_MPMTimingCompare.eps");
+
 
   // third canvas, let's begin looking at energies
   // this will be our time window upper edge, energy spectra plot
@@ -339,6 +341,7 @@ int main(int argc, char* argv[])
   gPad->SetLogy();
 
   c3->Print("3_Erecon_TimeWindowEndpointCompare.pdf");
+  c3->Print("3_Erecon_TimeWindowEndpointCompare.eps");
 
   // fourth canvas, energies with background subtraction and statistics propagated and acceptances from Brad F.
   TCanvas *c4 = new TCanvas("c4","c4");
@@ -368,6 +371,7 @@ int main(int argc, char* argv[])
 
 
   c4->Print("4_BG_FG_histograms_withErrors.pdf");
+  c4->Print("4_BG_FG_histograms_withErrors.eps");
 
   // fifth canvas, does background subtraction and acceptances, because ROOT is tough to work with.
   TCanvas *c5 = new TCanvas("c5","c5");
@@ -481,6 +485,7 @@ int main(int argc, char* argv[])
   }
 
   c5->Print("5_BGSub_WithAcceptances_finalNumbers.pdf");
+  c5->Print("5_BGSub_WithAcceptances_finalNumbers.eps");
 
   cout << "-------------- End of Program ---------------" << endl;
   plot_program.Run();
