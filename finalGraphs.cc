@@ -203,7 +203,7 @@ int main(int argc, char* argv[])
   mpm_sim_chain->GetBranch("time")->GetLeaf("timeE")->SetAddress(&evt.time_timeE);
   mpm_sim_chain->GetBranch("time")->GetLeaf("timeW")->SetAddress(&evt.time_timeW);
 
-  for(unsigned int i = 0; i < 1000000 /*mpm_sim_chain->GetEntries()*/; i++)
+  for(unsigned int i = 0; i < /*1000000*/ mpm_sim_chain->GetEntries(); i++)
   {
     mpm_sim_chain->GetEntry(i);
 
@@ -283,10 +283,16 @@ int main(int argc, char* argv[])
     hbgSubErecon.push_back(new TH1D(Form("bgSubErecon_%i", i), "FG - 5.07BG Erecon", 160, 0, 4000));
     hbgErecon[i]->SetLineColor(i+1);
     hbgErecon[i]->SetStats(kFALSE);
+    hbgErecon[i]->SetBinErrorOption(TH1::kPoisson);
+//    hbgErecon[i]->Sumw2();
     hfgErecon[i]->SetLineColor(i+1);
     hfgErecon[i]->SetStats(kFALSE);
+    hfgErecon[i]->SetBinErrorOption(TH1::kPoisson);
+//    hfgErecon[i]->Sumw2();
     hbgSubErecon[i]->SetLineColor(i+1);
     hbgSubErecon[i]->SetStats(kFALSE);
+    hbgSubErecon[i]->SetBinErrorOption(TH1::kPoisson);
+//    hbgSubErecon[i]->Sumw2();
     timeWindowCuts.push_back(Form("(newTDC2TimeE > -1 && newTDC2TimeE < 5 && newTDC2TimeW > 0 && newTDC2TimeW < %f) || (newTDC2TimeW > -4 && newTDC2TimeW < 2 && newTDC2TimeE > 0 && newTDC2TimeE < %f)", timeUpper[i], timeUpper[i]));
 
     c31->cd();
@@ -295,11 +301,11 @@ int main(int argc, char* argv[])
       hbgErecon[i]->SetTitle("");
       hbgErecon[i]->GetXaxis()->SetTitle("E_{e^{+}e^{-}} (keV)");
       hbgErecon[i]->GetYaxis()->SetTitle("Counts");
-      bgchain->Draw(Form("Erecon_ee >> bgErecon_%i", i), basicCut && fiducialCut && "Erecon_ee > 0" && timeWindowCuts[i]);
+      bgchain->Draw(Form("Erecon_ee >> bgErecon_%i", i), basicCut && fiducialCut && "Erecon_ee > 0" && timeWindowCuts[i], "HIST");
     }
     else
     {
-      bgchain->Draw(Form("Erecon_ee >> bgErecon_%i", i), basicCut && fiducialCut && "Erecon_ee > 0" && timeWindowCuts[i], "SAME");
+      bgchain->Draw(Form("Erecon_ee >> bgErecon_%i", i), basicCut && fiducialCut && "Erecon_ee > 0" && timeWindowCuts[i], "HIST SAME");
     }
     l3a->AddEntry(hbgErecon[i], Form("(0, %i) ns", (int)timeUpper[i]), "l");
 
@@ -309,14 +315,18 @@ int main(int argc, char* argv[])
       hfgErecon[i]->SetTitle("");
       hfgErecon[i]->GetXaxis()->SetTitle("E_{e^{+}e^{-}} (keV)");
       hfgErecon[i]->GetYaxis()->SetTitle("Counts");
-      fgchain->Draw(Form("Erecon_ee >> fgErecon_%i", i), basicCut && fiducialCut && "Erecon_ee > 0" && timeWindowCuts[i]);
+      fgchain->Draw(Form("Erecon_ee >> fgErecon_%i", i), basicCut && fiducialCut && "Erecon_ee > 0" && timeWindowCuts[i], "HIST");
     }
     else
     {
-      fgchain->Draw(Form("Erecon_ee >> fgErecon_%i", i), basicCut && fiducialCut && "Erecon_ee > 0" && timeWindowCuts[i], "SAME");
+      fgchain->Draw(Form("Erecon_ee >> fgErecon_%i", i), basicCut && fiducialCut && "Erecon_ee > 0" && timeWindowCuts[i], "HIST SAME");
     }
     l3b->AddEntry(hfgErecon[i], Form("(0, %i) ns", (int)timeUpper[i]), "l");
 
+  }
+
+  for(int i = 0; i < timeUpper.size(); i++)
+  {
     hbgSubErecon[i]->Add(hfgErecon[i], hbgErecon[i], 1, -5.07);
   }
 
@@ -371,6 +381,8 @@ int main(int argc, char* argv[])
 
 
   TH1D* hTestSignal = new TH1D("hTestSignal", "hTestSignal", 160, 0, 4000);
+  FillInCountsFromFile("test_signal_644KeV.dat", hTestSignal);
+  hTestSignal->Scale(0.1834);
   hTestSignal->SetLineColor(4);
   hTestSignal->SetStats(kFALSE);
   hTestSignal->SetTitle("");
@@ -378,14 +390,20 @@ int main(int argc, char* argv[])
   hTestSignal->GetXaxis()->SetRangeUser(0, 800);
   hTestSignal->GetYaxis()->SetTitle("Counts");
   hTestSignal->GetYaxis()->SetRangeUser(1, 100000);
-  FillInCountsFromFile("test_signal_644KeV.dat", hTestSignal);
   gPad->SetLogy();
   hTestSignal->Draw();
 
-  for(unsigned int i = 0; i < hbgSubErecon.size(); i++)
+  for(int i = 0; i <= hbgSubErecon[2]->GetNbinsX(); i++)
   {
-    hbgSubErecon[i]->Draw("SAME");
+    if(hbgSubErecon[2]->GetBinContent(i) < 0)
+    {
+      hbgSubErecon[2]->SetBinContent(i, 0);
+    }
   }
+
+  hbgSubErecon[0]->Draw("HIST SAME");
+  hbgSubErecon[1]->Draw("HIST SAME");
+  hbgSubErecon[2]->Draw("HIST E0 X0 SAME");
 
   l45->AddEntry(hTestSignal, "Positive Signal at 644 keV", "l");
   l45->AddEntry(hbgSubErecon[0], "(0, 12) ns", "l");
