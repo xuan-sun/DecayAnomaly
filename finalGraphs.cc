@@ -349,11 +349,12 @@ int main(int argc, char* argv[])
     {
       hbgErecon[i]->SetBinError(j, SetPoissonErrors(hbgErecon[i]->GetBinContent(j)));
       hfgErecon[i]->SetBinError(j, SetPoissonErrors(hfgErecon[i]->GetBinContent(j)));
-
+/*
       cout << "At hist for time cut i = " << i
 	   << ", we have at bin j = " << j
 	   << ", BG counts = " << hbgErecon[i]->GetBinContent(j) << " +/- " << hbgErecon[i]->GetBinError(j)
 	   << ", FG counts = " << hfgErecon[i]->GetBinContent(j) << " +/- " << hfgErecon[i]->GetBinError(j) << endl;
+*/
     }
   }
 
@@ -399,7 +400,7 @@ int main(int argc, char* argv[])
     hbgErecon_withCuts->SetBinError(i, SetPoissonErrors(hbgErecon_withCuts->GetBinContent(i)));
     hfgErecon_withCuts->SetBinError(i, SetPoissonErrors(hfgErecon_withCuts->GetBinContent(i)));
 
-    cout << "At bin i = " << i << " BG counts = " << hbgErecon_withCuts->GetBinContent(i) << ", FG counts = " << hfgErecon_withCuts->GetBinContent(i) << endl;
+//    cout << "At bin i = " << i << " BG counts = " << hbgErecon_withCuts->GetBinContent(i) << ", FG counts = " << hfgErecon_withCuts->GetBinContent(i) << endl;
   }
 
 
@@ -428,15 +429,23 @@ int main(int argc, char* argv[])
   gPad->SetLogy();
   hTestSignal->Draw();
 
+  TH1D* hTestSignal322 = new TH1D("hTestSignal322", "hTestSignal322", 160, 0, 4000);
+  FillInCountsFromFile("anom_peak_322.dat", hTestSignal322);
+  hTestSignal322->Scale(0.1183);
+  hTestSignal322->SetLineColor(6);
+  hTestSignal322->Draw("SAME");
+
   for(int i = 0; i <= hbgSubErecon[2]->GetNbinsX(); i++)
   {
     if(hbgSubErecon[2]->GetBinContent(i) < 0)
     {
       hbgSubErecon[2]->SetBinContent(i, 0);
     }
+/*
     cout << "Final i = 2 BG sub histogram has at bin j = " << i
 	 << ", FG - 5.07BG counts = " << hbgSubErecon[2]->GetBinContent(i)
 	 << " +/- " << hbgSubErecon[2]->GetBinError(i) << endl;
+*/
   }
 
 //  hbgSubErecon[0]->Draw("HIST SAME");
@@ -447,7 +456,7 @@ int main(int argc, char* argv[])
   l45->AddEntry(hbgSubErecon[2], "(0, 12) ns", "l");
 //  l45->AddEntry(hbgSubErecon[1], "(0, 20) ns", "l");
 //  l45->AddEntry(hbgSubErecon[0], "(0, 140) ns", "l");
-  l45->Draw();
+//  l45->Draw();
 
   c45->Print("Figures/45_BGSub_andSignal.pdf");
   c45->Print("Figures/45_BGSub_andSignal.eps");
