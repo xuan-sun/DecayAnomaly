@@ -242,9 +242,10 @@ int main(int argc, char* argv[])
   hSim3->Draw("SAME");
 
   TLegend *l2 = new TLegend(0.5,0.7,0.85,0.85);
-  l2->AddEntry(hSim3, "GEANT4 timing, 3ns resolution", "l");
-  l2->AddEntry(hTimeE_bgSub, "Background subtracted East", "l");
-  l2->AddEntry(hTimeW_bgSub, "Background subtracted West", "l");
+  l2->AddEntry(hSim3, "GEANT4", "l");
+  l2->AddEntry(hTimeE_bgSub, "East Time Data", "l");
+  l2->AddEntry(hTimeW_bgSub, "West Time Data", "l");
+  l2->SetTextSize(0.05);
   l2->SetBorderSize(0);
   l2->Draw();
   gPad->SetLogy();
@@ -411,8 +412,7 @@ int main(int argc, char* argv[])
   TCanvas *c45 = new TCanvas ("c45","c45");
   c45->cd();
 
-  TLegend *l45 = new TLegend(0.2,0.6,0.6,0.85);
-  l45->SetBorderSize(0);
+  TLegend *l45 = new TLegend(0.2,0.65,0.6,0.85);
 
   TH1D* hTestSignal = new TH1D("hTestSignal", "hTestSignal", 160, 0, 4000);
   FillInCountsFromFile("test_signal_644KeV.dat", hTestSignal);
@@ -452,11 +452,12 @@ int main(int argc, char* argv[])
 //  hbgSubErecon[1]->Draw("HIST SAME");
   hbgSubErecon[2]->Draw("HIST E0 X0 SAME");
 
-  l45->AddEntry(hTestSignal, "Positive Signal at 644 keV", "l");
+  l45->AddEntry(hTestSignal322, "Simulated Signal at 322 keV", "l");
+  l45->AddEntry(hTestSignal, "Simulated Signal at 644 keV", "l");
   l45->AddEntry(hbgSubErecon[2], "(0, 12) ns", "l");
-//  l45->AddEntry(hbgSubErecon[1], "(0, 20) ns", "l");
-//  l45->AddEntry(hbgSubErecon[0], "(0, 140) ns", "l");
-//  l45->Draw();
+  l45->SetTextSize(0.05);
+  l45->SetBorderSize(0);
+  l45->Draw();
 
   c45->Print("Figures/45_BGSub_andSignal.pdf");
   c45->Print("Figures/45_BGSub_andSignal.eps");
