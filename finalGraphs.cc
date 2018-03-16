@@ -204,7 +204,7 @@ int main(int argc, char* argv[])
   mpm_sim_chain->GetBranch("time")->GetLeaf("timeE")->SetAddress(&evt.time_timeE);
   mpm_sim_chain->GetBranch("time")->GetLeaf("timeW")->SetAddress(&evt.time_timeW);
 
-  for(unsigned int i = 0; i < 500000 /*mpm_sim_chain->GetEntries()*/; i++)
+  for(unsigned int i = 0; i < /*500000*/ mpm_sim_chain->GetEntries(); i++)
   {
     mpm_sim_chain->GetEntry(i);
 
@@ -226,7 +226,7 @@ int main(int argc, char* argv[])
   hTimeE_bgSub->SetLineColor(1);
   hTimeE_bgSub->Add(hTDCEfg, hTDCEbg, 1, -5.07);
   hTimeE_bgSub->SetStats(kFALSE);
-  hTimeE_bgSub->GetXaxis()->SetTitle("Time difference (ns)");
+  hTimeE_bgSub->GetXaxis()->SetTitle("#left| T_{East} - T_{West} #right| (ns)");
   hTimeE_bgSub->GetYaxis()->SetTitle("Counts");
   hTimeE_bgSub->SetTitle("");
   hTimeE_bgSub->Draw();
@@ -241,10 +241,10 @@ int main(int argc, char* argv[])
   hSim3->Scale((double)hTimeW_bgSub->GetEntries() / (hSim3->GetEntries()));
   hSim3->Draw("SAME");
 
-  TLegend *l2 = new TLegend(0.5,0.7,0.85,0.85);
+  TLegend *l2 = new TLegend(0.6,0.7,0.85,0.85);
   l2->AddEntry(hSim3, "GEANT4", "l");
-  l2->AddEntry(hTimeE_bgSub, "East Time Data", "l");
-  l2->AddEntry(hTimeW_bgSub, "West Time Data", "l");
+  l2->AddEntry(hTimeE_bgSub, "T_{East} > T_{West}", "l");
+  l2->AddEntry(hTimeW_bgSub, "T_{West} > T_{East}", "l");
   l2->SetTextSize(0.05);
   l2->SetBorderSize(0);
   l2->Draw();
@@ -431,7 +431,7 @@ int main(int argc, char* argv[])
 
   TH1D* hTestSignal322 = new TH1D("hTestSignal322", "hTestSignal322", 160, 0, 4000);
   FillInCountsFromFile("anom_peak_322.dat", hTestSignal322);
-  hTestSignal322->Scale(0.1183);
+  hTestSignal322->Scale(0.1124);
   hTestSignal322->SetLineColor(6);
   hTestSignal322->Draw("SAME");
 
@@ -450,11 +450,11 @@ int main(int argc, char* argv[])
 
 //  hbgSubErecon[0]->Draw("HIST SAME");
 //  hbgSubErecon[1]->Draw("HIST SAME");
-  hbgSubErecon[2]->Draw("HIST E0 X0 SAME");
+  hbgSubErecon[2]->Draw("E0 SAME");
 
   l45->AddEntry(hTestSignal322, "Simulated Signal at 322 keV", "l");
   l45->AddEntry(hTestSignal, "Simulated Signal at 644 keV", "l");
-  l45->AddEntry(hbgSubErecon[2], "(0, 12) ns", "l");
+  l45->AddEntry(hbgSubErecon[2], "(0, 12) ns Data", "l");
   l45->SetTextSize(0.05);
   l45->SetBorderSize(0);
   l45->Draw();
