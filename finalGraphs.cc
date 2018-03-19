@@ -241,6 +241,16 @@ int main(int argc, char* argv[])
   hSim3->Scale((double)hTimeW_bgSub->GetEntries() / (hSim3->GetEntries()));
   hSim3->Draw("SAME");
 
+  gPad->Update();
+
+  TLine *l0 = new TLine(0, gPad->GetUymin(), 0, 1.2*gPad->GetUymax());
+  l0->SetLineStyle(9);
+  l0->Draw();
+
+  TLine *l12 = new TLine(12, gPad->GetUymin(), 12, 1.2*gPad->GetUymax());
+  l12->SetLineStyle(9);
+  l12->Draw();
+
   TLegend *l2 = new TLegend(0.6,0.7,0.85,0.85);
   l2->AddEntry(hSim3, "GEANT4", "l");
   l2->AddEntry(hTimeE_bgSub, "T_{East} > T_{West}", "l");
@@ -271,8 +281,10 @@ int main(int argc, char* argv[])
 
   TLegend *l3a = new TLegend(0.6,0.7,0.85,0.85);
   l3a->SetBorderSize(0);
+  l3a->SetTextSize(0.05);
   TLegend *l3b = new TLegend(0.6,0.7,0.85,0.85);
   l3b->SetBorderSize(0);
+  l3b->SetTextSize(0.05);
 
   for(unsigned int i = 0; i < timeUpper.size(); i++)
   {
