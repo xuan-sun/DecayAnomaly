@@ -388,8 +388,6 @@ int main(int argc, char* argv[])
   c32->Print("Figures/32_Erecon_TimeWindowEndpoint_FG.pdf");
   c32->Print("Figures/32_Erecon_TimeWindowEndpoint_FG.eps");
 
-
-
   // fourth canvas, energies with background subtraction and statistics propagated and acceptances from Brad F.
   TCanvas *c4 = new TCanvas("c4","c4");
   c4->Divide(2,1);
