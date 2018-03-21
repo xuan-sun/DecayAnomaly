@@ -542,7 +542,7 @@ int main(int argc, char* argv[])
   gAccept->GetHistogram()->GetYaxis()->SetTitle("Fraction Accepted");
   gAccept->GetHistogram()->GetYaxis()->CenterTitle();
   gAccept->GetHistogram()->GetXaxis()->SetRangeUser(0, 800);
-  gAccept->GetHistogram()->GetYaxis()->SetRangeUser(0, 0.20);
+  gAccept->GetHistogram()->GetYaxis()->SetRangeUser(0, 0.22);
   gAccept->Draw("AC");
 
   c6->Print("Figures/6_Acceptance.pdf");
@@ -784,6 +784,10 @@ TGraph* CreateAcceptancesGraph(double timeLower, double timeUpper)
   vector <double> energy;
   vector <double> acceptance;
 
+  energy.push_back(0);
+  acceptance.push_back(0);
+  nPoints = nPoints + 1;
+
   double accept094 = 0;
   for(unsigned int i = 0; i < t094.size(); i++)
   {
@@ -886,7 +890,6 @@ TGraph* CreateAcceptancesGraph(double timeLower, double timeUpper)
   energy.push_back(794);
   acceptance.push_back(0.233);
   nPoints = nPoints + 1;
-
 
 
   for(int i = 0; i < nPoints; i++)
