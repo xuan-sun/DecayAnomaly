@@ -32,7 +32,7 @@
 		>> bgValid >> fgValid;
 
 
-	bgErr = 5.07*sqrt(bgValid);
+	bgErr = sqrt(bgValid);
 	fgErr = sqrt(fgValid);
 
 	yValW0.push_back(fgValid / (bgValid*5.07));

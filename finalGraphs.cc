@@ -204,7 +204,7 @@ int main(int argc, char* argv[])
   mpm_sim_chain->GetBranch("time")->GetLeaf("timeE")->SetAddress(&evt.time_timeE);
   mpm_sim_chain->GetBranch("time")->GetLeaf("timeW")->SetAddress(&evt.time_timeW);
 
-  for(unsigned int i = 0; i < /*500000*/ mpm_sim_chain->GetEntries(); i++)
+  for(unsigned int i = 0; i < 500000 /*mpm_sim_chain->GetEntries()*/; i++)
   {
     mpm_sim_chain->GetEntry(i);
 
@@ -377,11 +377,35 @@ int main(int argc, char* argv[])
   }
 
   c31->cd();
+  gPad->Update();
+
+  TLine *lE0a = new TLine(0, 0, 0, 5000);
+  lE0a->SetLineStyle(9);
+
+  TLine *lE800a = new TLine(800, 0, 800, 5000);
+  lE800a->SetLineStyle(9);
+
   gPad->SetLogy();
+  lE0a->Draw();
+  lE800a->Draw();
   l3a->Draw();
+
+
   c32->cd();
+  gPad->Update();
+
+  TLine *lE0b = new TLine(0, gPad->GetUymin(), 0, 50000);
+  lE0b->SetLineStyle(9);
+
+  TLine *lE800b = new TLine(800, gPad->GetUymin(), 800, 50000);
+  lE800b->SetLineStyle(9);
+
   gPad->SetLogy();
+  lE0b->Draw();
+  lE800b->Draw();
   l3b->Draw();
+
+
 
   c31->Print("Figures/31_Erecon_TimeWindowEndpoint_BG.pdf");
   c31->Print("Figures/31_Erecon_TimeWindowEndpoint_BG.eps");
