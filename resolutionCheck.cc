@@ -138,288 +138,14 @@ int main(int argc, char* argv[])
 			timeUpperEdgeE1, timeLowerEdgeE1, timeLowerEdgeW1, timeUpperEdgeW1,
 			timeUpperEdgeE2, timeLowerEdgeE2, timeLowerEdgeW2, timeUpperEdgeW2);
 
-  // first canvas, timing spectra with MPM simulation.
-  // first canvas fills in our bg and fg spectra. It is a temp canvas effectively
-  TCanvas *c1 = new TCanvas("c1", "c1");
-  c1->Divide(2,1);
-
-  TH1D *hTDCEfg = new TH1D("hTDCEfg", "FG TDC Spectra", 300, -10, 140);
-  hTDCEfg->GetXaxis()->SetTitle("Time (ns)");
-  hTDCEfg->SetLineColor(2);
-
-  TH1D *hTDCWfg = new TH1D("hTDCWfg", "FG TDC Spectra", 300, -10, 140);
-  hTDCWfg->SetLineColor(4);
-
-  TH1D *hTDCEbg = new TH1D("hTDCEbg", "BG TDC Spectra", 300, -10, 140);
-  hTDCEbg->GetXaxis()->SetTitle("Time (ns)");
-  hTDCEbg->SetLineColor(2);
-
-  TH1D *hTDCWbg = new TH1D("hTDCWbg", "BG TDC Spectra", 300, -10, 140);
-  hTDCWbg->SetLineColor(4);
-
-  c1->cd(1);
-  // i.e. if you are in the West STP, look at East events outside of East STP. For hTDCEbg.
-  bgchain->Draw("newTDC2TimeE >> hTDCEbg", basicCut && fiducialCut && energyCut && inWSTPCut);
-  bgchain->Draw("newTDC2TimeW >> hTDCWbg", basicCut && fiducialCut && energyCut && inESTPCut, "SAME");
-
-  TLegend *l1a = new TLegend(0.1,0.8,0.4,0.9);
-  l1a->AddEntry(hTDCEbg,"Calibrated TDCE","l");
-  l1a->AddEntry(hTDCWbg,"Calibrated TDCW","l");
-  l1a->Draw();
-  gPad->SetLogy();
-
-  c1->cd(2);
-  fgchain->Draw("newTDC2TimeE >> hTDCEfg", basicCut && fiducialCut && energyCut && inWSTPCut);
-  fgchain->Draw("newTDC2TimeW >> hTDCWfg", basicCut && fiducialCut && energyCut && inESTPCut, "SAME");
-
-  TLegend *l1b = new TLegend(0.1,0.8,0.4,0.9);
-  l1b->AddEntry(hTDCEfg,"Calibrated TDCE","l");
-  l1b->AddEntry(hTDCWfg,"Calibrated TDCW","l");
-  l1b->Draw();
-  gPad->SetLogy();
-
-
-  TCanvas *c2 = new TCanvas("c2","c2");
-  c2->cd();
-
-  TChain *mpm_sim_chain = new TChain("anaTree");
-  mpm_sim_chain->Add("mpm_sim_betas_500EWFiles_2012-2013.root");
-
-  TRandom3 *engine = new TRandom3(0);
-
-  TH1D *hSim0 = new TH1D("hSim0sigma", "hSim", 300, -10, 140);
-  hSim0->SetLineColor(6);
-  TH1D *hSim2 = new TH1D("hSim2sigma", "hSim", 300, -10, 140);
-  hSim2->SetLineColor(3);
-  TH1D *hSim3 = new TH1D("hSim3sigma", "hSim", 300, -10, 140);
-  hSim3->SetLineColor(2);
-
-  SimEvent evt;
-  mpm_sim_chain->GetBranch("Edep")->GetLeaf("EdepE")->SetAddress(&evt.Edep_EdepE);
-  mpm_sim_chain->GetBranch("Edep")->GetLeaf("EdepW")->SetAddress(&evt.Edep_EdepW);
-  mpm_sim_chain->GetBranch("EdepQ")->GetLeaf("EdepQE")->SetAddress(&evt.EdepQ_EdepQE);
-  mpm_sim_chain->GetBranch("EdepQ")->GetLeaf("EdepQW")->SetAddress(&evt.EdepQ_EdepQW);
-  mpm_sim_chain->GetBranch("MWPCEnergy")->GetLeaf("MWPCEnergyE")->SetAddress(&evt.MWPCEnergy_MWPCEnergyE);
-  mpm_sim_chain->GetBranch("MWPCEnergy")->GetLeaf("MWPCEnergyW")->SetAddress(&evt.MWPCEnergy_MWPCEnergyW);
-  mpm_sim_chain->GetBranch("time")->GetLeaf("timeE")->SetAddress(&evt.time_timeE);
-  mpm_sim_chain->GetBranch("time")->GetLeaf("timeW")->SetAddress(&evt.time_timeW);
-
-  for(unsigned int i = 0; i < /*500000*/ mpm_sim_chain->GetEntries(); i++)
-  {
-    mpm_sim_chain->GetEntry(i);
-
-    if(evt.EdepQ_EdepQE > 0 && evt.EdepQ_EdepQW > 0 && evt.MWPCEnergy_MWPCEnergyE > 0 && evt.MWPCEnergy_MWPCEnergyW > 0
-        && evt.time_timeE < 200 && evt.time_timeW < 200 && evt.time_timeE < evt.time_timeW)
-    {
-      hSim0->Fill(evt.time_timeW - evt.time_timeE);
-      hSim2->Fill(engine->Gaus(evt.time_timeW - evt.time_timeE, 2));
-      hSim3->Fill(engine->Gaus(evt.time_timeW - evt.time_timeE, 3));
-    }
-
-    if(i % 100000 == 0)
-    {
-      cout << "Filling event " << i << "/" << mpm_sim_chain->GetEntries() << endl;
-    }
-  }
-
-  TH1D *hTimeE_bgSub = new TH1D("BGSubE", "BG Subtracted Time East", 300, -10, 140);
-  hTimeE_bgSub->SetLineColor(1);
-  hTimeE_bgSub->Add(hTDCEfg, hTDCEbg, 1, -5.07);
-  hTimeE_bgSub->SetStats(kFALSE);
-  hTimeE_bgSub->GetXaxis()->SetTitle("#left| T_{East} - T_{West} #right| (ns)");
-  hTimeE_bgSub->GetYaxis()->SetTitle("Counts");
-  hTimeE_bgSub->SetTitle("");
-  hTimeE_bgSub->Draw();
-
-  TH1D *hTimeW_bgSub = new TH1D("BGSubW", "BG Subtracted Time West", 300, -10, 140);
-  hTimeW_bgSub->SetLineColor(4);
-  hTimeW_bgSub->Add(hTDCWfg, hTDCWbg, 1, -5.07);
-  hTimeW_bgSub->Draw("SAME");
-
-  hSim0->Scale((double)hTimeW_bgSub->GetEntries() / (hSim0->GetEntries()));
-  hSim2->Scale((double)hTimeW_bgSub->GetEntries() / (hSim2->GetEntries()));
-  hSim3->Scale((double)hTimeW_bgSub->GetEntries() / (hSim3->GetEntries()));
-  hSim3->Draw("SAME");
-
-  gPad->Update();
-
-  TLine *l0 = new TLine(0, gPad->GetUymin(), 0, 1.2*gPad->GetUymax());
-  l0->SetLineStyle(9);
-  l0->Draw();
-
-  TLine *l12 = new TLine(12, gPad->GetUymin(), 12, 1.2*gPad->GetUymax());
-  l12->SetLineStyle(9);
-  l12->Draw();
-
-  TLegend *l2 = new TLegend(0.6,0.7,0.85,0.85);
-  l2->AddEntry(hSim3, "GEANT4", "l");
-  l2->AddEntry(hTimeE_bgSub, "T_{East} > T_{West}", "l");
-  l2->AddEntry(hTimeW_bgSub, "T_{West} > T_{East}", "l");
-  l2->SetTextSize(0.05);
-  l2->SetBorderSize(0);
-  l2->Draw();
-  gPad->SetLogy();
-
-  c2->Print("Figures/2_MPMTimingCompare.pdf");
-  c2->Print("Figures/2_MPMTimingCompare.eps");
-
-
-  // third canvas, let's begin looking at energies
-  // this will be our time window upper edge, energy spectra plot
-  TCanvas *c31 = new TCanvas("c31", "c31");
-  TCanvas *c32 = new TCanvas("c32", "c32");
-
-  vector <TH1D*> hbgErecon;
-  vector <TH1D*> hfgErecon;
-  vector <TH1D*> hbgSubErecon;
-  vector <TCut> timeWindowCuts;
-
-  vector <double> timeUpper;
-  timeUpper.push_back(140);
-  timeUpper.push_back(20);
-  timeUpper.push_back(12);
-
-  TLegend *l3a = new TLegend(0.6,0.7,0.85,0.85);
-  l3a->SetBorderSize(0);
-  l3a->SetTextSize(0.05);
-  TLegend *l3b = new TLegend(0.6,0.7,0.85,0.85);
-  l3b->SetBorderSize(0);
-  l3b->SetTextSize(0.05);
-
-  for(unsigned int i = 0; i < timeUpper.size(); i++)
-  {
-    hbgErecon.push_back(new TH1D(Form("bgErecon_%i", i), "BG Erecon", 160, 0, 4000));
-    hfgErecon.push_back(new TH1D(Form("fgErecon_%i", i), "FG Erecon", 160, 0, 4000));
-    hbgSubErecon.push_back(new TH1D(Form("bgSubErecon_%i", i), "FG - 5.07BG Erecon", 160, 0, 4000));
-    hbgErecon[i]->SetStats(kFALSE);
-//    hbgErecon[i]->SetBinErrorOption(TH1::kPoisson);
-    hbgErecon[i]->Sumw2();
-    hfgErecon[i]->SetStats(kFALSE);
-//    hfgErecon[i]->SetBinErrorOption(TH1::kPoisson);
-    hfgErecon[i]->Sumw2();
-    hbgSubErecon[i]->SetStats(kFALSE);
-//    hbgSubErecon[i]->SetBinErrorOption(TH1::kPoisson);
-    hbgSubErecon[i]->Sumw2();
-    timeWindowCuts.push_back(Form("(newTDC2TimeE > -1 && newTDC2TimeE < 5 && newTDC2TimeW > 0 && newTDC2TimeW < %f) || (newTDC2TimeW > -4 && newTDC2TimeW < 2 && newTDC2TimeE > 0 && newTDC2TimeE < %f)", timeUpper[i], timeUpper[i]));
-
-    if(i == 0)
-    {
-      hbgErecon[i]->SetLineColor(1);
-      hfgErecon[i]->SetLineColor(1);
-      hbgSubErecon[i]->SetLineColor(1);
-    }
-    if(i == 1)
-    {
-      hbgErecon[i]->SetLineColor(2);
-      hfgErecon[i]->SetLineColor(2);
-      hbgSubErecon[i]->SetLineColor(2);
-    }
-    if(i == 2)
-    {
-      hbgErecon[i]->SetLineColor(4);
-      hfgErecon[i]->SetLineColor(4);
-      hbgSubErecon[i]->SetLineColor(4);
-    }
-
-    c31->cd();
-    if(i == 0)
-    {
-      hbgErecon[i]->SetTitle("");
-      hbgErecon[i]->GetXaxis()->SetTitle("E_{e^{+}e^{-}} (keV)");
-      hbgErecon[i]->GetXaxis()->CenterTitle();
-      hbgErecon[i]->GetYaxis()->SetTitle("Counts");
-      hbgErecon[i]->GetYaxis()->CenterTitle();
-      hbgErecon[i]->GetYaxis()->SetRangeUser(0.1, 5000);
-      bgchain->Draw(Form("Erecon_ee >> bgErecon_%i", i), basicCut && fiducialCut && "Erecon_ee > 0" && timeWindowCuts[i], "HIST");
-    }
-    else
-    {
-      bgchain->Draw(Form("Erecon_ee >> bgErecon_%i", i), basicCut && fiducialCut && "Erecon_ee > 0" && timeWindowCuts[i], "HIST SAME");
-    }
-    l3a->AddEntry(hbgErecon[i], Form("(0, %i) ns", (int)timeUpper[i]), "l");
-
-    c32->cd();
-    if(i == 0)
-    {
-      hfgErecon[i]->SetTitle("");
-      hfgErecon[i]->GetXaxis()->SetTitle("E_{e^{+}e^{-}} (keV)");
-      hfgErecon[i]->GetXaxis()->CenterTitle();
-      hfgErecon[i]->GetYaxis()->SetTitle("");
-      hfgErecon[i]->GetYaxis()->SetRangeUser(1, 50000);
-      fgchain->Draw(Form("Erecon_ee >> fgErecon_%i", i), basicCut && fiducialCut && "Erecon_ee > 0" && timeWindowCuts[i], "HIST");
-    }
-    else
-    {
-      fgchain->Draw(Form("Erecon_ee >> fgErecon_%i", i), basicCut && fiducialCut && "Erecon_ee > 0" && timeWindowCuts[i], "HIST SAME");
-    }
-    l3b->AddEntry(hfgErecon[i], Form("(0, %i) ns", (int)timeUpper[i]), "l");
-
-  }
-
-  for(unsigned int i = 0; i < timeUpper.size(); i++)
-  {
-    for(int j = 0; j < hbgSubErecon[i]->GetNbinsX(); j++)
-    {
-      hbgErecon[i]->SetBinError(j, SetPoissonErrors(hbgErecon[i]->GetBinContent(j)));
-      hfgErecon[i]->SetBinError(j, SetPoissonErrors(hfgErecon[i]->GetBinContent(j)));
-/*
-      cout << "At hist for time cut i = " << i
-	   << ", we have at bin j = " << j
-	   << ", BG counts = " << hbgErecon[i]->GetBinContent(j) << " +/- " << hbgErecon[i]->GetBinError(j)
-	   << ", FG counts = " << hfgErecon[i]->GetBinContent(j) << " +/- " << hfgErecon[i]->GetBinError(j) << endl;
-*/
-    }
-  }
-
-  for(unsigned int i = 0; i < timeUpper.size(); i++)
-  {
-    hbgSubErecon[i]->Add(hfgErecon[i], hbgErecon[i], 1, -5.07);
-  }
-
-  c31->cd();
-  gPad->Update();
-
-  TLine *lE0a = new TLine(0, 0, 0, 5000);
-  lE0a->SetLineStyle(9);
-
-  TLine *lE800a = new TLine(800, 0, 800, 5000);
-  lE800a->SetLineStyle(9);
-
-  gPad->SetLogy();
-  lE0a->Draw();
-  lE800a->Draw();
-  l3a->Draw();
-
-
-  c32->cd();
-  gPad->Update();
-
-  TLine *lE0b = new TLine(0, gPad->GetUymin(), 0, 50000);
-  lE0b->SetLineStyle(9);
-
-  TLine *lE800b = new TLine(800, gPad->GetUymin(), 800, 50000);
-  lE800b->SetLineStyle(9);
-
-  gPad->SetLogy();
-  lE0b->Draw();
-  lE800b->Draw();
-  l3b->Draw();
-
-
-
-  c31->Print("Figures/31_Erecon_TimeWindowEndpoint_BG.pdf");
-  c31->Print("Figures/31_Erecon_TimeWindowEndpoint_BG.eps");
-  c32->Print("Figures/32_Erecon_TimeWindowEndpoint_FG.pdf");
-  c32->Print("Figures/32_Erecon_TimeWindowEndpoint_FG.eps");
-
   // fourth canvas, energies with background subtraction and statistics propagated and acceptances from Brad F.
   TCanvas *c4 = new TCanvas("c4","c4");
   c4->Divide(2,1);
 
-  TH1D *hbgErecon_withCuts = new TH1D("bgEreconfull", Form("BG Erecon: non-STP Events (%f, %f) ns", windowLower, windowUpper), 8, -6, 794);
+  TH1D *hbgErecon_withCuts = new TH1D("bgEreconfull", Form("BG Erecon: non-STP Events (%f, %f) ns", windowLower, windowUpper), 8, 44, 844);
   hbgErecon_withCuts->Sumw2();
   hbgErecon_withCuts->GetXaxis()->SetTitle("Erecon_ee (keV)");
-  TH1D *hfgErecon_withCuts = new TH1D("fgEreconfull", Form("FG Erecon: non-STP Events (%f, %f) ns", windowLower, windowUpper), 8, -6, 794);
+  TH1D *hfgErecon_withCuts = new TH1D("fgEreconfull", Form("FG Erecon: non-STP Events (%f, %f) ns", windowLower, windowUpper), 8, 44, 844);
   hfgErecon_withCuts->Sumw2();
   hfgErecon_withCuts->GetXaxis()->SetTitle("Erecon_ee (keV)");
 
@@ -442,67 +168,12 @@ int main(int argc, char* argv[])
 //  c4->Print("4_BG_FG_histograms_withErrors.pdf");
 //  c4->Print("4_BG_FG_histograms_withErrors.eps");
 
-  // intermediate 45 canvas
-  TCanvas *c45 = new TCanvas ("c45","c45");
-  c45->cd();
-
-  TLegend *l45 = new TLegend(0.2,0.65,0.6,0.85);
-
-  TH1D* hTestSignal = new TH1D("hTestSignal", "hTestSignal", 160, 0, 4000);
-  FillInCountsFromFile("test_signal_644KeV.dat", hTestSignal);
-  hTestSignal->Scale(0.1834);
-  hTestSignal->SetLineColor(2);
-  hTestSignal->SetStats(kFALSE);
-  hTestSignal->SetTitle("");
-  hTestSignal->GetXaxis()->SetTitle("E_{e^{+}e^{-}} (keV)");
-  hTestSignal->GetXaxis()->CenterTitle();
-  hTestSignal->GetXaxis()->SetRangeUser(0, 800);
-  hTestSignal->GetYaxis()->SetTitle("Counts");
-  hTestSignal->GetYaxis()->CenterTitle();
-  hTestSignal->GetYaxis()->SetRangeUser(1, 100000);
-  gPad->SetLogy();
-  hTestSignal->Draw();
-
-  TH1D* hTestSignal322 = new TH1D("hTestSignal322", "hTestSignal322", 160, 0, 4000);
-  FillInCountsFromFile("anom_peak_322.dat", hTestSignal322);
-  hTestSignal322->Scale(0.1124);
-  hTestSignal322->SetLineColor(6);
-  hTestSignal322->Draw("SAME");
-
-  for(int i = 0; i <= hbgSubErecon[2]->GetNbinsX(); i++)
-  {
-    if(hbgSubErecon[2]->GetBinContent(i) < 0)
-    {
-      hbgSubErecon[2]->SetBinContent(i, 0);
-    }
-/*
-    cout << "Final i = 2 BG sub histogram has at bin j = " << i
-	 << ", FG - 5.07BG counts = " << hbgSubErecon[2]->GetBinContent(i)
-	 << " +/- " << hbgSubErecon[2]->GetBinError(i) << endl;
-*/
-  }
-
-//  hbgSubErecon[0]->Draw("HIST SAME");
-//  hbgSubErecon[1]->Draw("HIST SAME");
-  hbgSubErecon[2]->Draw("E0 SAME");
-
-  l45->AddEntry(hTestSignal322, "Simulated Signal at 322 keV", "l");
-  l45->AddEntry(hTestSignal, "Simulated Signal at 644 keV", "l");
-  l45->AddEntry(hbgSubErecon[2], "(0, 12) ns Data", "l");
-  l45->SetTextSize(0.05);
-  l45->SetBorderSize(0);
-  l45->Draw();
-
-  c45->Print("Figures/45_BGSub_andSignal.pdf");
-  c45->Print("Figures/45_BGSub_andSignal.eps");
-
-
   // fifth canvas, does background subtraction and acceptances, because ROOT is tough to work with.
   TCanvas *c5 = new TCanvas("c5","c5");
   c5->cd();
 
   gStyle->SetOptStat(0000);
-  TH1D *hErecon_bgSub = new TH1D("fullCuts", "BG subtracted Erecon_ee", 8, -6, 794);
+  TH1D *hErecon_bgSub = new TH1D("fullCuts", "BG subtracted Erecon_ee", 8, 44, 844);
   hErecon_bgSub->SetLineColor(2);
   hErecon_bgSub->Sumw2();
   hErecon_bgSub->Add(hfgErecon_withCuts, hbgErecon_withCuts, 1, -5.07);	// 5.07 comes from 860262/169717 live time ratio
@@ -515,6 +186,7 @@ int main(int argc, char* argv[])
   hErecon_bgSub->SetEntries(totalEntries);
 
   // sixth canvas, for acceptances
+  // This is the old stuff which does the proper bin centers
   TCanvas *c6 = new TCanvas("c6","c6");
   FillInAcceptancesFromFile("m094002MeV_4502123TotalCounts.dat", 4502123, 94);
   FillInAcceptancesFromFile("m144002MeV_455639TotalCounts.dat", 455639, 144);
@@ -524,7 +196,28 @@ int main(int argc, char* argv[])
   FillInAcceptancesFromFile("m544002MeV_475630TotalCounts.dat", 475630, 544);
   FillInAcceptancesFromFile("m644002MeV_478192TotalCounts.dat", 478192, 644);
 
-  TGraph *gAccept = CreateAcceptancesGraph(0.0, 12.0);
+  // now we are doing acceptances for a shifted bin center
+  vector <double> acceptanceShift;
+  vector <double> energyShift;
+  energyShift.push_back(94);
+  acceptanceShift.push_back(0.000592);
+  energyShift.push_back(194);
+  acceptanceShift.push_back(0.0501791);
+  energyShift.push_back(294);
+  acceptanceShift.push_back(0.1132812);
+  energyShift.push_back(394);
+  acceptanceShift.push_back(0.1592465);
+  energyShift.push_back(494);
+  acceptanceShift.push_back(0.1891385);
+  energyShift.push_back(594);
+  acceptanceShift.push_back(0.208866);
+  energyShift.push_back(694);
+  acceptanceShift.push_back(0.222);
+
+//  TGraph *gAccept = CreateAcceptancesGraph(0.0, 12.0);
+
+  TGraph *gAccept = new TGraph(energyShift.size(), &(energyShift[0]), &(acceptanceShift[0]));
+
   double xAcceptKin = 0;
   double yAcceptKin = 0;
   // adjust the kinematic acceptance for G4 sim, for total acceptance
@@ -552,11 +245,22 @@ int main(int argc, char* argv[])
   double G4y[4] = {82560.0/96558.0, 82212.0/96721.0, 80955.0/96271.0, 80283.0/96067.0};
   TGraph *gG4 = new TGraph(4, G4x, G4y);
 
-  double gEx[7] = {94, 144, 244, 344, 444, 544, 644};
+  // this is the previous, centered at the right bins
+  double gEx_old[7] = {94, 144, 244, 344, 444, 544, 644};
   // 50.0 KeV is our bin width on either side of the center
-  double sigmaEKeV[7] = {50.0/15.33, 50.0/18.97, 50.0/24.70, 50.0/29.32, 50.0/33.32, 50.0/36.88, 50.0/40.12};
+  double sigmaEKeV_old[7] = {50.0/15.33, 50.0/18.97, 50.0/24.70, 50.0/29.32, 50.0/33.32, 50.0/36.88, 50.0/40.12};
   // calculated by taking a Gaussian probability calculator and plugging in (denom) as SD, range from -50 to 50
-  double gEy[7] = {0.9989, 0.9916, 0.9571, 0.9119, 0.8665, 0.8248, 0.7873};
+  double gEy_old[7] = {0.9989, 0.9916, 0.9571, 0.9119, 0.8665, 0.8248, 0.7873};
+
+
+
+  // this resolution is for a shifted bin center
+  double gEx[7] = {94, 194, 294, 394, 494, 594, 694};
+  // 50.0 KeV is our bin width on either side of the center
+  double sigmaEKeV[7] = {50.0/15.33, 50.0/22.02, 50.0/27.11, 50.0/31.38, 50.0/35.14, 50.0/38.53, 50.0/41.65};
+  // calculated by taking a Gaussian probability calculator and plugging in (denom) as SD, range from -50 to 50
+  double gEy[7] = {0.9989, 0.9768, 0.9349, 0.8889, 0.8452, 0.8056, 0.77};
+
 
   TGraph *gEResolution = new TGraph(7, gEx, gEy);
 
@@ -568,7 +272,7 @@ int main(int argc, char* argv[])
 
   double finalEntries = 0;
 
-  TH1D* hFinalNumbers = new TH1D("hFinal", "Final: Cuts and scaled for Acceptances", 8, -6, 794);
+  TH1D* hFinalNumbers = new TH1D("hFinal", "Final: Cuts and scaled for Acceptances", 8, 44, 844);
   hFinalNumbers->SetStats(kFALSE);
   hFinalNumbers->SetTitle("");
   hFinalNumbers->GetXaxis()->SetTitle("E_{e^{+}e^{-}} (keV)");
