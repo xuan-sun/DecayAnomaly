@@ -19,8 +19,8 @@ LIBS          = $(ROOTLIBS) $(ROOTGLIBS)
 CXXFLAGS     += $(ROOTCFLAGS)
 LIBS         += -lSpectrum -lMinuit
 
-OBJECTS = finalGraphs.o
-SOURCE = finalGraphs
+OBJECTS = ppnsGraphs.o
+SOURCE = ppnsGraphs
 
 .PHONY: all
 all: $(SOURCE)
