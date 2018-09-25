@@ -135,7 +135,7 @@ int main(int argc, char* argv[])
   c1->cd(2);
   fgchain->Draw("Erecon_ee >> fgErecon_timeWin", basicCut && fiducialCut && time2STPCut);
 
-  c1->Print("1_Erecon_timingWindow.pdf");
+//  c1->Print("1_Erecon_timingWindow.pdf");
 
   // second canvas for plots
   TCanvas *c2 = new TCanvas("c2", "c2");
@@ -172,7 +172,7 @@ int main(int argc, char* argv[])
   c2->cd(3);
   h_fullCuts->Draw();
 
-  c2->Print("2_BGsubtracted_timeWindow.pdf");
+//  c2->Print("2_BGsubtracted_timeWindow.pdf");
 
   // fifth canvas
   TCanvas *c5 = new TCanvas("c5", "c5");
@@ -215,7 +215,7 @@ int main(int argc, char* argv[])
   lfg->Draw();
   gPad->SetLogy();
 
-  c5->Print("5_TDCShiftedTimes_fullRange.pdf");
+//  c5->Print("5_TDCShiftedTimes_fullRange.pdf");
 
   // seventh canvas, overlay MPM simulations on these roughly calibrated data plots
   TCanvas *c7 = new TCanvas("c7", "c7");
@@ -293,7 +293,7 @@ int main(int argc, char* argv[])
   l7->Draw();
   gPad->SetLogy();
 
-  c7->Print("7_MPMSimCompare_fullRange.pdf");
+//  c7->Print("7_MPMSimCompare_fullRange.pdf");
 
   // eighth canvas
   TCanvas *c8 = new TCanvas("c8","c8");
@@ -312,7 +312,7 @@ int main(int argc, char* argv[])
   l8->AddEntry(hTimeE_bgSub, "FG - 5.07BG East", "l");
   l8->Draw();
 
-  c8->Print("8_TimingSpectra_fullRange.pdf");
+//  c8->Print("8_TimingSpectra_fullRange.pdf");
 
   // print out all the stats that we'll use
   cout << "For " << timeLowerEdgeE1 << " < E < " << timeUpperEdgeE1 << ", " << timeLowerEdgeW1 << " < W < " << timeUpperEdgeW1 << endl;

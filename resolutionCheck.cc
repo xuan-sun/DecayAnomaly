@@ -312,8 +312,8 @@ int main(int argc, char* argv[])
 	 << " and associated symmetric error = " << hFinalNumbers->GetBinError(i) << endl;
   }
 
-  c5->Print("Figures/5_BGSub_WithAcceptances_finalNumbers.pdf");
-  c5->Print("Figures/5_BGSub_WithAcceptances_finalNumbers.eps");
+//  c5->Print("Figures/5_BGSub_WithAcceptances_finalNumbers.pdf");
+//  c5->Print("Figures/5_BGSub_WithAcceptances_finalNumbers.eps");
 
   cout << "-------------- End of Program ---------------" << endl;
   plot_program.Run();

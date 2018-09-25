@@ -143,18 +143,18 @@ int main(int argc, char* argv[])
   TCanvas *c1 = new TCanvas("c1", "c1");
   c1->Divide(2,1);
 
-  TH1D *hTDCEfg = new TH1D("hTDCEfg", "FG TDC Spectra", 300, -10, 140);
+  TH1D *hTDCEfg = new TH1D("hTDCEfg", "FG TDC Spectra", 280, 0, 140);
   hTDCEfg->GetXaxis()->SetTitle("Time (ns)");
   hTDCEfg->SetLineColor(2);
 
-  TH1D *hTDCWfg = new TH1D("hTDCWfg", "FG TDC Spectra", 300, -10, 140);
+  TH1D *hTDCWfg = new TH1D("hTDCWfg", "FG TDC Spectra", 280, 0, 140);
   hTDCWfg->SetLineColor(4);
 
-  TH1D *hTDCEbg = new TH1D("hTDCEbg", "BG TDC Spectra", 300, -10, 140);
+  TH1D *hTDCEbg = new TH1D("hTDCEbg", "BG TDC Spectra", 280, 0, 140);
   hTDCEbg->GetXaxis()->SetTitle("Time (ns)");
   hTDCEbg->SetLineColor(2);
 
-  TH1D *hTDCWbg = new TH1D("hTDCWbg", "BG TDC Spectra", 300, -10, 140);
+  TH1D *hTDCWbg = new TH1D("hTDCWbg", "BG TDC Spectra", 280, 0, 140);
   hTDCWbg->SetLineColor(4);
 
   c1->cd(1);
@@ -222,16 +222,18 @@ int main(int argc, char* argv[])
     }
   }
 
-  TH1D *hTimeE_bgSub = new TH1D("BGSubE", "BG Subtracted Time East", 300, -10, 140);
+  TH1D *hTimeE_bgSub = new TH1D("BGSubE", "BG Subtracted Time East", 280, 0, 140);
   hTimeE_bgSub->SetLineColor(1);
   hTimeE_bgSub->Add(hTDCEfg, hTDCEbg, 1, -5.07);
   hTimeE_bgSub->SetStats(kFALSE);
   hTimeE_bgSub->GetXaxis()->SetTitle("#left| T_{East} - T_{West} #right| (ns)");
+  hTimeE_bgSub->GetXaxis()->CenterTitle();
   hTimeE_bgSub->GetYaxis()->SetTitle("Counts");
+  hTimeE_bgSub->GetYaxis()->CenterTitle();
   hTimeE_bgSub->SetTitle("");
   hTimeE_bgSub->Draw();
 
-  TH1D *hTimeW_bgSub = new TH1D("BGSubW", "BG Subtracted Time West", 300, -10, 140);
+  TH1D *hTimeW_bgSub = new TH1D("BGSubW", "BG Subtracted Time West", 280, 0, 140);
   hTimeW_bgSub->SetLineColor(4);
   hTimeW_bgSub->Add(hTDCWfg, hTDCWbg, 1, -5.07);
   hTimeW_bgSub->Draw("SAME");
@@ -239,7 +241,7 @@ int main(int argc, char* argv[])
   hSim0->Scale((double)hTimeW_bgSub->GetEntries() / (hSim0->GetEntries()));
   hSim2->Scale((double)hTimeW_bgSub->GetEntries() / (hSim2->GetEntries()));
   hSim3->Scale((double)hTimeW_bgSub->GetEntries() / (hSim3->GetEntries()));
-  hSim3->Draw("SAME");
+//  hSim3->Draw("SAME");
 
   gPad->Update();
 
@@ -252,7 +254,7 @@ int main(int argc, char* argv[])
   l12->Draw();
 
   TLegend *l2 = new TLegend(0.6,0.7,0.85,0.85);
-  l2->AddEntry(hSim3, "GEANT4", "l");
+//  l2->AddEntry(hSim3, "GEANT4", "l");
   l2->AddEntry(hTimeE_bgSub, "T_{East} > T_{West}", "l");
   l2->AddEntry(hTimeW_bgSub, "T_{West} > T_{East}", "l");
   l2->SetTextSize(0.05);
@@ -262,6 +264,7 @@ int main(int argc, char* argv[])
 
   c2->Print("Figures/2_MPMTimingCompare.pdf");
   c2->Print("Figures/2_MPMTimingCompare.eps");
+  c2->Print("Figures/2_MPMTimingCompare.png");
 
 
   // third canvas, let's begin looking at energies
